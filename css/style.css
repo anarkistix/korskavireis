@@ -377,6 +377,7 @@ main {
     width: 100%;
     gap: 1rem;
     flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .hint-btn {
@@ -396,6 +397,7 @@ main {
     justify-content: center;
     text-align: center;
     line-height: 1.2;
+    margin: 0 auto;
 }
 
 .hint-btn:hover {
@@ -450,6 +452,7 @@ main {
 
 .population-hint-btn {
     background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    margin: 0 auto;
 }
 
 .population-hint-btn:hover {
