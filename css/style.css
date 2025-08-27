@@ -120,6 +120,12 @@ main {
     background: #f8f9fa;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     object-fit: contain;
+    object-position: center;
+    /* Bevarer aspect ratio på alle enheter */
+    aspect-ratio: auto;
+    /* Forbedret mobil-støtte */
+    display: block;
+    margin: 0 auto;
 }
 
 .country-name-display {
@@ -548,6 +554,13 @@ footer p {
     opacity: 0.8;
 }
 
+/* Sikrer at aspect ratio bevares på alle enheter */
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 /* Responsivt design */
 @media (max-width: 768px) {
     header h1 {
@@ -588,6 +601,12 @@ footer p {
     #country-image {
         max-width: 400px;
         max-height: 300px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+        /* Bevarer aspect ratio på mobil */
+        aspect-ratio: auto;
     }
     
     .button-container {
@@ -631,6 +650,12 @@ footer p {
     #country-image {
         max-width: 350px;
         max-height: 250px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+        /* Bevarer aspect ratio på små mobilskjermer */
+        aspect-ratio: auto;
     }
     
     .game-btn {
