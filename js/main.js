@@ -614,7 +614,7 @@ class GeographyGame {
         // Reset hint-knapp
         const hintBtn = document.getElementById('hint-btn');
         if (hintBtn) {
-            hintBtn.textContent = '💡 Vis flagg som hint';
+            hintBtn.querySelector('h4').textContent = 'Vis flagg som hint';
             hintBtn.disabled = false;
             hintBtn.style.display = 'block'; // Vis knappen igjen
         }
@@ -625,7 +625,7 @@ class GeographyGame {
         // Reset befolkningshint-knapp
         const populationHintBtn = document.getElementById('population-hint-btn');
         if (populationHintBtn) {
-            populationHintBtn.textContent = '👥 Vis befolkning som hint';
+            populationHintBtn.querySelector('h4').textContent = 'Vis befolkning som hint';
             populationHintBtn.disabled = false;
             populationHintBtn.style.display = 'block'; // Vis knappen igjen
         }
@@ -677,7 +677,7 @@ class GeographyGame {
             this.hintUsed = true;
         } else {
             // Hvis ingen flagg er tilgjengelig, vis en melding
-            hintBtn.textContent = '❌ Ingen flagg tilgjengelig';
+            hintBtn.querySelector('h4').textContent = 'Ingen flagg tilgjengelig';
             hintBtn.disabled = true;
             this.hintUsed = true;
         }
@@ -699,12 +699,12 @@ class GeographyGame {
             populationHint.style.display = 'block';
             populationHintBtn.style.display = 'none'; // Skjul knappen og vis befolkningstall i stedet
             this.populationHintUsed = true;
-        } else {
-            // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
-            populationHintBtn.textContent = '❌ Ingen befolkningsdata tilgjengelig';
-            populationHintBtn.disabled = true;
-            this.populationHintUsed = true;
-        }
+                        } else {
+                    // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
+                    populationHintBtn.querySelector('h4').textContent = 'Ingen befolkningsdata tilgjengelig';
+                    populationHintBtn.disabled = true;
+                    this.populationHintUsed = true;
+                }
     }
 }
 
