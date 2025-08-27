@@ -1,0 +1,30 @@
+{
+  "name": "korskavireis",
+  "version": "1.0.0",
+  "description": "En moderne web-applikasjon bygget med HTML5, CSS3 og JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Build complete'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "web-app",
+    "html5",
+    "css3",
+    "javascript",
+    "glassmorfisme",
+    "responsive"
+  ],
+  "author": "Marius Arnesen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mariusarnesen/korskavireis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mariusarnesen/korskavireis/issues"
+  },
+  "homepage": "https://github.com/mariusarnesen/korskavireis#readme"
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korskavireis - Geografisk Gjettespill</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="Gjett landet basert på omrisset - et morsomt geografisk spill">
+    <meta name="keywords" content="geografi, spill, land, gjett, verden">
+    <meta name="author" content="Marius Arnesen">
+</head>
+<body>
+    <header id="home">
+        <h1>🌍 Korskavireis</h1>
+        <p>Gjett landet basert på omrisset!</p>
+        <div class="game-stats">
+            <div class="stat">
+                <span class="stat-number" id="attempts">0</span>
+                <span class="stat-label">Forsøk</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="max-attempts">10</span>
+                <span class="stat-label">Maks forsøk</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="games-played">0</span>
+                <span class="stat-label">Spill spilt</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="game-area">
+                <div class="country-display">
+                    <h2>Hvilket land er dette?</h2>
+                    <div class="canvas-container">
+                        <img id="country-image" src="" alt="Landomriss" style="display: none;">
+                        <div id="loading-indicator" class="loading-indicator">
+                            Laster land...
+                        </div>
+                        <div id="hint-container" class="hint-container">
+                            <button id="hint-btn" class="hint-btn">💡 Vis flagg som hint</button>
+                            <div id="hint-flag" class="hint-flag" style="display: none;">
+                                <img id="hint-flag-img" src="" alt="Landets flagg">
+                            </div>
+                            <button id="population-hint-btn" class="hint-btn population-hint-btn">👥 Vis befolkning som hint</button>
+                            <div id="population-hint" class="population-hint" style="display: none;">
+                                <span id="population-text"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="country-name-display" class="country-name-display" style="display: none;">
+                        Viser: <span id="current-country-name"></span>
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <div class="input-container">
+                        <input 
+                            type="text" 
+                            id="country-input" 
+                            placeholder="Skriv landnavn her..."
+                            autocomplete="off"
+                        >
+                        <div id="suggestions" class="suggestions"></div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button id="submit-btn" class="game-btn primary">Gjett land</button>
+                        <button id="new-game-btn" class="game-btn secondary" style="display: none;">Gi meg et nytt land</button>
+                    </div>
+                </div>
+
+                    <div id="feedback-container" class="feedback-container">
+                        <!-- Feedback-felter vises her -->
+                    </div>
+
+                <div id="message-container" class="message-container"></div>
+            </section>
+
+            <section class="game-info">
+                <h3>Hvordan spille</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">🎯</div>
+                        <h4>Se på omrisset</h4>
+                        <p>Et land vises som svart omriss på skjermen</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">✏️</div>
+                        <h4>Gjett landet</h4>
+                        <p>Skriv inn landnavnet i input-feltet (med autocomplete)</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📏</div>
+                        <h4>Få tilbakemelding</h4>
+                        <p>Se hvor langt unna du var fra riktig land</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🔄</div>
+                        <h4>10 forsøk</h4>
+                        <p>Du har 10 forsøk på å gjette riktig land</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Korskavireis. Alle rettigheter forbeholdt.</p>
+        <p>Bygget med ❤️ av Marius Arnesen</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
