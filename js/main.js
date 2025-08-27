@@ -399,8 +399,6 @@ class GeographyGame {
     
     displayCountryImage() {
         const countryImage = document.getElementById('country-image');
-        const countryNameDisplay = document.getElementById('country-name-display');
-        const currentCountryName = document.getElementById('current-country-name');
         const loadingIndicator = document.getElementById('loading-indicator');
         
         if (this.currentCountry && this.currentCountry.imageFile) {
@@ -410,10 +408,6 @@ class GeographyGame {
             
             countryImage.src = `country_images/${this.currentCountry.imageFile}`;
             countryImage.alt = `Landomriss av ${this.currentCountry.name}`;
-            
-            // Vis landnavnet
-            currentCountryName.textContent = this.currentCountry.name;
-            countryNameDisplay.style.display = 'block';
             
             // Vis hint-knappen når landet vises
             document.getElementById('hint-container').style.display = 'block';
@@ -601,12 +595,6 @@ class GeographyGame {
         this.isGameActive = false;
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('submit-btn').style.display = 'none';
-        
-        // Vis landnavnet når spillet er slutt
-        if (this.currentCountry) {
-            document.getElementById('current-country-name').textContent = this.currentCountry.name;
-            document.getElementById('country-name-display').style.display = 'block';
-        }
     }
 
     resetUI() {
@@ -619,9 +607,8 @@ class GeographyGame {
         // Tøm feedback-container
         document.getElementById('feedback-container').innerHTML = '';
         
-        // Skjul bildet og landnavnet, vis loading-indikator
+        // Skjul bildet og vis loading-indikator
         document.getElementById('country-image').style.display = 'none';
-        document.getElementById('country-name-display').style.display = 'none';
         document.getElementById('loading-indicator').style.display = 'block';
         
         // Reset hint-knapp
