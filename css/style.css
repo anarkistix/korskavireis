@@ -438,21 +438,23 @@ main {
 }
 
 .population-hint {
-    margin-top: 0;
-    padding: 1rem;
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
+    cursor: pointer;
+    width: 200px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 192px;
-    min-height: 128px;
 }
 
 .population-hint span {
-    color: white;
+    color: #333;
     font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
