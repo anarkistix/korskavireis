@@ -272,6 +272,34 @@
             // Oppdater projection til å passe de filtrerte dataene
             projection.fitSize([width, height], {type: "FeatureCollection", features: filteredFeatures});
             
+            // Beregn Norge-zoom først
+            const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
+            let norwayZoomTransform = null;
+            
+            if (norwayFeature) {
+                // Beregn bounding box for Norge
+                const norwayBounds = d3.geoBounds(norwayFeature);
+                const norwayWidth = norwayBounds[1][0] - norwayBounds[0][0];
+                const norwayHeight = norwayBounds[1][1] - norwayBounds[0][1];
+                
+                // Beregn zoom-faktor basert på hva som fyller først
+                const scaleX = width / (norwayWidth * projection.scale());
+                const scaleY = height / (norwayHeight * projection.scale());
+                const scale = Math.min(scaleX, scaleY) * 0.8; // 80% av maksimal fylling
+                
+                // Beregn sentrum av Norge
+                const norwayCenter = d3.geoCentroid(norwayFeature);
+                const [norwayX, norwayY] = projection(norwayCenter);
+                
+                // Opprett zoom-transform for Norge
+                norwayZoomTransform = d3.zoomIdentity
+                    .translate(width / 2, height / 2)
+                    .scale(scale)
+                    .translate(-norwayX, -norwayY);
+                
+                console.log(`Norge zoom-transform opprettet - Scale: ${scale.toFixed(2)}x`);
+            }
+            
             // Tegn landene
             svg.selectAll('path')
                 .data(filteredFeatures)
@@ -323,33 +351,13 @@
             // Initialiser stroke-width basert på start zoom-nivå (1x)
             svg.selectAll('path.country').style('stroke-width', '0.8px');
             
-            // Zoom inn på Norge ved start - fyll enten høyde eller bredde
-            const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
-            if (norwayFeature) {
-                // Beregn bounding box for Norge
-                const norwayBounds = d3.geoBounds(norwayFeature);
-                const norwayWidth = norwayBounds[1][0] - norwayBounds[0][0];
-                const norwayHeight = norwayBounds[1][1] - norwayBounds[0][1];
-                
-                // Beregn zoom-faktor basert på hva som fyller først
-                const scaleX = width / (norwayWidth * projection.scale());
-                const scaleY = height / (norwayHeight * projection.scale());
-                const scale = Math.min(scaleX, scaleY) * 0.8; // 80% av maksimal fylling
-                
-                // Beregn sentrum av Norge
-                const norwayCenter = d3.geoCentroid(norwayFeature);
-                const [norwayX, norwayY] = projection(norwayCenter);
-                
-                // Opprett zoom-transform for Norge
-                const zoomTransform = d3.zoomIdentity
-                    .translate(width / 2, height / 2)
-                    .scale(scale)
-                    .translate(-norwayX, -norwayY);
-                
+            // Anvend Norge-zoom hvis tilgjengelig
+            if (norwayZoomTransform) {
                 // Anvend zoom-transform
-                svg.selectAll('path').attr('transform', zoomTransform);
+                svg.selectAll('path').attr('transform', norwayZoomTransform);
                 
                 // Oppdater stroke-width basert på zoom-nivå
+                const scale = norwayZoomTransform.k;
                 let strokeWidth;
                 if (scale <= 1.5) {
                     strokeWidth = 0.8;
