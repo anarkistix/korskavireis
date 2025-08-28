@@ -84,7 +84,7 @@
         
         .pin {
             font-family: Arial, sans-serif;
-            font-size: 32px;
+            font-size: 24px; /* Standard størrelse som vil bli oppdatert dynamisk */
             text-anchor: middle;
             dominant-baseline: middle;
             pointer-events: none;
@@ -124,7 +124,7 @@
             }
             
             .pin {
-                font-size: 24px;
+                font-size: 20px; /* Mindre standard størrelse på mobil */
             }
         }
         
@@ -152,7 +152,7 @@
             }
             
             .pin {
-                font-size: 20px;
+                font-size: 16px; /* Enda mindre standard størrelse på små skjermer */
             }
         }
         
@@ -240,6 +240,41 @@
                 .on('zoom', function(event) {
                     svg.selectAll('path').attr('transform', event.transform);
                     svg.selectAll('.pin').attr('transform', event.transform);
+                    
+                    // Dynamisk stroke-width basert på zoom-nivå
+                    const scale = event.transform.k;
+                    let strokeWidth;
+                    
+                    if (scale <= 1.5) {
+                        strokeWidth = 0.5; // Tynne linjer for verdensoversikt
+                    } else if (scale <= 3) {
+                        strokeWidth = 1; // Medium linjer for kontinent-zoom
+                    } else if (scale <= 5) {
+                        strokeWidth = 1.5; // Tykke linjer for land-zoom
+                    } else {
+                        strokeWidth = 2; // Meget tykke linjer for detalj-zoom
+                    }
+                    
+                    // Oppdater stroke-width for alle land
+                    svg.selectAll('path.country').style('stroke-width', strokeWidth + 'px');
+                    
+                    // Dynamisk emoji-størrelse basert på zoom-nivå
+                    let emojiSize;
+                    if (scale <= 1.5) {
+                        emojiSize = 24; // Mindre emojier for verdensoversikt
+                    } else if (scale <= 3) {
+                        emojiSize = 28; // Medium emojier for kontinent-zoom
+                    } else if (scale <= 5) {
+                        emojiSize = 32; // Større emojier for land-zoom
+                    } else {
+                        emojiSize = 36; // Meget store emojier for detalj-zoom
+                    }
+                    
+                    // Oppdater emoji-størrelse
+                    svg.selectAll('.pin').style('font-size', emojiSize + 'px');
+                    
+                    // Logg zoom-nivå for debugging
+                    console.log(`Zoom: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px, Emoji-size: ${emojiSize}px`);
                 }));
         
         // Opprett projection (Mercator)
@@ -289,10 +324,40 @@
                 })
                 .on('mouseover', function(event, d) {
                     const cca2 = d.properties.cca2;
-                    d3.select(this).style('stroke-width', '2');
+                    // Hent gjeldende zoom-nivå
+                    const currentTransform = d3.zoomTransform(svg.node());
+                    const scale = currentTransform.k;
+                    
+                    let hoverStrokeWidth;
+                    if (scale <= 1.5) {
+                        hoverStrokeWidth = 1.5;
+                    } else if (scale <= 3) {
+                        hoverStrokeWidth = 2;
+                    } else if (scale <= 5) {
+                        hoverStrokeWidth = 2.5;
+                    } else {
+                        hoverStrokeWidth = 3;
+                    }
+                    
+                    d3.select(this).style('stroke-width', hoverStrokeWidth + 'px');
                 })
                 .on('mouseout', function(event, d) {
-                    d3.select(this).style('stroke-width', '0.5');
+                    // Gjenopprett dynamisk stroke-width basert på zoom-nivå
+                    const currentTransform = d3.zoomTransform(svg.node());
+                    const scale = currentTransform.k;
+                    
+                    let strokeWidth;
+                    if (scale <= 1.5) {
+                        strokeWidth = 0.5;
+                    } else if (scale <= 3) {
+                        strokeWidth = 1;
+                    } else if (scale <= 5) {
+                        strokeWidth = 1.5;
+                    } else {
+                        strokeWidth = 2;
+                    }
+                    
+                    d3.select(this).style('stroke-width', strokeWidth + 'px');
                 });
             
             // Legg til emoji-markører for spesifikke land
@@ -320,11 +385,15 @@
                         .style('fill', '#000000')
                         .style('stroke', '#ffffff')
                         .style('stroke-width', '2px')
-                        .style('paint-order', 'stroke');
+                        .style('paint-order', 'stroke')
+                        .attr('data-emoji', pin.emoji); // Lagre emoji for senere referanse
                 } else {
                     console.log(`Fant ikke land med kode ${pin.country} for ${pin.name}`);
                 }
             });
+            
+            // Initialiser stroke-width basert på start zoom-nivå (1x)
+            svg.selectAll('path.country').style('stroke-width', '0.5px');
             
             // Logg statistikk
             const totalCountries = data.features.length;
