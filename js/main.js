@@ -10,6 +10,7 @@ class GeographyGame {
         this.isGameActive = false;
         this.hintUsed = false;
         this.populationHintUsed = false;
+        this.capitalHintUsed = false;
         
         this.init();
     }
@@ -54,6 +55,8 @@ class GeographyGame {
                     population: country.population,
                     populationYear: country.population_year,
                     google_maps_url: country.google_maps_url,
+                    capital: country.capital,
+                    capital_coordinates: country.capital_coordinates,
                     center: center
                 };
             }).filter(country => country.name && country.imageFile);
@@ -208,6 +211,14 @@ class GeographyGame {
         if (populationHintBtn) {
             populationHintBtn.addEventListener('click', () => {
                 this.showPopulationHint();
+            });
+        }
+
+        // Hovedstadshint-knapp
+        const capitalHintBtn = document.getElementById('capital-hint-btn');
+        if (capitalHintBtn) {
+            capitalHintBtn.addEventListener('click', () => {
+                this.showCapitalHint();
             });
         }
 
@@ -416,6 +427,7 @@ class GeographyGame {
         this.gamesPlayed++;
         this.hintUsed = false;
         this.populationHintUsed = false;
+        this.capitalHintUsed = false;
         
         // Sjekk admin-innstillinger
         const adminSettings = await this.getAdminSettings();
@@ -822,6 +834,17 @@ class GeographyGame {
         
         // Reset befolkningshint
         document.getElementById('population-hint').style.display = 'none';
+
+        // Reset hovedstadshint-knapp
+        const capitalHintBtn = document.getElementById('capital-hint-btn');
+        if (capitalHintBtn) {
+            capitalHintBtn.querySelector('h4').textContent = 'Hint 3: Hovedstad';
+            capitalHintBtn.disabled = false;
+            capitalHintBtn.style.display = 'inline-block'; // Vis knappen igjen
+        }
+        
+        // Reset hovedstadshint
+        document.getElementById('capital-hint').style.display = 'none';
     }
 
     updateStats() {
@@ -892,6 +915,27 @@ class GeographyGame {
                     populationHintBtn.disabled = true;
                     this.populationHintUsed = true;
                 }
+    }
+
+    showCapitalHint() {
+        if (!this.currentCountry || this.capitalHintUsed) {
+            return;
+        }
+
+        const capitalHint = document.getElementById('capital-hint');
+        const capitalText = document.getElementById('capital-text');
+        const capitalHintBtn = document.getElementById('capital-hint-btn');
+
+        if (this.currentCountry.capital) {
+            capitalText.textContent = this.currentCountry.capital;
+            capitalHint.style.display = 'inline-block';
+            capitalHintBtn.style.display = 'none';
+            this.capitalHintUsed = true;
+        } else {
+            capitalHintBtn.querySelector('h4').textContent = 'Ingen hovedstadsdata tilgjengelig';
+            capitalHintBtn.disabled = true;
+            this.capitalHintUsed = true;
+        }
     }
     
     giveUp() {
