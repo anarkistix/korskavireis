@@ -50,11 +50,46 @@
         }
         
         .country.norway {
-            fill: #ff4444;
+            fill: #4CAF50;
         }
         
         .country.norway:hover {
-            fill: #ff6666;
+            fill: #66BB6A;
+        }
+        
+        .country.china {
+            fill: #FFF9C4;
+        }
+        
+        .country.china:hover {
+            fill: #FFF59D;
+        }
+        
+        .country.france {
+            fill: #FFF9C4;
+        }
+        
+        .country.france:hover {
+            fill: #FFF59D;
+        }
+        
+        .country.sweden {
+            fill: #FFF9C4;
+        }
+        
+        .country.sweden:hover {
+            fill: #FFF59D;
+        }
+        
+        .pin {
+            fill: #FF5722;
+            stroke: #fff;
+            stroke-width: 2;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            text-anchor: middle;
+            dominant-baseline: middle;
         }
         
         .info {
@@ -85,7 +120,11 @@
         }
         
         .norway-color {
-            background: #ff4444;
+            background: #4CAF50;
+        }
+        
+        .marked-color {
+            background: #FFF9C4;
         }
         
         .other-color {
@@ -102,7 +141,7 @@
         <div class="info">
             <h3>ℹ️ Informasjon</h3>
             <p>Dette er en test som viser et verdenskart basert på GeoJSON-data fra <a href="https://github.com/Stefie/geojson-world" target="_blank">Stefie/geojson-world</a>.</p>
-            <p><strong>Norge</strong> er markert i <strong>rød farge</strong>, mens alle andre land er i <strong>grå farge</strong>.</p>
+            <p><strong>Norge</strong> er markert i <strong>grønn farge</strong>, <strong>Kina</strong>, <strong>Frankrike</strong> og <strong>Sverige</strong> er markert i <strong>lys gul farge</strong> med pin-numre, mens alle andre land er i <strong>grå farge</strong>.</p>
             <p>Hover over landene for å se dem lysere, og klikk for å se landets navn i konsollen.</p>
         </div>
         
@@ -110,6 +149,10 @@
             <div class="legend-item">
                 <div class="legend-color norway-color"></div>
                 <span>Norge</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color marked-color"></div>
+                <span>Markerte land (Kina, Frankrike, Sverige)</span>
             </div>
             <div class="legend-item">
                 <div class="legend-color other-color"></div>
@@ -155,11 +198,18 @@
                 .enter()
                 .append('path')
                 .attr('class', function(d) {
-                    // Sjekk om landet er Norge basert på cca2-kode
+                    // Sjekk land basert på cca2-kode
                     const cca2 = d.properties.cca2;
                     const isNorway = cca2 && cca2.toUpperCase() === 'NO';
+                    const isChina = cca2 && cca2.toUpperCase() === 'CN';
+                    const isFrance = cca2 && cca2.toUpperCase() === 'FR';
+                    const isSweden = cca2 && cca2.toUpperCase() === 'SE';
                     
-                    return isNorway ? 'country norway' : 'country';
+                    if (isNorway) return 'country norway';
+                    if (isChina) return 'country china';
+                    if (isFrance) return 'country france';
+                    if (isSweden) return 'country sweden';
+                    return 'country';
                 })
                 .attr('d', path)
                 .on('click', function(event, d) {
@@ -175,6 +225,36 @@
                     d3.select(this).style('stroke-width', '0.5');
                 });
             
+            // Legg til pin-markører for spesifikke land
+            const pinData = [
+                { country: 'CN', number: 1, name: 'Kina' },
+                { country: 'FR', number: 2, name: 'Frankrike' },
+                { country: 'SE', number: 3, name: 'Sverige' }
+            ];
+            
+            pinData.forEach(pin => {
+                const countryFeature = filteredFeatures.find(f => f.properties.cca2 === pin.country);
+                if (countryFeature) {
+                    // Beregn sentrum av landet
+                    const center = d3.geoCentroid(countryFeature);
+                    const [x, y] = projection(center);
+                    
+                    // Tegn pin (sirkel med nummer)
+                    svg.append('circle')
+                        .attr('class', 'pin')
+                        .attr('cx', x)
+                        .attr('cy', y - 15) // Litt over sentrum
+                        .attr('r', 12);
+                    
+                    // Legg til nummeret
+                    svg.append('text')
+                        .attr('class', 'pin')
+                        .attr('x', x)
+                        .attr('y', y - 15)
+                        .text(pin.number);
+                }
+            });
+            
             // Logg statistikk
             const totalCountries = data.features.length;
             const countriesWithoutAntarctica = filteredFeatures.length;
@@ -182,10 +262,25 @@
                 const cca2 = d.properties.cca2;
                 return cca2 && cca2.toUpperCase() === 'NO';
             });
+            const chinaFound = filteredFeatures.some(d => {
+                const cca2 = d.properties.cca2;
+                return cca2 && cca2.toUpperCase() === 'CN';
+            });
+            const franceFound = filteredFeatures.some(d => {
+                const cca2 = d.properties.cca2;
+                return cca2 && cca2.toUpperCase() === 'FR';
+            });
+            const swedenFound = filteredFeatures.some(d => {
+                const cca2 = d.properties.cca2;
+                return cca2 && cca2.toUpperCase() === 'SE';
+            });
             
             console.log(`Totalt antall land (inkl. Antarktis): ${totalCountries}`);
             console.log(`Antall land (uten Antarktis): ${countriesWithoutAntarctica}`);
             console.log(`Norge funnet: ${norwayFound}`);
+            console.log(`Kina funnet: ${chinaFound}`);
+            console.log(`Frankrike funnet: ${franceFound}`);
+            console.log(`Sverige funnet: ${swedenFound}`);
             
             // Vis noen eksempler på landkoder
             console.log('Eksempler på landkoder (uten Antarktis):');
