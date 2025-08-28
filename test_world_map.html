@@ -234,13 +234,13 @@
                     let strokeWidth;
                     
                     if (scale <= 1.5) {
-                        strokeWidth = 1; // Tynne linjer for verdensoversikt
+                        strokeWidth = 0.8; // Tynne linjer for verdensoversikt (20% reduksjon)
                     } else if (scale <= 3) {
-                        strokeWidth = 0.5; // Enda tynnere linjer for kontinent-zoom
+                        strokeWidth = 0.4; // Enda tynnere linjer for kontinent-zoom (20% reduksjon)
                     } else if (scale <= 5) {
-                        strokeWidth = 0.3; // Meget tynne linjer for land-zoom
+                        strokeWidth = 0.24; // Meget tynne linjer for land-zoom (20% reduksjon)
                     } else {
-                        strokeWidth = 0.2; // Minste linjer for detalj-zoom
+                        strokeWidth = 0.16; // Minste linjer for detalj-zoom (20% reduksjon)
                     }
                     
                     // Oppdater stroke-width for alle land
@@ -321,7 +321,29 @@
 
             
             // Initialiser stroke-width basert på start zoom-nivå (1x)
-            svg.selectAll('path.country').style('stroke-width', '1px');
+            svg.selectAll('path.country').style('stroke-width', '0.8px');
+            
+            // Zoom inn på Norge ved start
+            const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
+            if (norwayFeature) {
+                // Beregn sentrum av Norge
+                const norwayCenter = d3.geoCentroid(norwayFeature);
+                const [norwayX, norwayY] = projection(norwayCenter);
+                
+                // Opprett zoom-transform for Norge (3x zoom)
+                const zoomTransform = d3.zoomIdentity
+                    .translate(width / 2, height / 2)
+                    .scale(3)
+                    .translate(-norwayX, -norwayY);
+                
+                // Anvend zoom-transform
+                svg.selectAll('path').attr('transform', zoomTransform);
+                
+                // Oppdater stroke-width for zoom-nivå 3x
+                svg.selectAll('path.country').style('stroke-width', '0.4px');
+                
+                console.log('Zoomet inn på Norge ved start');
+            }
             
             // Logg statistikk
             const totalCountries = data.features.length;
