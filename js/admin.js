@@ -7,7 +7,42 @@ let currentCountry = null;
 document.addEventListener('DOMContentLoaded', function() {
     loadCountriesData();
     updateSystemStatus();
+    loadCurrentSettings();
 });
+
+// Load current settings from config.json or localStorage
+async function loadCurrentSettings() {
+    try {
+        // Try to load from config.json first
+        const response = await fetch('config.json?v=' + Date.now());
+        if (response.ok) {
+            const config = await response.json();
+            console.log('Loaded current config:', config);
+            
+            // Set the form values
+            document.getElementById('game-mode').value = config.gameMode || 'random';
+            document.getElementById('specific-country').value = config.specificCountry || '';
+            
+            // Show/hide country select based on mode
+            toggleCountrySelect();
+            
+            return;
+        }
+    } catch (error) {
+        console.log('Could not load config.json, using localStorage');
+    }
+    
+    // Fallback to localStorage
+    const settings = localStorage.getItem('adminGameSettings');
+    if (settings) {
+        const parsed = JSON.parse(settings);
+        console.log('Loaded settings from localStorage:', parsed);
+        
+        document.getElementById('game-mode').value = parsed.mode || 'random';
+        document.getElementById('specific-country').value = parsed.specificCountry || '';
+        toggleCountrySelect();
+    }
+}
 
 // Authentication
 function login() {
@@ -57,6 +92,10 @@ function populateCountryDropdown() {
         option.textContent = country.name;
         select.appendChild(option);
     });
+    
+    // Add event listeners for auto-save
+    document.getElementById('game-mode').addEventListener('change', autoSaveSettings);
+    document.getElementById('specific-country').addEventListener('change', autoSaveSettings);
 }
 
 // Toggle country select visibility
@@ -69,6 +108,29 @@ function toggleCountrySelect() {
     } else {
         countrySelectGroup.style.display = 'none';
     }
+    
+    // Auto-save when settings change
+    autoSaveSettings();
+}
+
+// Auto-save settings when they change
+function autoSaveSettings() {
+    const gameMode = document.getElementById('game-mode').value;
+    const specificCountry = document.getElementById('specific-country').value;
+    
+    let config = {
+        gameMode: gameMode,
+        specificCountry: gameMode === 'specific' ? specificCountry : null,
+        lastUpdated: new Date().toISOString()
+    };
+    
+    // Store in localStorage for immediate use
+    localStorage.setItem('adminGameSettings', JSON.stringify({
+        mode: gameMode,
+        specificCountry: gameMode === 'specific' ? specificCountry : null
+    }));
+    
+    console.log('Auto-saved settings:', config);
 }
 
 // Apply game settings
@@ -88,11 +150,26 @@ function applyGameSettings() {
         specificCountry: gameMode === 'specific' ? specificCountry : null
     }));
     
-    // Also save to config.json (this would require server-side implementation)
-    // For now, we'll use localStorage and provide instructions
+    // Create a download link for the updated config.json
+    const configBlob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+    const configUrl = URL.createObjectURL(configBlob);
+    
+    const downloadLink = document.createElement('a');
+    downloadLink.href = configUrl;
+    downloadLink.download = 'config.json';
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+    
+    // Trigger download
+    downloadLink.click();
+    
+    // Clean up
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(configUrl);
+    
     console.log('Config to save:', config);
     
-    alert('Innstillinger lagret! For permanent lagring, oppdater config.json med følgende:\n\n' + JSON.stringify(config, null, 2) + '\n\nSpillet vil bruke innstillingene umiddelbart.');
+    alert('Innstillinger lagret i localStorage!\n\nconfig.json filen er lastet ned. Erstatt den eksisterende config.json filen med den nye filen og oppdater siden.\n\nSpillet vil bruke innstillingene umiddelbart fra localStorage.');
 }
 
 // Test current settings
