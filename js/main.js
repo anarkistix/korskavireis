@@ -182,6 +182,12 @@ class GeographyGame {
             this.submitGuess();
         });
 
+        // Gi opp-knapp
+        document.getElementById('give-up-btn').addEventListener('click', () => {
+            console.log('Gi opp-knapp klikket');
+            this.giveUp();
+        });
+
         // Hint-knapp
         const hintBtn = document.getElementById('hint-btn');
         if (hintBtn) {
@@ -626,7 +632,7 @@ class GeographyGame {
         if (guessedCountry.name === this.currentCountry.name) {
             // Riktig gjetting
             this.addFeedbackItem(guessedCountry, true);
-            this.showMessage(`Gratulerer! Du gjettet riktig på forsøk ${this.attempts}!`, 'success');
+            this.showMessage(`Gratulerer! Du gjettet riktig på forsøk ${this.attempts}! Landet var ${this.currentCountry.name}.`, 'success');
             this.endGame(true);
         } else {
             // Feil gjetting
@@ -765,13 +771,16 @@ class GeographyGame {
         this.isGameActive = false;
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('submit-btn').style.display = 'none';
+        document.getElementById('give-up-btn').style.display = 'none';
     }
 
     resetUI() {
         document.getElementById('country-input').value = '';
+        document.getElementById('country-input').disabled = false;
         document.getElementById('suggestions').innerHTML = '';
         document.getElementById('new-game-btn').style.display = 'none';
         document.getElementById('submit-btn').style.display = 'block';
+        document.getElementById('give-up-btn').style.display = 'block';
         this.clearMessages();
         
         // Tøm feedback-container
@@ -874,6 +883,22 @@ class GeographyGame {
                 }
     }
     
+    giveUp() {
+        // Vis riktig svar
+        this.showMessage(`Du ga opp! Riktig land var: ${this.currentCountry.name}`, 'info');
+        
+        // Endre knappene
+        document.getElementById('submit-btn').style.display = 'none';
+        document.getElementById('give-up-btn').style.display = 'none';
+        document.getElementById('new-game-btn').style.display = 'block';
+        
+        // Deaktiver input
+        document.getElementById('country-input').disabled = true;
+        
+        // Sett spill som avsluttet
+        this.isGameActive = false;
+    }
+
     showConfigUpdateNotification() {
         const messageContainer = document.getElementById('message-container');
         const messageElement = document.createElement('div');
