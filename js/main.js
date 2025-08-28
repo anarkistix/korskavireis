@@ -388,21 +388,29 @@ class GeographyGame {
         try {
             // First try to load from config.json
             try {
+                console.log('Attempting to load config.json...');
                 const response = await fetch('config.json?v=' + Date.now());
+                console.log('Config.json response status:', response.status);
                 if (response.ok) {
                     const config = await response.json();
                     console.log('Config loaded from file:', config);
+                    console.log('Config gameMode:', config.gameMode);
+                    console.log('Config specificCountry:', config.specificCountry);
                     return {
                         mode: config.gameMode,
                         specificCountry: config.specificCountry
                     };
+                } else {
+                    console.log('Config.json response not ok, status:', response.status);
                 }
             } catch (error) {
-                console.log('Could not load config.json, using localStorage fallback');
+                console.log('Could not load config.json, error:', error);
+                console.log('Using localStorage fallback');
             }
             
             // Fallback to localStorage
             const settings = localStorage.getItem('adminGameSettings');
+            console.log('localStorage settings:', settings);
             return settings ? JSON.parse(settings) : null;
         } catch (error) {
             console.error('Feil ved henting av admin-innstillinger:', error);
