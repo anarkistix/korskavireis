@@ -219,38 +219,39 @@
         const width = document.getElementById('map').clientWidth;
         const height = 600;
         
-        // Opprett SVG med zoom-funksjonalitet
+        // Opprett zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on('zoom', function(event) {
+                svg.selectAll('path').attr('transform', event.transform);
+                
+                // Dynamisk stroke-width basert på zoom-nivå
+                const scale = event.transform.k;
+                let strokeWidth;
+                
+                if (scale <= 1.5) {
+                    strokeWidth = 0.8; // Tynne linjer for verdensoversikt (20% reduksjon)
+                } else if (scale <= 3) {
+                    strokeWidth = 0.4; // Enda tynnere linjer for kontinent-zoom (20% reduksjon)
+                } else if (scale <= 5) {
+                    strokeWidth = 0.24; // Meget tynne linjer for land-zoom (20% reduksjon)
+                } else {
+                    strokeWidth = 0.16; // Minste linjer for detalj-zoom (20% reduksjon)
+                }
+                
+                // Oppdater stroke-width for alle land
+                svg.selectAll('path.country').style('stroke-width', strokeWidth + 'px');
+                
+                // Logg zoom-nivå for debugging
+                console.log(`Zoom: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px`);
+            });
+        
+        // Opprett SVG
         const svg = d3.select('#map')
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-            .call(d3.zoom()
-                .scaleExtent([1, 8])
-                .on('zoom', function(event) {
-                    svg.selectAll('path').attr('transform', event.transform);
-                    
-                    // Dynamisk stroke-width basert på zoom-nivå
-                    const scale = event.transform.k;
-                    let strokeWidth;
-                    
-                    if (scale <= 1.5) {
-                        strokeWidth = 0.8; // Tynne linjer for verdensoversikt (20% reduksjon)
-                    } else if (scale <= 3) {
-                        strokeWidth = 0.4; // Enda tynnere linjer for kontinent-zoom (20% reduksjon)
-                    } else if (scale <= 5) {
-                        strokeWidth = 0.24; // Meget tynne linjer for land-zoom (20% reduksjon)
-                    } else {
-                        strokeWidth = 0.16; // Minste linjer for detalj-zoom (20% reduksjon)
-                    }
-                    
-                    // Oppdater stroke-width for alle land
-                    svg.selectAll('path.country').style('stroke-width', strokeWidth + 'px');
-                    
-
-                    
-                    // Logg zoom-nivå for debugging
-                    console.log(`Zoom: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px`);
-                }));
+            .call(zoom);
         
         // Opprett projection (Mercator)
         const projection = d3.geoMercator()
@@ -353,24 +354,10 @@
             
             // Anvend Norge-zoom hvis tilgjengelig
             if (norwayZoomTransform) {
-                // Anvend zoom-transform
-                svg.selectAll('path').attr('transform', norwayZoomTransform);
+                // Bruk D3.js zoom behavior til å sette initial zoom
+                svg.call(zoom.transform, norwayZoomTransform);
                 
-                // Oppdater stroke-width basert på zoom-nivå
-                const scale = norwayZoomTransform.k;
-                let strokeWidth;
-                if (scale <= 1.5) {
-                    strokeWidth = 0.8;
-                } else if (scale <= 3) {
-                    strokeWidth = 0.4;
-                } else if (scale <= 5) {
-                    strokeWidth = 0.24;
-                } else {
-                    strokeWidth = 0.16;
-                }
-                svg.selectAll('path.country').style('stroke-width', strokeWidth + 'px');
-                
-                console.log(`Zoomet inn på Norge ved start - Scale: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px`);
+                console.log(`Zoomet inn på Norge ved start - Scale: ${norwayZoomTransform.k.toFixed(2)}x`);
             }
             
             // Logg statistikk
