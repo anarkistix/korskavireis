@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdenskart Test - Norge i Rød</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .country {
+            fill: #ccc;
+            stroke: #fff;
+            stroke-width: 0.5;
+            transition: fill 0.3s ease;
+        }
+        
+        .country:hover {
+            fill: #999;
+            cursor: pointer;
+        }
+        
+        .country.norway {
+            fill: #ff4444;
+        }
+        
+        .country.norway:hover {
+            fill: #ff6666;
+        }
+        
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .norway-color {
+            background: #ff4444;
+        }
+        
+        .other-color {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Verdenskart Test - Norge i Rød</h1>
+        
+        <div class="map-container" id="map"></div>
+        
+        <div class="info">
+            <h3>ℹ️ Informasjon</h3>
+            <p>Dette er en test som viser et verdenskart basert på GeoJSON-data fra <a href="https://github.com/Stefie/geojson-world" target="_blank">Stefie/geojson-world</a>.</p>
+            <p><strong>Norge</strong> er markert i <strong>rød farge</strong>, mens alle andre land er i <strong>grå farge</strong>.</p>
+            <p>Hover over landene for å se dem lysere, og klikk for å se landets navn i konsollen.</p>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color norway-color"></div>
+                <span>Norge</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color other-color"></div>
+                <span>Andre land</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kart-konfigurasjon
+        const width = document.getElementById('map').clientWidth;
+        const height = 600;
+        
+        // Opprett SVG
+        const svg = d3.select('#map')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+        
+        // Opprett projection (Mercator)
+        const projection = d3.geoMercator()
+            .fitSize([width, height], {type: "FeatureCollection", features: []});
+        
+        // Opprett path generator
+        const path = d3.geoPath().projection(projection);
+        
+        // Last GeoJSON-data
+        d3.json('countries.geojson').then(function(data) {
+            console.log('GeoJSON data lastet:', data);
+            
+            // Oppdater projection til å passe dataene
+            projection.fitSize([width, height], data);
+            
+            // Tegn landene
+            svg.selectAll('path')
+                .data(data.features)
+                .enter()
+                .append('path')
+                .attr('class', function(d) {
+                    // Sjekk om landet er Norge basert på cca2-kode
+                    const cca2 = d.properties.cca2;
+                    const isNorway = cca2 && cca2.toUpperCase() === 'NO';
+                    
+                    return isNorway ? 'country norway' : 'country';
+                })
+                .attr('d', path)
+                .on('click', function(event, d) {
+                    const cca2 = d.properties.cca2;
+                    console.log('Klikket på land med kode:', cca2);
+                    console.log('Landets egenskaper:', d.properties);
+                })
+                .on('mouseover', function(event, d) {
+                    const cca2 = d.properties.cca2;
+                    d3.select(this).style('stroke-width', '2');
+                })
+                .on('mouseout', function(event, d) {
+                    d3.select(this).style('stroke-width', '0.5');
+                });
+            
+            // Logg statistikk
+            const totalCountries = data.features.length;
+            const norwayFound = data.features.some(d => {
+                const cca2 = d.properties.cca2;
+                return cca2 && cca2.toUpperCase() === 'NO';
+            });
+            
+            console.log(`Totalt antall land: ${totalCountries}`);
+            console.log(`Norge funnet: ${norwayFound}`);
+            
+            // Vis noen eksempler på landkoder
+            console.log('Eksempler på landkoder:');
+            data.features.slice(0, 10).forEach(d => {
+                const cca2 = d.properties.cca2;
+                console.log(`- ${cca2}`);
+            });
+            
+        }).catch(function(error) {
+            console.error('Feil ved lasting av GeoJSON:', error);
+            document.getElementById('map').innerHTML = 
+                '<div style="padding: 20px; text-align: center; color: red;">Feil ved lasting av kartdata</div>';
+        });
+    </script>
+</body>
+</html>
