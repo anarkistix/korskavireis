@@ -53,6 +53,7 @@ class GeographyGame {
                     flagFile: country.flagFile,
                     population: country.population,
                     populationYear: country.population_year,
+                    google_maps_url: country.google_maps_url,
                     center: center
                 };
             }).filter(country => country.name && country.imageFile);
@@ -448,6 +449,7 @@ class GeographyGame {
             this.currentCountry = this.countries[randomIndex];
             console.log(`Nytt spill startet med: ${this.currentCountry.name}`);
             console.log('currentCountry google_maps_url:', this.currentCountry.google_maps_url);
+            console.log('currentCountry keys:', Object.keys(this.currentCountry));
         } else {
             // Fallback hvis ingen land er lastet
             console.log('Ingen land lastet, bruker fallback');
