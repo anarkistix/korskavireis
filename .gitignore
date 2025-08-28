@@ -40,3 +40,6 @@ yarn-error.log*
 # Build files
 dist/
 build/
+mapsicon/
+mapsicon_downloads/
+backup_country_images/
