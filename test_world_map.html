@@ -303,8 +303,9 @@
                 console.log('Norge dimensjoner:', { width: norwayWidth, height: norwayHeight });
                 
                 // Beregn zoom-faktor basert på hva som fyller først
-                const scaleX = width / (norwayWidth * projection.scale());
-                const scaleY = height / (norwayHeight * projection.scale());
+                // Norge er allerede projisert, så vi trenger ikke multiplisere med projection.scale()
+                const scaleX = width / norwayWidth;
+                const scaleY = height / norwayHeight;
                 const scale = Math.min(scaleX, scaleY) * 0.8; // 80% av maksimal fylling
                 
                 console.log('Zoom beregninger:', { scaleX, scaleY, scale, projectionScale: projection.scale() });
