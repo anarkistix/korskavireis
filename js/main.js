@@ -740,6 +740,11 @@ class GeographyGame {
     }
 }
 
+// Admin panel functions
+function openAdmin() {
+    window.open('admin.html', 'admin', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+}
+
 // Check for admin settings on page load
 document.addEventListener('DOMContentLoaded', () => {
     window.game = new GeographyGame();
@@ -759,5 +764,19 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Admin-innstillinger oppdatert, starter nytt spill...');
             window.game.startNewGame();
         }
+        if (e.key === 'forceNewGame') {
+            console.log('Force new game triggered, starter nytt spill...');
+            window.game.startNewGame();
+        }
     });
+    
+    // Also check for forceNewGame on page load
+    const forceNewGame = localStorage.getItem('forceNewGame');
+    if (forceNewGame) {
+        console.log('Force new game found on page load, starter nytt spill...');
+        localStorage.removeItem('forceNewGame'); // Clear the flag
+        setTimeout(() => {
+            window.game.startNewGame();
+        }, 100);
+    }
 });

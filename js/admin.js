@@ -120,7 +120,15 @@ function forceNewGame() {
         window.opener.game.startNewGame();
         alert('Nytt spill startet!');
     } else {
-        alert('Spillet må være åpent i en annen fane for å starte nytt spill.');
+        // Try to communicate via localStorage and reload
+        const adminSettings = localStorage.getItem('adminGameSettings');
+        if (adminSettings) {
+            // Trigger a custom event that the main game can listen to
+            localStorage.setItem('forceNewGame', Date.now().toString());
+            alert('Innstillinger sendt! Gå til spillet og trykk F5 for å starte nytt spill.');
+        } else {
+            alert('Ingen admin-innstillinger funnet. Sett innstillinger først.');
+        }
     }
 }
 
