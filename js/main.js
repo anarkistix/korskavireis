@@ -786,7 +786,7 @@ class GeographyGame {
         if (hintBtn) {
             hintBtn.querySelector('h4').textContent = 'Vis flagg som hint';
             hintBtn.disabled = false;
-            hintBtn.style.display = 'block'; // Vis knappen igjen
+            hintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }
         
         // Reset hint-flag
@@ -797,7 +797,7 @@ class GeographyGame {
         if (populationHintBtn) {
             populationHintBtn.querySelector('h4').textContent = 'Vis befolkning som hint';
             populationHintBtn.disabled = false;
-            populationHintBtn.style.display = 'block'; // Vis knappen igjen
+            populationHintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }
         
         // Reset befolkningshint
@@ -842,7 +842,7 @@ class GeographyGame {
 
         if (this.currentCountry.flagFile) {
             hintFlagImg.src = this.currentCountry.flagFile;
-            hintFlag.style.display = 'block';
+            hintFlag.style.display = 'inline-block';
             hintBtn.style.display = 'none'; // Skjul knappen og vis flagget i stedet
             this.hintUsed = true;
         } else {
@@ -866,7 +866,7 @@ class GeographyGame {
             const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
             const year = this.currentCountry.populationYear || 'N/A';
             populationText.textContent = `${formattedPopulation} innbyggere (${year})`;
-            populationHint.style.display = 'block';
+            populationHint.style.display = 'inline-block';
             populationHintBtn.style.display = 'none'; // Skjul knappen og vis befolkningstall i stedet
             this.populationHintUsed = true;
                         } else {

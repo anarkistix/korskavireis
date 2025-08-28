@@ -382,7 +382,6 @@ main {
     margin-top: 1rem;
     text-align: center;
     width: 100%;
-    border: 2px solid red; /* Debug: Vis container-grense */
 }
 
 .hint-card {
@@ -398,7 +397,6 @@ main {
     margin: 0 0.5rem;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid blue; /* Debug: Vis hint-grense */
 }
 
 .hint-card:hover {
