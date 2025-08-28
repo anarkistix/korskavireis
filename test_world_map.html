@@ -246,13 +246,13 @@
                     let strokeWidth;
                     
                     if (scale <= 1.5) {
-                        strokeWidth = 0.5; // Tynne linjer for verdensoversikt
+                        strokeWidth = 1; // Tynne linjer for verdensoversikt
                     } else if (scale <= 3) {
-                        strokeWidth = 1; // Medium linjer for kontinent-zoom
+                        strokeWidth = 0.5; // Enda tynnere linjer for kontinent-zoom
                     } else if (scale <= 5) {
-                        strokeWidth = 1.5; // Tykke linjer for land-zoom
+                        strokeWidth = 0.3; // Meget tynne linjer for land-zoom
                     } else {
-                        strokeWidth = 2; // Meget tykke linjer for detalj-zoom
+                        strokeWidth = 0.2; // Minste linjer for detalj-zoom
                     }
                     
                     // Oppdater stroke-width for alle land
@@ -330,13 +330,13 @@
                     
                     let hoverStrokeWidth;
                     if (scale <= 1.5) {
-                        hoverStrokeWidth = 1.5;
-                    } else if (scale <= 3) {
                         hoverStrokeWidth = 2;
+                    } else if (scale <= 3) {
+                        hoverStrokeWidth = 1;
                     } else if (scale <= 5) {
-                        hoverStrokeWidth = 2.5;
+                        hoverStrokeWidth = 0.6;
                     } else {
-                        hoverStrokeWidth = 3;
+                        hoverStrokeWidth = 0.4;
                     }
                     
                     d3.select(this).style('stroke-width', hoverStrokeWidth + 'px');
@@ -348,13 +348,13 @@
                     
                     let strokeWidth;
                     if (scale <= 1.5) {
-                        strokeWidth = 0.5;
-                    } else if (scale <= 3) {
                         strokeWidth = 1;
+                    } else if (scale <= 3) {
+                        strokeWidth = 0.5;
                     } else if (scale <= 5) {
-                        strokeWidth = 1.5;
+                        strokeWidth = 0.3;
                     } else {
-                        strokeWidth = 2;
+                        strokeWidth = 0.2;
                     }
                     
                     d3.select(this).style('stroke-width', strokeWidth + 'px');
@@ -393,7 +393,7 @@
             });
             
             // Initialiser stroke-width basert på start zoom-nivå (1x)
-            svg.selectAll('path.country').style('stroke-width', '0.5px');
+            svg.selectAll('path.country').style('stroke-width', '1px');
             
             // Logg statistikk
             const totalCountries = data.features.length;
