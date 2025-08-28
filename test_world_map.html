@@ -279,11 +279,12 @@
             console.log('Søker etter Norge...');
             
             // Sjekk alle landkoder for å finne Norge
+            console.log('Eksempel på land properties:', filteredFeatures[0].properties);
+            
             const norwayFeature = filteredFeatures.find(f => {
                 const cca2 = f.properties.cca2;
-                const name = f.properties.name;
-                console.log(`Land: ${name} (${cca2})`);
-                return cca2 === 'NO' || name === 'Norway' || name === 'Norge';
+                console.log(`Landkode: ${cca2}`);
+                return cca2 === 'no'; // Norge har landkode 'no' (små bokstaver)
             });
             
             console.log('Norge feature funnet:', !!norwayFeature);
