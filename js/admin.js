@@ -13,7 +13,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load current settings from config.json or localStorage
 async function loadCurrentSettings() {
     try {
-        // Try to load from config.json first
+        // First check global config (highest priority)
+        const globalConfig = localStorage.getItem('globalGameConfig');
+        if (globalConfig) {
+            const config = JSON.parse(globalConfig);
+            console.log('Loaded global config:', config);
+            
+            document.getElementById('game-mode').value = config.gameMode || 'random';
+            document.getElementById('specific-country').value = config.specificCountry || '';
+            toggleCountrySelect();
+            return;
+        }
+        
+        // Then check shared config
+        const sharedConfig = localStorage.getItem('sharedGameConfig');
+        if (sharedConfig) {
+            const config = JSON.parse(sharedConfig);
+            console.log('Loaded shared config:', config);
+            
+            document.getElementById('game-mode').value = config.gameMode || 'random';
+            document.getElementById('specific-country').value = config.specificCountry || '';
+            toggleCountrySelect();
+            return;
+        }
+        
+        // Try to load from config.json
         const response = await fetch('config.json?v=' + Date.now());
         if (response.ok) {
             const config = await response.json();
@@ -130,6 +154,9 @@ function autoSaveSettings() {
         specificCountry: gameMode === 'specific' ? specificCountry : null
     }));
     
+    // Also store in global config for persistence
+    localStorage.setItem('globalGameConfig', JSON.stringify(config));
+    
     console.log('Auto-saved settings:', config);
 }
 
@@ -152,8 +179,11 @@ function applyGameSettings() {
         specificCountry: gameMode === 'specific' ? specificCountry : null
     }));
     
-    // Also store in a shared config key
+    // Also store in a shared config key with higher priority
     localStorage.setItem('sharedGameConfig', JSON.stringify(config));
+    
+    // Store in a global config that persists across sessions
+    localStorage.setItem('globalGameConfig', JSON.stringify(config));
     
     // Try to notify the main game if it's open
     try {

@@ -451,7 +451,18 @@ class GeographyGame {
 
     async getAdminSettings() {
         try {
-            // First try to load from shared config (highest priority)
+            // First check global config (highest priority - persists across sessions)
+            const globalConfig = localStorage.getItem('globalGameConfig');
+            if (globalConfig) {
+                const config = JSON.parse(globalConfig);
+                console.log('Config loaded from global storage:', config);
+                return {
+                    mode: config.gameMode,
+                    specificCountry: config.specificCountry
+                };
+            }
+            
+            // Then check shared config (for current session)
             const sharedConfig = localStorage.getItem('sharedGameConfig');
             if (sharedConfig) {
                 const config = JSON.parse(sharedConfig);
@@ -462,7 +473,7 @@ class GeographyGame {
                 };
             }
             
-            // Then try to load from config.json
+            // Then try to load from config.json (server-side config)
             try {
                 console.log('Attempting to load config.json...');
                 const response = await fetch('config.json?v=' + Date.now());
@@ -472,6 +483,10 @@ class GeographyGame {
                     console.log('Config loaded from file:', config);
                     console.log('Config gameMode:', config.gameMode);
                     console.log('Config specificCountry:', config.specificCountry);
+                    
+                    // Update shared config in localStorage for consistency
+                    localStorage.setItem('sharedGameConfig', JSON.stringify(config));
+                    
                     return {
                         mode: config.gameMode,
                         specificCountry: config.specificCountry
@@ -484,7 +499,7 @@ class GeographyGame {
                 console.log('Using localStorage fallback');
             }
             
-            // Fallback to localStorage
+            // Final fallback to localStorage
             const settings = localStorage.getItem('adminGameSettings');
             console.log('localStorage settings:', settings);
             return settings ? JSON.parse(settings) : null;
@@ -861,6 +876,21 @@ class GeographyGame {
                     this.populationHintUsed = true;
                 }
     }
+    
+    showConfigUpdateNotification() {
+        const messageContainer = document.getElementById('message-container');
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message success';
+        messageElement.textContent = '🎮 Nye innstillinger mottatt! Starter nytt spill...';
+        messageContainer.appendChild(messageElement);
+        
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            if (messageElement.parentNode) {
+                messageElement.parentNode.removeChild(messageElement);
+            }
+        }, 3000);
+    }
 }
 
 // Check for admin settings on page load
@@ -889,6 +919,33 @@ document.addEventListener('DOMContentLoaded', () => {
             window.game.startNewGame().catch(error => {
                 console.error('Error starting new game:', error);
             });
+        }
+        if (e.key === 'globalGameConfig' || e.key === 'sharedGameConfig') {
+            console.log('Config oppdatert, starter nytt spill...');
+            window.game.startNewGame().catch(error => {
+                console.error('Error starting new game:', error);
+            });
+        }
+    });
+    
+    // Listen for postMessage events from admin panel
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'CONFIG_UPDATED') {
+            console.log('Config oppdatert via postMessage:', event.data.config);
+            
+            // Update localStorage with the new config
+            localStorage.setItem('sharedGameConfig', JSON.stringify(event.data.config));
+            localStorage.setItem('globalGameConfig', JSON.stringify(event.data.config));
+            
+            // Show notification
+            window.game.showConfigUpdateNotification();
+            
+            // Start new game after a short delay
+            setTimeout(() => {
+                window.game.startNewGame().catch(error => {
+                    console.error('Error starting new game:', error);
+                });
+            }, 1000);
         }
     });
     
