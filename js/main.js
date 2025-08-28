@@ -841,7 +841,7 @@ class GeographyGame {
         const hintBtn = document.getElementById('hint-btn');
 
         if (this.currentCountry.flagFile) {
-            hintFlagImg.src = this.currentCountry.flagFile;
+            hintFlagImg.src = `flags/${this.currentCountry.flagFile.replace('flags/', '')}?v=${Date.now()}`;
             hintFlag.style.display = 'inline-block';
             hintBtn.style.display = 'none'; // Skjul knappen og vis flagget i stedet
             this.hintUsed = true;
