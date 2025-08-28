@@ -447,6 +447,7 @@ class GeographyGame {
             const randomIndex = Math.floor(Math.random() * this.countries.length);
             this.currentCountry = this.countries[randomIndex];
             console.log(`Nytt spill startet med: ${this.currentCountry.name}`);
+            console.log('currentCountry google_maps_url:', this.currentCountry.google_maps_url);
         } else {
             // Fallback hvis ingen land er lastet
             console.log('Ingen land lastet, bruker fallback');
@@ -909,6 +910,12 @@ class GeographyGame {
     }
 
     openGoogleMaps() {
+        console.log('openGoogleMaps called');
+        console.log('currentCountry:', this.currentCountry);
+        console.log('currentCountry name:', this.currentCountry?.name);
+        console.log('google_maps_url exists:', !!this.currentCountry?.google_maps_url);
+        console.log('google_maps_url value:', this.currentCountry?.google_maps_url);
+        
         if (this.currentCountry && this.currentCountry.google_maps_url) {
             window.open(this.currentCountry.google_maps_url, '_blank');
         } else {
