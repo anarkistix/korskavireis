@@ -332,6 +332,17 @@ function displayCountryData(country) {
     document.getElementById('country-population').textContent = country.population ? country.population.toLocaleString() : '-';
     document.getElementById('country-population-year').textContent = country.population_year || '-';
     document.getElementById('country-image-file').textContent = country.imageFile || country.image_file || '-';
+    document.getElementById('country-capital').textContent = country.capital || '-';
+    
+    // Format capital coordinates
+    const capitalCoords = country.capital_coordinates;
+    if (capitalCoords && capitalCoords.lat && capitalCoords.lon) {
+        const lat = capitalCoords.lat >= 0 ? `${capitalCoords.lat.toFixed(4)}°N` : `${Math.abs(capitalCoords.lat).toFixed(4)}°S`;
+        const lon = capitalCoords.lon >= 0 ? `${capitalCoords.lon.toFixed(4)}°E` : `${Math.abs(capitalCoords.lon).toFixed(4)}°W`;
+        document.getElementById('country-capital-coordinates').textContent = `${lat}, ${lon}`;
+    } else {
+        document.getElementById('country-capital-coordinates').textContent = '-';
+    }
     
     // Display current image
     const imageElement = document.getElementById('current-country-image');
@@ -405,11 +416,13 @@ function updateSystemStatus() {
     const countriesWithImages = countriesData.filter(c => c.imageFile || c.image_file).length;
     const countriesWithFlags = countriesData.filter(c => c.flagFile).length;
     const countriesWithPopulation = countriesData.filter(c => c.population).length;
+    const countriesWithCapital = countriesData.filter(c => c.capital).length;
     
     document.getElementById('total-countries').textContent = totalCountries;
     document.getElementById('countries-with-images').textContent = countriesWithImages;
     document.getElementById('countries-with-flags').textContent = countriesWithFlags;
     document.getElementById('countries-with-population').textContent = countriesWithPopulation;
+    document.getElementById('countries-with-capital').textContent = countriesWithCapital;
 }
 
 // Enter key support for login

@@ -239,6 +239,10 @@
                 <div class="stat-number" id="countries-with-population">-</div>
                 <div class="stat-label">Land med befolkningsdata</div>
             </div>
+            <div class="stat-item">
+                <div class="stat-number" id="countries-with-capital">-</div>
+                <div class="stat-label">Land med hovedstadsdata</div>
+            </div>
         </div>
 
         <div class="countries-grid" id="countries-container">
@@ -311,6 +315,14 @@
                             <span class="data-label">Flagg-fil:</span>
                             <span class="data-value">${country.flagFile || '<span class="missing">Mangler</span>'}</span>
                         </div>
+                        <div class="data-item">
+                            <span class="data-label">Hovedstad:</span>
+                            <span class="data-value">${country.capital || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Hovedstad koordinater:</span>
+                            <span class="data-value">${formatCapitalCoordinates(country.capital_coordinates) || '<span class="missing">Mangler</span>'}</span>
+                        </div>
                     </div>
                     
                     ${imageSrc ? `<img src="${imageSrc}" alt="${country.name} kart" class="country-image" onerror="this.style.display='none'">` : ''}
@@ -320,16 +332,26 @@
             });
         }
 
+        function formatCapitalCoordinates(coords) {
+            if (!coords || !coords.lat || !coords.lon) return null;
+            
+            const lat = coords.lat >= 0 ? `${coords.lat.toFixed(4)}°N` : `${Math.abs(coords.lat).toFixed(4)}°S`;
+            const lon = coords.lon >= 0 ? `${coords.lon.toFixed(4)}°E` : `${Math.abs(coords.lon).toFixed(4)}°W`;
+            return `${lat}, ${lon}`;
+        }
+
         function updateStats() {
             const total = countriesData.length;
             const withImages = countriesData.filter(c => c.imageFile).length;
             const withFlags = countriesData.filter(c => c.flagFile).length;
             const withPopulation = countriesData.filter(c => c.population).length;
+            const withCapital = countriesData.filter(c => c.capital).length;
             
             document.getElementById('total-countries').textContent = total;
             document.getElementById('countries-with-images').textContent = withImages;
             document.getElementById('countries-with-flags').textContent = withFlags;
             document.getElementById('countries-with-population').textContent = withPopulation;
+            document.getElementById('countries-with-capital').textContent = withCapital;
         }
 
         // Last land når siden laster
