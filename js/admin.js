@@ -425,3 +425,9 @@ document.getElementById('country-search').addEventListener('keypress', function(
         searchCountry();
     }
 });
+
+// Export all countries function
+function exportAllCountries() {
+    // Open export page in new tab
+    window.open('export.html', '_blank');
+}

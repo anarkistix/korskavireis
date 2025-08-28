@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korskavireis - Alle Land Eksport</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .stats-bar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .country-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .country-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .country-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .country-flag {
+            width: 60px;
+            height: 40px;
+            border-radius: 8px;
+            margin-right: 1rem;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .country-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .country-iso {
+            background: #667eea;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .country-data {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .data-value {
+            color: #333;
+        }
+
+        .missing {
+            background: #ffe6e6;
+            color: #d63031;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .country-image {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+            
+            .header {
+                background: #333 !important;
+            }
+            
+            .country-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .country-data {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌍 Alle Land - Korskavireis</h1>
+        <p>Komplett oversikt over alle land i spillet</p>
+    </div>
+
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="total-countries">-</div>
+                <div class="stat-label">Totalt antall land</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="countries-with-images">-</div>
+                <div class="stat-label">Land med bilder</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="countries-with-flags">-</div>
+                <div class="stat-label">Land med flagg</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="countries-with-population">-</div>
+                <div class="stat-label">Land med befolkningsdata</div>
+            </div>
+        </div>
+
+        <div class="countries-grid" id="countries-container">
+            <!-- Land vil bli lagt til her dynamisk -->
+        </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">🖨️ Skriv ut</button>
+
+    <script>
+        let countriesData = [];
+
+        async function loadCountries() {
+            try {
+                const response = await fetch('countries_data.json');
+                countriesData = await response.json();
+                
+                // Sorter land alfabetisk
+                countriesData.sort((a, b) => a.name.localeCompare(b.name, 'no'));
+                
+                displayCountries();
+                updateStats();
+            } catch (error) {
+                console.error('Feil ved lasting av land:', error);
+                document.getElementById('countries-container').innerHTML = 
+                    '<p style="color: red; text-align: center; padding: 2rem;">Feil ved lasting av land-data</p>';
+            }
+        }
+
+        function displayCountries() {
+            const container = document.getElementById('countries-container');
+            
+            countriesData.forEach(country => {
+                const card = document.createElement('div');
+                card.className = 'country-card';
+                
+                const flagSrc = country.flagFile ? `flags/${country.flagFile}` : '';
+                const imageSrc = country.imageFile ? `country_images/${country.imageFile}` : '';
+                
+                card.innerHTML = `
+                    <div class="country-header">
+                        <img src="${flagSrc}" alt="${country.name} flagg" class="country-flag" 
+                             onerror="this.style.display='none'">
+                        <div class="country-name">${country.name}</div>
+                        <div class="country-iso">${country.iso_code || 'N/A'}</div>
+                    </div>
+                    
+                    <div class="country-data">
+                        <div class="data-item">
+                            <span class="data-label">Kontinent:</span>
+                            <span class="data-value">${country.continent || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Region:</span>
+                            <span class="data-value">${country.region || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Befolkning:</span>
+                            <span class="data-value">${country.population ? country.population.toLocaleString('nb-NO') : '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Befolkningsår:</span>
+                            <span class="data-value">${country.population_year || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Kart-fil:</span>
+                            <span class="data-value">${country.imageFile || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Flagg-fil:</span>
+                            <span class="data-value">${country.flagFile || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                    </div>
+                    
+                    ${imageSrc ? `<img src="${imageSrc}" alt="${country.name} kart" class="country-image" onerror="this.style.display='none'">` : ''}
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function updateStats() {
+            const total = countriesData.length;
+            const withImages = countriesData.filter(c => c.imageFile).length;
+            const withFlags = countriesData.filter(c => c.flagFile).length;
+            const withPopulation = countriesData.filter(c => c.population).length;
+            
+            document.getElementById('total-countries').textContent = total;
+            document.getElementById('countries-with-images').textContent = withImages;
+            document.getElementById('countries-with-flags').textContent = withFlags;
+            document.getElementById('countries-with-population').textContent = withPopulation;
+        }
+
+        // Last land når siden laster
+        document.addEventListener('DOMContentLoaded', loadCountries);
+    </script>
+</body>
+</html>
