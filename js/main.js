@@ -23,7 +23,7 @@ class GeographyGame {
             console.log('Event listeners satt opp, oppdaterer stats...');
             this.updateStats();
             console.log('Stats oppdatert, starter nytt spill...');
-            this.startNewGame();
+            await this.startNewGame();
             console.log('Nytt spill startet');
         } catch (error) {
             console.error('Feil i init:', error);
@@ -200,7 +200,9 @@ class GeographyGame {
 
         // Nytt spill-knapp
         document.getElementById('new-game-btn').addEventListener('click', () => {
-            this.startNewGame();
+            this.startNewGame().catch(error => {
+                console.error('Error starting new game:', error);
+            });
         });
 
         // Klikk utenfor for å lukke forslag
@@ -330,7 +332,7 @@ class GeographyGame {
         items[nextIndex].scrollIntoView({ block: 'nearest' });
     }
 
-    startNewGame() {
+    async startNewGame() {
         this.attempts = 0;
         this.isGameActive = true;
         this.gamesPlayed++;
@@ -338,7 +340,7 @@ class GeographyGame {
         this.populationHintUsed = false;
         
         // Sjekk admin-innstillinger
-        const adminSettings = this.getAdminSettings();
+        const adminSettings = await this.getAdminSettings();
         console.log('Admin-innstillinger ved start av nytt spill:', adminSettings);
         
         if (adminSettings && adminSettings.mode === 'specific' && adminSettings.specificCountry) {
@@ -382,8 +384,24 @@ class GeographyGame {
         }
     }
 
-    getAdminSettings() {
+    async getAdminSettings() {
         try {
+            // First try to load from config.json
+            try {
+                const response = await fetch('config.json?v=' + Date.now());
+                if (response.ok) {
+                    const config = await response.json();
+                    console.log('Config loaded from file:', config);
+                    return {
+                        mode: config.gameMode,
+                        specificCountry: config.specificCountry
+                    };
+                }
+            } catch (error) {
+                console.log('Could not load config.json, using localStorage fallback');
+            }
+            
+            // Fallback to localStorage
             const settings = localStorage.getItem('adminGameSettings');
             return settings ? JSON.parse(settings) : null;
         } catch (error) {
@@ -740,11 +758,6 @@ class GeographyGame {
     }
 }
 
-// Admin panel functions
-function openAdmin() {
-    window.open('admin.html', 'admin', 'width=1200,height=800,scrollbars=yes,resizable=yes');
-}
-
 // Check for admin settings on page load
 document.addEventListener('DOMContentLoaded', () => {
     window.game = new GeographyGame();
@@ -762,11 +775,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('storage', function(e) {
         if (e.key === 'adminGameSettings') {
             console.log('Admin-innstillinger oppdatert, starter nytt spill...');
-            window.game.startNewGame();
+            window.game.startNewGame().catch(error => {
+                console.error('Error starting new game:', error);
+            });
         }
         if (e.key === 'forceNewGame') {
             console.log('Force new game triggered, starter nytt spill...');
-            window.game.startNewGame();
+            window.game.startNewGame().catch(error => {
+                console.error('Error starting new game:', error);
+            });
         }
     });
     
@@ -776,7 +793,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Force new game found on page load, starter nytt spill...');
         localStorage.removeItem('forceNewGame'); // Clear the flag
         setTimeout(() => {
-            window.game.startNewGame();
+            window.game.startNewGame().catch(error => {
+                console.error('Error starting new game:', error);
+            });
         }, 100);
     }
 });

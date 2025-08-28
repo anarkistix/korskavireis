@@ -25,8 +25,13 @@
         </header>
 
         <main class="admin-main">
-            <div class="admin-section">
-                <h2>🎯 Spill Kontroll</h2>
+                                    <div class="admin-section">
+                            <h2>🎯 Spill Kontroll</h2>
+                            <div class="info-box">
+                                <h4>📝 Config-fil instruksjoner:</h4>
+                                <p>For permanent lagring av innstillinger, oppdater <code>config.json</code> filen med innstillingene som vises når du klikker "Bruk innstillinger".</p>
+                                <p>Spillet vil automatisk lese fra config.json når det starter.</p>
+                            </div>
                 <div class="control-group">
                     <label for="game-mode">Spillmodus:</label>
                     <select id="game-mode" onchange="toggleCountrySelect()">

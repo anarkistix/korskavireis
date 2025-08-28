@@ -76,27 +76,23 @@ function applyGameSettings() {
     const gameMode = document.getElementById('game-mode').value;
     const specificCountry = document.getElementById('specific-country').value;
     
-    let settings = {
-        mode: gameMode,
-        specificCountry: gameMode === 'specific' ? specificCountry : null
+    let config = {
+        gameMode: gameMode,
+        specificCountry: gameMode === 'specific' ? specificCountry : null,
+        lastUpdated: new Date().toISOString()
     };
     
-    // Store settings in localStorage for the game to use
-    localStorage.setItem('adminGameSettings', JSON.stringify(settings));
-    
-    // Trigger storage event to notify other windows
-    window.dispatchEvent(new StorageEvent('storage', {
-        key: 'adminGameSettings',
-        newValue: JSON.stringify(settings)
+    // Store settings in localStorage for immediate use
+    localStorage.setItem('adminGameSettings', JSON.stringify({
+        mode: gameMode,
+        specificCountry: gameMode === 'specific' ? specificCountry : null
     }));
     
-    // Try to reload the game window if it exists
-    if (window.opener && window.opener.location.href.includes('index.html')) {
-        window.opener.location.reload();
-        alert('Innstillinger lagret og spillet lastes på nytt!');
-    } else {
-        alert('Innstillinger lagret! Gå til spillet og trykk F5 (eller Cmd+R) for å laste innstillingene.');
-    }
+    // Also save to config.json (this would require server-side implementation)
+    // For now, we'll use localStorage and provide instructions
+    console.log('Config to save:', config);
+    
+    alert('Innstillinger lagret! For permanent lagring, oppdater config.json med følgende:\n\n' + JSON.stringify(config, null, 2) + '\n\nSpillet vil bruke innstillingene umiddelbart.');
 }
 
 // Test current settings
@@ -117,8 +113,12 @@ function testCurrentSettings() {
 // Force new game
 function forceNewGame() {
     if (window.opener && window.opener.game) {
-        window.opener.game.startNewGame();
-        alert('Nytt spill startet!');
+        window.opener.game.startNewGame().then(() => {
+            alert('Nytt spill startet!');
+        }).catch(error => {
+            console.error('Error starting new game:', error);
+            alert('Feil ved start av nytt spill. Sjekk console for detaljer.');
+        });
     } else {
         // Try to communicate via localStorage and reload
         const adminSettings = localStorage.getItem('adminGameSettings');
