@@ -195,7 +195,8 @@
             <h3>ℹ️ Informasjon</h3>
             <p>Dette er en test som viser et verdenskart basert på GeoJSON-data fra <a href="https://github.com/Stefie/geojson-world" target="_blank">Stefie/geojson-world</a>.</p>
             <p><strong>Norge</strong> er markert i <strong>grønn farge</strong>, <strong>Kina</strong>, <strong>Frankrike</strong> og <strong>Sverige</strong> er markert i <strong>oransje farge</strong>, mens alle andre land er i <strong>grå farge</strong>.</p>
-            <p>Hover over landene for å se dem lysere, og klikk for å se landets navn i konsollen.</p>
+            <p>Hover over landene for å se dem lysere, og klikk på et land for å zoome inn på det.</p>
+            <p>Dobbelklikk for å tilbakestille zoom til verdensoversikt.</p>
         </div>
         
         <div class="legend">
@@ -251,7 +252,12 @@
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-            .call(zoom);
+            .call(zoom)
+            .on('dblclick', function(event) {
+                // Tilbakestill zoom til verdensoversikt
+                svg.call(zoom.transform, d3.zoomIdentity);
+                console.log('Zoom tilbakestilt til verdensoversikt');
+            });
         
         // Opprett projection (Mercator)
         const projection = d3.geoMercator()
@@ -259,6 +265,34 @@
         
         // Opprett path generator
         const path = d3.geoPath().projection(projection);
+        
+        // Funksjon for å zoome inn på et land
+        function zoomToCountry(countryFeature) {
+            // Beregn bounding box for landet
+            const countryBounds = d3.geoBounds(countryFeature);
+            const countryWidth = countryBounds[1][0] - countryBounds[0][0];
+            const countryHeight = countryBounds[1][1] - countryBounds[0][1];
+            
+            // Beregn zoom-faktor basert på hva som fyller først
+            const scaleX = width / countryWidth;
+            const scaleY = height / countryHeight;
+            const scale = Math.min(scaleX, scaleY) * 0.3; // 30% av maksimal fylling
+            
+            // Beregn sentrum av landet
+            const countryCenter = d3.geoCentroid(countryFeature);
+            const [countryX, countryY] = projection(countryCenter);
+            
+            // Opprett zoom-transform for landet
+            const zoomTransform = d3.zoomIdentity
+                .translate(width / 2, height / 2)
+                .scale(scale)
+                .translate(-countryX, -countryY);
+            
+            // Anvend zoom-transform
+            svg.call(zoom.transform, zoomTransform);
+            
+            console.log(`Zoomet inn på ${countryFeature.properties.cca2} - Scale: ${scale.toFixed(2)}x`);
+        }
         
         // Last GeoJSON-data
         d3.json('countries.geojson').then(function(data) {
@@ -306,7 +340,7 @@
                 // Norge er allerede projisert, så vi trenger ikke multiplisere med projection.scale()
                 const scaleX = width / norwayWidth;
                 const scaleY = height / norwayHeight;
-                const scale = Math.min(scaleX, scaleY) * 0.8; // 80% av maksimal fylling
+                const scale = Math.min(scaleX, scaleY) * 0.3; // 30% av maksimal fylling for mindre zoom
                 
                 console.log('Zoom beregninger:', { scaleX, scaleY, scale, projectionScale: projection.scale() });
                 
@@ -352,6 +386,9 @@
                     const cca2 = d.properties.cca2;
                     console.log('Klikket på land med kode:', cca2);
                     console.log('Landets egenskaper:', d.properties);
+                    
+                    // Zoom inn på det klikkede landet
+                    zoomToCountry(d);
                 })
                 .on('mouseover', function(event, d) {
                     const cca2 = d.properties.cca2;
