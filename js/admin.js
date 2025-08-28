@@ -133,6 +133,74 @@ function autoSaveSettings() {
     console.log('Auto-saved settings:', config);
 }
 
+// Show config modal
+function showConfigModal(configText) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('config-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Create modal
+    const modal = document.createElement('div');
+    modal.id = 'config-modal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    `;
+    
+    modalContent.innerHTML = `
+        <h3 style="margin-top: 0; color: #333;">Config.json innhold</h3>
+        <p style="color: #666; margin-bottom: 1rem;">Kopier dette innholdet til config.json filen:</p>
+        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 12px; border: 1px solid #ddd;">${configText}</pre>
+        <div style="margin-top: 1rem; text-align: center;">
+            <button onclick="copyConfigToClipboard()" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-right: 0.5rem;">Kopier til utklippstavle</button>
+            <button onclick="closeConfigModal()" style="background: #666; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Lukk</button>
+        </div>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+}
+
+// Copy config to clipboard
+function copyConfigToClipboard() {
+    const configText = document.querySelector('#config-modal pre').textContent;
+    navigator.clipboard.writeText(configText).then(() => {
+        alert('Config-innhold kopiert til utklippstavlen!');
+    }).catch(err => {
+        console.error('Kunne ikke kopiere til utklippstavlen:', err);
+        alert('Kunne ikke kopiere automatisk. Kopier manuelt fra boksen over.');
+    });
+}
+
+// Close config modal
+function closeConfigModal() {
+    const modal = document.getElementById('config-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
 // Apply game settings
 function applyGameSettings() {
     const gameMode = document.getElementById('game-mode').value;
@@ -150,26 +218,14 @@ function applyGameSettings() {
         specificCountry: gameMode === 'specific' ? specificCountry : null
     }));
     
-    // Create a download link for the updated config.json
-    const configBlob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
-    const configUrl = URL.createObjectURL(configBlob);
-    
-    const downloadLink = document.createElement('a');
-    downloadLink.href = configUrl;
-    downloadLink.download = 'config.json';
-    downloadLink.style.display = 'none';
-    document.body.appendChild(downloadLink);
-    
-    // Trigger download
-    downloadLink.click();
-    
-    // Clean up
-    document.body.removeChild(downloadLink);
-    URL.revokeObjectURL(configUrl);
-    
     console.log('Config to save:', config);
     
-    alert('Innstillinger lagret i localStorage!\n\nconfig.json filen er lastet ned. Erstatt den eksisterende config.json filen med den nye filen og oppdater siden.\n\nSpillet vil bruke innstillingene umiddelbart fra localStorage.');
+    // Show config content in a modal or alert
+    const configText = JSON.stringify(config, null, 2);
+    const message = `Innstillinger lagret i localStorage!\n\nFor permanent lagring, oppdater config.json med følgende innhold:\n\n${configText}\n\nSpillet vil bruke innstillingene umiddelbart fra localStorage.`;
+    
+    // Create a modal to show the config content
+    showConfigModal(configText);
 }
 
 // Test current settings
