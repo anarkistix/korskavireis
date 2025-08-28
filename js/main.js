@@ -211,6 +211,71 @@ class GeographyGame {
                 suggestionsList.innerHTML = '';
             }
         });
+        
+        // Listen for config updates from admin panel
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'CONFIG_UPDATED') {
+                console.log('Config update received from admin:', event.data.config);
+                // Store the new config
+                localStorage.setItem('sharedGameConfig', JSON.stringify(event.data.config));
+                // Show notification
+                this.showConfigUpdateNotification();
+                // Optionally restart game with new settings
+                if (this.isGameActive) {
+                    setTimeout(() => {
+                        this.startNewGame().catch(error => {
+                            console.error('Error restarting game with new config:', error);
+                        });
+                    }, 1000);
+                }
+            }
+        });
+    }
+    
+    // Show config update notification
+    showConfigUpdateNotification() {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2196F3;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        `;
+        
+        notification.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.2rem;">⚙️</span>
+                <span>Nye innstillinger mottatt fra admin!</span>
+            </div>
+        `;
+        
+        // Add CSS animation if not already present
+        if (!document.querySelector('#config-notification-style')) {
+            const style = document.createElement('style');
+            style.id = 'config-notification-style';
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
     }
 
     showSuggestions(query) {
@@ -386,7 +451,18 @@ class GeographyGame {
 
     async getAdminSettings() {
         try {
-            // First try to load from config.json
+            // First try to load from shared config (highest priority)
+            const sharedConfig = localStorage.getItem('sharedGameConfig');
+            if (sharedConfig) {
+                const config = JSON.parse(sharedConfig);
+                console.log('Config loaded from shared storage:', config);
+                return {
+                    mode: config.gameMode,
+                    specificCountry: config.specificCountry
+                };
+            }
+            
+            // Then try to load from config.json
             try {
                 console.log('Attempting to load config.json...');
                 const response = await fetch('config.json?v=' + Date.now());

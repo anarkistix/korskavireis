@@ -133,73 +133,7 @@ function autoSaveSettings() {
     console.log('Auto-saved settings:', config);
 }
 
-// Show config modal
-function showConfigModal(configText) {
-    // Remove existing modal if any
-    const existingModal = document.getElementById('config-modal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-    
-    // Create modal
-    const modal = document.createElement('div');
-    modal.id = 'config-modal';
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    `;
-    
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        max-width: 600px;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    `;
-    
-    modalContent.innerHTML = `
-        <h3 style="margin-top: 0; color: #333;">Config.json innhold</h3>
-        <p style="color: #666; margin-bottom: 1rem;">Kopier dette innholdet til config.json filen:</p>
-        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 12px; border: 1px solid #ddd;">${configText}</pre>
-        <div style="margin-top: 1rem; text-align: center;">
-            <button onclick="copyConfigToClipboard()" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-right: 0.5rem;">Kopier til utklippstavle</button>
-            <button onclick="closeConfigModal()" style="background: #666; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Lukk</button>
-        </div>
-    `;
-    
-    modal.appendChild(modalContent);
-    document.body.appendChild(modal);
-}
 
-// Copy config to clipboard
-function copyConfigToClipboard() {
-    const configText = document.querySelector('#config-modal pre').textContent;
-    navigator.clipboard.writeText(configText).then(() => {
-        alert('Config-innhold kopiert til utklippstavlen!');
-    }).catch(err => {
-        console.error('Kunne ikke kopiere til utklippstavlen:', err);
-        alert('Kunne ikke kopiere automatisk. Kopier manuelt fra boksen over.');
-    });
-}
-
-// Close config modal
-function closeConfigModal() {
-    const modal = document.getElementById('config-modal');
-    if (modal) {
-        modal.remove();
-    }
-}
 
 // Apply game settings
 function applyGameSettings() {
@@ -218,14 +152,83 @@ function applyGameSettings() {
         specificCountry: gameMode === 'specific' ? specificCountry : null
     }));
     
-    console.log('Config to save:', config);
+    // Also store in a shared config key
+    localStorage.setItem('sharedGameConfig', JSON.stringify(config));
     
-    // Show config content in a modal or alert
-    const configText = JSON.stringify(config, null, 2);
-    const message = `Innstillinger lagret i localStorage!\n\nFor permanent lagring, oppdater config.json med følgende innhold:\n\n${configText}\n\nSpillet vil bruke innstillingene umiddelbart fra localStorage.`;
+    // Try to notify the main game if it's open
+    try {
+        // Send message to all open windows
+        window.postMessage({
+            type: 'CONFIG_UPDATED',
+            config: config
+        }, '*');
+        
+        // Also try to notify parent window if admin was opened from game
+        if (window.opener) {
+            window.opener.postMessage({
+                type: 'CONFIG_UPDATED',
+                config: config
+            }, '*');
+        }
+    } catch (e) {
+        console.log('Could not send message to game window:', e);
+    }
     
-    // Create a modal to show the config content
-    showConfigModal(configText);
+    console.log('Config saved and broadcasted:', config);
+    
+    // Show success message
+    showSuccessMessage('Innstillinger lagret! Spillet vil bruke de nye innstillingene umiddelbart.');
+}
+
+// Show success message
+function showSuccessMessage(message) {
+    // Remove existing message if any
+    const existingMessage = document.getElementById('success-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create success message
+    const messageDiv = document.createElement('div');
+    messageDiv.id = 'success-message';
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    messageDiv.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.2rem;">✓</span>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    // Add CSS animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    document.body.appendChild(messageDiv);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 3000);
 }
 
 // Test current settings
