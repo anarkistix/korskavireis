@@ -337,7 +337,30 @@ class GeographyGame {
         this.hintUsed = false;
         this.populationHintUsed = false;
         
-        // Velg et tilfeldig land fra datasettet
+        // Sjekk admin-innstillinger
+        const adminSettings = this.getAdminSettings();
+        
+        if (adminSettings && adminSettings.mode === 'specific' && adminSettings.specificCountry) {
+            // Bruk spesifikt land fra admin
+            const specificCountry = this.countries.find(c => c.name === adminSettings.specificCountry);
+            if (specificCountry) {
+                this.currentCountry = specificCountry;
+                console.log(`Admin: Spill startet med spesifikt land: ${this.currentCountry.name}`);
+            } else {
+                console.log(`Admin: Spesifikt land "${adminSettings.specificCountry}" ikke funnet, bruker tilfeldig`);
+                this.selectRandomCountry();
+            }
+        } else {
+            // Bruk tilfeldig land (standard)
+            this.selectRandomCountry();
+        }
+        
+        this.updateStats();
+        this.resetUI();
+        this.displayCountryImage();
+    }
+
+    selectRandomCountry() {
         if (this.countries.length > 0) {
             const randomIndex = Math.floor(Math.random() * this.countries.length);
             this.currentCountry = this.countries[randomIndex];
@@ -354,10 +377,16 @@ class GeographyGame {
                 imageFile: 'norway.png'
             };
         }
-        
-        this.updateStats();
-        this.resetUI();
-        this.displayCountryImage();
+    }
+
+    getAdminSettings() {
+        try {
+            const settings = localStorage.getItem('adminGameSettings');
+            return settings ? JSON.parse(settings) : null;
+        } catch (error) {
+            console.error('Feil ved henting av admin-innstillinger:', error);
+            return null;
+        }
     }
 
     displayCountryOutline() {

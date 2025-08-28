@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korskavireis - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <h2>🔐 Admin Tilgang</h2>
+            <p>Skriv inn passord for å få tilgang til admin-panelet</p>
+            <input type="password" id="admin-password" placeholder="Passord" />
+            <button onclick="login()" class="admin-btn">Logg inn</button>
+            <p id="login-error" class="error-message"></p>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="admin-panel" style="display: none;">
+        <header class="admin-header">
+            <h1>🎮 Korskavireis Admin Panel</h1>
+            <button onclick="logout()" class="logout-btn">Logg ut</button>
+        </header>
+
+        <main class="admin-main">
+            <div class="admin-section">
+                <h2>🎯 Spill Kontroll</h2>
+                <div class="control-group">
+                    <label for="game-mode">Spillmodus:</label>
+                    <select id="game-mode" onchange="toggleCountrySelect()">
+                        <option value="random">Tilfeldig land</option>
+                        <option value="specific">Spesifikt land</option>
+                    </select>
+                </div>
+                
+                <div id="country-select-group" class="control-group" style="display: none;">
+                    <label for="specific-country">Velg land:</label>
+                    <select id="specific-country">
+                        <!-- Vil bli fylt dynamisk -->
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <button onclick="applyGameSettings()" class="admin-btn">Bruk innstillinger</button>
+                    <button onclick="testCurrentSettings()" class="admin-btn secondary">Test nåværende innstillinger</button>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h2>🔍 Land Data Søkt</h2>
+                <div class="search-group">
+                    <input type="text" id="country-search" placeholder="Søk etter land..." />
+                    <button onclick="searchCountry()" class="admin-btn">Søk</button>
+                </div>
+                
+                <div id="country-data" class="country-data-display" style="display: none;">
+                    <h3 id="selected-country-name">Land Navn</h3>
+                    
+                    <div class="data-grid">
+                        <div class="data-item">
+                            <label>ISO3 Kode:</label>
+                            <span id="country-iso3">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Kontinent:</label>
+                            <span id="country-continent">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Region:</label>
+                            <span id="country-region">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Befolkning:</label>
+                            <span id="country-population">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Befolkningsår:</label>
+                            <span id="country-population-year">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Nåværende bilde:</label>
+                            <span id="country-image-file">-</span>
+                        </div>
+                    </div>
+
+                    <div class="image-preview">
+                        <h4>Nåværende kart:</h4>
+                        <img id="current-country-image" src="" alt="Land kart" />
+                    </div>
+
+                    <div class="upload-section">
+                        <h4>Last opp nytt kart:</h4>
+                        <input type="file" id="new-country-image" accept="image/*" />
+                        <button onclick="uploadNewImage()" class="admin-btn">Last opp</button>
+                    </div>
+
+                    <div class="edit-section">
+                        <h4>Rediger data:</h4>
+                        <div class="edit-form">
+                            <div class="form-group">
+                                <label for="edit-population">Befolkning:</label>
+                                <input type="number" id="edit-population" />
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-population-year">Befolkningsår:</label>
+                                <input type="number" id="edit-population-year" min="1900" max="2030" />
+                            </div>
+                            <button onclick="saveCountryData()" class="admin-btn">Lagre endringer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h2>📊 System Status</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span class="status-label">Totalt antall land:</span>
+                        <span id="total-countries" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Land med bilder:</span>
+                        <span id="countries-with-images" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Land med flagg:</span>
+                        <span id="countries-with-flags" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Land med befolkningsdata:</span>
+                        <span id="countries-with-population" class="status-value">-</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
