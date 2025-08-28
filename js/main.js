@@ -805,9 +805,6 @@ class GeographyGame {
     }
 
     updateStats() {
-        document.getElementById('attempts').textContent = this.attempts;
-        document.getElementById('max-attempts').textContent = this.maxAttempts;
-        document.getElementById('games-played').textContent = this.gamesPlayed;
     }
 
     showMessage(message, type = 'info') {
