@@ -140,12 +140,18 @@
         d3.json('countries.geojson').then(function(data) {
             console.log('GeoJSON data lastet:', data);
             
-            // Oppdater projection til å passe dataene
-            projection.fitSize([width, height], data);
+            // Oppdater projection til å passe de filtrerte dataene
+            projection.fitSize([width, height], {type: "FeatureCollection", features: filteredFeatures});
+            
+            // Filtrer bort Antarktis (AQ)
+            const filteredFeatures = data.features.filter(feature => {
+                const cca2 = feature.properties.cca2;
+                return cca2 && cca2.toUpperCase() !== 'AQ';
+            });
             
             // Tegn landene
             svg.selectAll('path')
-                .data(data.features)
+                .data(filteredFeatures)
                 .enter()
                 .append('path')
                 .attr('class', function(d) {
@@ -171,17 +177,19 @@
             
             // Logg statistikk
             const totalCountries = data.features.length;
-            const norwayFound = data.features.some(d => {
+            const countriesWithoutAntarctica = filteredFeatures.length;
+            const norwayFound = filteredFeatures.some(d => {
                 const cca2 = d.properties.cca2;
                 return cca2 && cca2.toUpperCase() === 'NO';
             });
             
-            console.log(`Totalt antall land: ${totalCountries}`);
+            console.log(`Totalt antall land (inkl. Antarktis): ${totalCountries}`);
+            console.log(`Antall land (uten Antarktis): ${countriesWithoutAntarctica}`);
             console.log(`Norge funnet: ${norwayFound}`);
             
             // Vis noen eksempler på landkoder
-            console.log('Eksempler på landkoder:');
-            data.features.slice(0, 10).forEach(d => {
+            console.log('Eksempler på landkoder (uten Antarktis):');
+            filteredFeatures.slice(0, 10).forEach(d => {
                 const cca2 = d.properties.cca2;
                 console.log(`- ${cca2}`);
             });
