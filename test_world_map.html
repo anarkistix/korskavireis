@@ -323,26 +323,46 @@
             // Initialiser stroke-width basert på start zoom-nivå (1x)
             svg.selectAll('path.country').style('stroke-width', '0.8px');
             
-            // Zoom inn på Norge ved start
+            // Zoom inn på Norge ved start - fyll enten høyde eller bredde
             const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
             if (norwayFeature) {
+                // Beregn bounding box for Norge
+                const norwayBounds = d3.geoBounds(norwayFeature);
+                const norwayWidth = norwayBounds[1][0] - norwayBounds[0][0];
+                const norwayHeight = norwayBounds[1][1] - norwayBounds[0][1];
+                
+                // Beregn zoom-faktor basert på hva som fyller først
+                const scaleX = width / (norwayWidth * projection.scale());
+                const scaleY = height / (norwayHeight * projection.scale());
+                const scale = Math.min(scaleX, scaleY) * 0.8; // 80% av maksimal fylling
+                
                 // Beregn sentrum av Norge
                 const norwayCenter = d3.geoCentroid(norwayFeature);
                 const [norwayX, norwayY] = projection(norwayCenter);
                 
-                // Opprett zoom-transform for Norge (3x zoom)
+                // Opprett zoom-transform for Norge
                 const zoomTransform = d3.zoomIdentity
                     .translate(width / 2, height / 2)
-                    .scale(3)
+                    .scale(scale)
                     .translate(-norwayX, -norwayY);
                 
                 // Anvend zoom-transform
                 svg.selectAll('path').attr('transform', zoomTransform);
                 
-                // Oppdater stroke-width for zoom-nivå 3x
-                svg.selectAll('path.country').style('stroke-width', '0.4px');
+                // Oppdater stroke-width basert på zoom-nivå
+                let strokeWidth;
+                if (scale <= 1.5) {
+                    strokeWidth = 0.8;
+                } else if (scale <= 3) {
+                    strokeWidth = 0.4;
+                } else if (scale <= 5) {
+                    strokeWidth = 0.24;
+                } else {
+                    strokeWidth = 0.16;
+                }
+                svg.selectAll('path.country').style('stroke-width', strokeWidth + 'px');
                 
-                console.log('Zoomet inn på Norge ved start');
+                console.log(`Zoomet inn på Norge ved start - Scale: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px`);
             }
             
             // Logg statistikk
