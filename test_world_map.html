@@ -263,6 +263,7 @@
         // Last GeoJSON-data
         d3.json('countries.geojson').then(function(data) {
             console.log('GeoJSON data lastet:', data);
+            console.log('Antall land i data:', data.features.length);
             
             // Filtrer bort Antarktis (AQ)
             const filteredFeatures = data.features.filter(feature => {
@@ -272,6 +273,7 @@
             
             // Oppdater projection til å passe de filtrerte dataene
             projection.fitSize([width, height], {type: "FeatureCollection", features: filteredFeatures});
+            console.log('Projeksjon konfigurert - Scale:', projection.scale(), 'Translate:', projection.translate());
             
             // Beregn Norge-zoom først
             const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
@@ -298,7 +300,7 @@
                     .scale(scale)
                     .translate(-norwayX, -norwayY);
                 
-                console.log(`Norge zoom-transform opprettet - Scale: ${scale.toFixed(2)}x`);
+                console.log(`Norge zoom-transform opprettet - Scale: ${scale.toFixed(2)}x, Norge sentrum: (${norwayX.toFixed(2)}, ${norwayY.toFixed(2)})`);
             }
             
             // Tegn landene
@@ -354,10 +356,11 @@
             
             // Anvend Norge-zoom hvis tilgjengelig
             if (norwayZoomTransform) {
-                // Bruk D3.js zoom behavior til å sette initial zoom
-                svg.call(zoom.transform, norwayZoomTransform);
-                
-                console.log(`Zoomet inn på Norge ved start - Scale: ${norwayZoomTransform.k.toFixed(2)}x`);
+                // Bruk setTimeout for å sikre at zoom anvendes etter at alt er tegnet
+                setTimeout(() => {
+                    svg.call(zoom.transform, norwayZoomTransform);
+                    console.log(`Zoomet inn på Norge ved start - Scale: ${norwayZoomTransform.k.toFixed(2)}x`);
+                }, 100);
             }
             
             // Logg statistikk
