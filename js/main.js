@@ -784,7 +784,7 @@ class GeographyGame {
         // Reset hint-knapp
         const hintBtn = document.getElementById('hint-btn');
         if (hintBtn) {
-            hintBtn.querySelector('h4').textContent = 'Vis flagg som hint';
+            hintBtn.querySelector('h4').textContent = 'Hint 1: Flagg';
             hintBtn.disabled = false;
             hintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }
@@ -795,7 +795,7 @@ class GeographyGame {
         // Reset befolkningshint-knapp
         const populationHintBtn = document.getElementById('population-hint-btn');
         if (populationHintBtn) {
-            populationHintBtn.querySelector('h4').textContent = 'Vis befolkning som hint';
+            populationHintBtn.querySelector('h4').textContent = 'Hint 2: Befolkning';
             populationHintBtn.disabled = false;
             populationHintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }

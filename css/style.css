@@ -387,7 +387,7 @@ main {
 .hint-card {
     text-align: center;
     padding: 1.5rem;
-    background: #f8f9fa;
+    background: #e9ecef;
     border: none;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -432,7 +432,7 @@ main {
 .hint-flag {
     text-align: center;
     padding: 1.5rem;
-    background: #f8f9fa;
+    background: #e9ecef;
     border: none;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -460,7 +460,7 @@ main {
 .population-hint {
     text-align: center;
     padding: 1.5rem;
-    background: #f8f9fa;
+    background: #e9ecef;
     border: none;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -485,7 +485,7 @@ main {
 }
 
 .population-hint-btn {
-    background: #f8f9fa !important;
+    background: #e9ecef !important;
     margin: 0;
 }
 
