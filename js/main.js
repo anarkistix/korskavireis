@@ -642,7 +642,7 @@ class GeographyGame {
                     detailsDiv.innerHTML = '<span style="color: #28a745; font-weight: 600;">✓ Riktig!</span>';
                 } else {
                     if (distance !== null && direction !== null) {
-                        detailsDiv.innerHTML = `<span style="color: #666;"><strong>${guessedCountry.name}</strong>. Landet ligger <strong>${Math.round(distance)} km ${direction}</strong> for landet vi skal fram til</span>`;
+                        detailsDiv.innerHTML = `<span style="color: #666;"><strong>${guessedCountry.name}</strong>. Landet vi skal fram til ligger <strong>${Math.round(distance)} km ${direction}</strong> for <strong>${guessedCountry.name}</strong></span>`;
                     } else {
                         detailsDiv.innerHTML = '<span style="color: #666;">Feil gjetting</span>';
                     }
