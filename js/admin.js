@@ -84,24 +84,27 @@ function applyGameSettings() {
     // Store settings in localStorage for the game to use
     localStorage.setItem('adminGameSettings', JSON.stringify(settings));
     
-    // Force the game to reload settings immediately
-    if (window.opener && window.opener.game) {
-        // If admin is opened from game window, force reload
-        window.opener.location.reload();
-        alert('Innstillinger lagret og spillet lastes på nytt!');
-    } else {
-        alert('Innstillinger lagret! Gå til spillet og trykk F5 (eller Cmd+R) for å laste innstillingene.');
-    }
+    // Trigger storage event to notify other windows
+    window.dispatchEvent(new StorageEvent('storage', {
+        key: 'adminGameSettings',
+        newValue: JSON.stringify(settings)
+    }));
+    
+    alert('Innstillinger lagret! Spillet vil automatisk oppdatere seg hvis det er åpent i en annen fane.');
 }
 
 // Test current settings
 function testCurrentSettings() {
-    const settings = localStorage.getItem('adminGameSettings');
-    if (settings) {
-        const parsedSettings = JSON.parse(settings);
-        alert(`Nåværende innstillinger:\nModus: ${parsedSettings.mode}\nSpesifikt land: ${parsedSettings.specificCountry || 'Ikke satt'}`);
+    const adminSettings = localStorage.getItem('adminGameSettings');
+    if (adminSettings) {
+        const settings = JSON.parse(adminSettings);
+        let message = `Nåværende innstillinger:\nModus: ${settings.mode}`;
+        if (settings.mode === 'specific' && settings.specificCountry) {
+            message += `\nSpesifikt land: ${settings.specificCountry}`;
+        }
+        alert(message);
     } else {
-        alert('Ingen admin-innstillinger satt. Spillet bruker standard tilfeldig modus.');
+        alert('Ingen admin-innstillinger funnet.');
     }
 }
 

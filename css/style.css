@@ -248,15 +248,7 @@ main {
     transform: translateY(-2px);
 }
 
-.game-btn.admin {
-    background: #ffc107;
-    color: #333;
-}
 
-.game-btn.admin:hover {
-    background: #e0a800;
-    transform: translateY(-2px);
-}
 
 .message-container {
     margin-top: 1rem;
