@@ -737,7 +737,21 @@ class GeographyGame {
     }
 }
 
-// Initialiser spillet når DOM er lastet
+// Admin panel functions
+function openAdmin() {
+    window.open('admin.html', 'admin', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+}
+
+// Check for admin settings on page load
 document.addEventListener('DOMContentLoaded', () => {
     window.game = new GeographyGame();
+    
+    // Check if there are admin settings and show notification
+    const adminSettings = localStorage.getItem('adminGameSettings');
+    if (adminSettings) {
+        const settings = JSON.parse(adminSettings);
+        if (settings.mode === 'specific' && settings.specificCountry) {
+            console.log('Admin: Spesifikt land satt til:', settings.specificCountry);
+        }
+    }
 });

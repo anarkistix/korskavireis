@@ -84,7 +84,14 @@ function applyGameSettings() {
     // Store settings in localStorage for the game to use
     localStorage.setItem('adminGameSettings', JSON.stringify(settings));
     
-    alert('Innstillinger lagret! Spillet vil bruke disse innstillingene ved neste oppstart.');
+    // Force the game to reload settings immediately
+    if (window.opener && window.opener.game) {
+        // If admin is opened from game window, force reload
+        window.opener.location.reload();
+        alert('Innstillinger lagret og spillet lastes på nytt!');
+    } else {
+        alert('Innstillinger lagret! Gå til spillet og trykk F5 (eller Cmd+R) for å laste innstillingene.');
+    }
 }
 
 // Test current settings
