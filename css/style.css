@@ -98,7 +98,7 @@ main {
     flex-direction: column;
     align-items: center;
     margin: 1rem auto;
-    max-width: 550px;
+    max-width: 600px;
     width: 100%;
 }
 
@@ -387,6 +387,7 @@ main {
     gap: 1rem;
     flex-wrap: wrap;
     flex-direction: row;
+    min-width: 400px;
 }
 
 .hint-card {
@@ -398,8 +399,9 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     cursor: pointer;
-    width: 200px;
+    width: 180px;
     margin: 0;
+    flex-shrink: 0;
 }
 
 .hint-card:hover {
@@ -436,11 +438,12 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 200px;
+    width: 180px;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .hint-flag img {
@@ -461,11 +464,12 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 200px;
+    width: 180px;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .population-hint span {
@@ -640,12 +644,13 @@ img {
     .hint-container {
         flex-direction: column;
         gap: 0.75rem;
+        min-width: auto;
     }
     
     .hint-card,
     .hint-flag,
     .population-hint {
-        width: 180px;
+        width: 160px;
         padding: 1.25rem;
     }
     
@@ -687,12 +692,13 @@ img {
     .hint-container {
         flex-direction: column;
         gap: 0.5rem;
+        min-width: auto;
     }
     
     .hint-card,
     .hint-flag,
     .population-hint {
-        width: 160px;
+        width: 140px;
         padding: 1rem;
     }
     
