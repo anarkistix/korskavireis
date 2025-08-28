@@ -227,6 +227,14 @@ main {
     background: #c82333;
 }
 
+#google-maps-btn {
+    background: #17a2b8;
+}
+
+#google-maps-btn:hover {
+    background: #138496;
+}
+
 
 
 

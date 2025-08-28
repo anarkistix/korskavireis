@@ -188,6 +188,12 @@ class GeographyGame {
             this.giveUp();
         });
 
+        // Google Maps-knapp
+        document.getElementById('google-maps-btn').addEventListener('click', () => {
+            console.log('Google Maps-knapp klikket');
+            this.openGoogleMaps();
+        });
+
         // Hint-knapp
         const hintBtn = document.getElementById('hint-btn');
         if (hintBtn) {
@@ -772,6 +778,7 @@ class GeographyGame {
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('submit-btn').style.display = 'none';
         document.getElementById('give-up-btn').style.display = 'none';
+        document.getElementById('google-maps-btn').style.display = 'block';
     }
 
     resetUI() {
@@ -781,6 +788,7 @@ class GeographyGame {
         document.getElementById('new-game-btn').style.display = 'none';
         document.getElementById('submit-btn').style.display = 'block';
         document.getElementById('give-up-btn').style.display = 'block';
+        document.getElementById('google-maps-btn').style.display = 'none';
         this.clearMessages();
         
         // Tøm feedback-container
@@ -891,12 +899,21 @@ class GeographyGame {
         document.getElementById('submit-btn').style.display = 'none';
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('new-game-btn').style.display = 'block';
+        document.getElementById('google-maps-btn').style.display = 'block';
         
         // Deaktiver input
         document.getElementById('country-input').disabled = true;
         
         // Sett spill som avsluttet
         this.isGameActive = false;
+    }
+
+    openGoogleMaps() {
+        if (this.currentCountry && this.currentCountry.google_maps_url) {
+            window.open(this.currentCountry.google_maps_url, '_blank');
+        } else {
+            this.showMessage('Google Maps link ikke tilgjengelig for dette landet', 'error');
+        }
     }
 
     showConfigUpdateNotification() {
