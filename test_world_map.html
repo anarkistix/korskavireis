@@ -140,14 +140,14 @@
         d3.json('countries.geojson').then(function(data) {
             console.log('GeoJSON data lastet:', data);
             
-            // Oppdater projection til å passe de filtrerte dataene
-            projection.fitSize([width, height], {type: "FeatureCollection", features: filteredFeatures});
-            
             // Filtrer bort Antarktis (AQ)
             const filteredFeatures = data.features.filter(feature => {
                 const cca2 = feature.properties.cca2;
                 return cca2 && cca2.toUpperCase() !== 'AQ';
             });
+            
+            // Oppdater projection til å passe de filtrerte dataene
+            projection.fitSize([width, height], {type: "FeatureCollection", features: filteredFeatures});
             
             // Tegn landene
             svg.selectAll('path')
