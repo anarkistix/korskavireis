@@ -323,6 +323,10 @@
                             <span class="data-label">Hovedstad koordinater:</span>
                             <span class="data-value">${formatCapitalCoordinates(country.capital_coordinates) || '<span class="missing">Mangler</span>'}</span>
                         </div>
+                        <div class="data-item">
+                            <span class="data-label">Region:</span>
+                            <span class="data-value">${country.region || '<span class="missing">Mangler</span>'}</span>
+                        </div>
                     </div>
                     
                     ${imageSrc ? `<img src="${imageSrc}" alt="${country.name} kart" class="country-image" onerror="this.style.display='none'">` : ''}

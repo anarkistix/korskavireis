@@ -344,6 +344,8 @@ function displayCountryData(country) {
         document.getElementById('country-capital-coordinates').textContent = '-';
     }
     
+    document.getElementById('country-region').textContent = country.region || '-';
+    
     // Display current image
     const imageElement = document.getElementById('current-country-image');
     const imageFile = country.imageFile || country.image_file;

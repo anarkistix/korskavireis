@@ -11,6 +11,7 @@ class GeographyGame {
         this.hintUsed = false;
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
+        this.regionHintUsed = false;
         
         this.init();
     }
@@ -215,12 +216,19 @@ class GeographyGame {
         }
 
         // Hovedstadshint-knapp
-        const capitalHintBtn = document.getElementById('capital-hint-btn');
-        if (capitalHintBtn) {
-            capitalHintBtn.addEventListener('click', () => {
-                this.showCapitalHint();
-            });
-        }
+                        const capitalHintBtn = document.getElementById('capital-hint-btn');
+                if (capitalHintBtn) {
+                    capitalHintBtn.addEventListener('click', () => {
+                        this.showCapitalHint();
+                    });
+                }
+                
+                const regionHintBtn = document.getElementById('region-hint-btn');
+                if (regionHintBtn) {
+                    regionHintBtn.addEventListener('click', () => {
+                        this.showRegionHint();
+                    });
+                }
 
         // Nytt spill-knapp
         document.getElementById('new-game-btn').addEventListener('click', () => {
@@ -428,6 +436,7 @@ class GeographyGame {
         this.hintUsed = false;
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
+        this.regionHintUsed = false;
         
         // Sjekk admin-innstillinger
         const adminSettings = await this.getAdminSettings();
@@ -845,6 +854,17 @@ class GeographyGame {
         
         // Reset hovedstadshint
         document.getElementById('capital-hint').style.display = 'none';
+
+        // Reset regionhint-knapp
+        const regionHintBtn = document.getElementById('region-hint-btn');
+        if (regionHintBtn) {
+            regionHintBtn.querySelector('h4').textContent = 'Hint 4: Region';
+            regionHintBtn.disabled = false;
+            regionHintBtn.style.display = 'inline-block'; // Vis knappen igjen
+        }
+        
+        // Reset regionhint
+        document.getElementById('region-hint').style.display = 'none';
     }
 
     updateStats() {
@@ -935,6 +955,27 @@ class GeographyGame {
             capitalHintBtn.querySelector('h4').textContent = 'Ingen hovedstadsdata tilgjengelig';
             capitalHintBtn.disabled = true;
             this.capitalHintUsed = true;
+        }
+    }
+
+    showRegionHint() {
+        if (!this.currentCountry || this.regionHintUsed) {
+            return;
+        }
+
+        const regionHint = document.getElementById('region-hint');
+        const regionText = document.getElementById('region-text');
+        const regionHintBtn = document.getElementById('region-hint-btn');
+
+        if (this.currentCountry.region) {
+            regionText.textContent = this.currentCountry.region;
+            regionHint.style.display = 'inline-block';
+            regionHintBtn.style.display = 'none';
+            this.regionHintUsed = true;
+        } else {
+            regionHintBtn.querySelector('h4').textContent = 'Ingen regionsdata tilgjengelig';
+            regionHintBtn.disabled = true;
+            this.regionHintUsed = true;
         }
     }
     
