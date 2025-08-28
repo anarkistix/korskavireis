@@ -98,7 +98,7 @@ main {
     flex-direction: column;
     align-items: center;
     margin: 1rem auto;
-    max-width: 600px;
+    max-width: 800px;
     width: 100%;
 }
 
@@ -380,14 +380,9 @@ main {
 /* Hint container */
 .hint-container {
     margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     width: 100%;
-    gap: 1rem;
-    flex-wrap: wrap;
-    flex-direction: row;
-    min-width: 400px;
+    border: 2px solid red; /* Debug: Vis container-grense */
 }
 
 .hint-card {
@@ -400,8 +395,10 @@ main {
     transition: transform 0.3s ease;
     cursor: pointer;
     width: 180px;
-    margin: 0;
-    flex-shrink: 0;
+    margin: 0 0.5rem;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid blue; /* Debug: Vis hint-grense */
 }
 
 .hint-card:hover {
@@ -439,11 +436,9 @@ main {
     animation: slideIn 0.3s ease;
     cursor: pointer;
     width: 180px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+    margin: 0 0.5rem;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .hint-flag img {
@@ -465,11 +460,9 @@ main {
     animation: slideIn 0.3s ease;
     cursor: pointer;
     width: 180px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+    margin: 0 0.5rem;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .population-hint span {
@@ -642,9 +635,7 @@ img {
     }
     
     .hint-container {
-        flex-direction: column;
-        gap: 0.75rem;
-        min-width: auto;
+        text-align: center;
     }
     
     .hint-card,
@@ -690,9 +681,7 @@ img {
     }
     
     .hint-container {
-        flex-direction: column;
-        gap: 0.5rem;
-        min-width: auto;
+        text-align: center;
     }
     
     .hint-card,
