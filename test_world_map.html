@@ -58,38 +58,35 @@
         }
         
         .country.china {
-            fill: #FFF9C4;
+            fill: #FF9800;
         }
         
         .country.china:hover {
-            fill: #FFF59D;
+            fill: #FFB74D;
         }
         
         .country.france {
-            fill: #FFF9C4;
+            fill: #FF9800;
         }
         
         .country.france:hover {
-            fill: #FFF59D;
+            fill: #FFB74D;
         }
         
         .country.sweden {
-            fill: #FFF9C4;
+            fill: #FF9800;
         }
         
         .country.sweden:hover {
-            fill: #FFF59D;
+            fill: #FFB74D;
         }
         
         .pin {
-            fill: #FF5722;
-            stroke: #fff;
-            stroke-width: 2;
             font-family: Arial, sans-serif;
-            font-weight: bold;
-            font-size: 12px;
+            font-size: 24px;
             text-anchor: middle;
             dominant-baseline: middle;
+            pointer-events: none;
         }
         
         .info {
@@ -124,7 +121,7 @@
         }
         
         .marked-color {
-            background: #FFF9C4;
+            background: #FF9800;
         }
         
         .other-color {
@@ -141,7 +138,7 @@
         <div class="info">
             <h3>ℹ️ Informasjon</h3>
             <p>Dette er en test som viser et verdenskart basert på GeoJSON-data fra <a href="https://github.com/Stefie/geojson-world" target="_blank">Stefie/geojson-world</a>.</p>
-            <p><strong>Norge</strong> er markert i <strong>grønn farge</strong>, <strong>Kina</strong>, <strong>Frankrike</strong> og <strong>Sverige</strong> er markert i <strong>lys gul farge</strong> med pin-numre, mens alle andre land er i <strong>grå farge</strong>.</p>
+            <p><strong>Norge</strong> er markert i <strong>grønn farge</strong>, <strong>Kina</strong>, <strong>Frankrike</strong> og <strong>Sverige</strong> er markert i <strong>oransje farge</strong> med emoji-numre, mens alle andre land er i <strong>grå farge</strong>.</p>
             <p>Hover over landene for å se dem lysere, og klikk for å se landets navn i konsollen.</p>
         </div>
         
@@ -152,7 +149,7 @@
             </div>
             <div class="legend-item">
                 <div class="legend-color marked-color"></div>
-                <span>Markerte land (Kina, Frankrike, Sverige)</span>
+                <span>Markerte land (Kina, Frankrike, Sverige) med emoji-numre</span>
             </div>
             <div class="legend-item">
                 <div class="legend-color other-color"></div>
@@ -225,11 +222,11 @@
                     d3.select(this).style('stroke-width', '0.5');
                 });
             
-            // Legg til pin-markører for spesifikke land
+            // Legg til emoji-markører for spesifikke land
             const pinData = [
-                { country: 'CN', number: 1, name: 'Kina' },
-                { country: 'FR', number: 2, name: 'Frankrike' },
-                { country: 'SE', number: 3, name: 'Sverige' }
+                { country: 'CN', number: 1, emoji: '1️⃣', name: 'Kina' },
+                { country: 'FR', number: 2, emoji: '2️⃣', name: 'Frankrike' },
+                { country: 'SE', number: 3, emoji: '3️⃣', name: 'Sverige' }
             ];
             
             pinData.forEach(pin => {
@@ -239,19 +236,12 @@
                     const center = d3.geoCentroid(countryFeature);
                     const [x, y] = projection(center);
                     
-                    // Tegn pin (sirkel med nummer)
-                    svg.append('circle')
-                        .attr('class', 'pin')
-                        .attr('cx', x)
-                        .attr('cy', y - 15) // Litt over sentrum
-                        .attr('r', 12);
-                    
-                    // Legg til nummeret
+                    // Legg til emoji-nummeret
                     svg.append('text')
                         .attr('class', 'pin')
                         .attr('x', x)
-                        .attr('y', y - 15)
-                        .text(pin.number);
+                        .attr('y', y - 20) // Litt over sentrum
+                        .text(pin.emoji);
                 }
             });
             
