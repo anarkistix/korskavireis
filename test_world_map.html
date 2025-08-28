@@ -279,20 +279,32 @@
             const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
             let norwayZoomTransform = null;
             
+            console.log('Søker etter Norge...');
+            console.log('Norge feature funnet:', !!norwayFeature);
+            
             if (norwayFeature) {
+                console.log('Norge feature:', norwayFeature.properties);
+                
                 // Beregn bounding box for Norge
                 const norwayBounds = d3.geoBounds(norwayFeature);
+                console.log('Norge bounds:', norwayBounds);
+                
                 const norwayWidth = norwayBounds[1][0] - norwayBounds[0][0];
                 const norwayHeight = norwayBounds[1][1] - norwayBounds[0][1];
+                console.log('Norge dimensjoner:', { width: norwayWidth, height: norwayHeight });
                 
                 // Beregn zoom-faktor basert på hva som fyller først
                 const scaleX = width / (norwayWidth * projection.scale());
                 const scaleY = height / (norwayHeight * projection.scale());
                 const scale = Math.min(scaleX, scaleY) * 0.8; // 80% av maksimal fylling
                 
+                console.log('Zoom beregninger:', { scaleX, scaleY, scale, projectionScale: projection.scale() });
+                
                 // Beregn sentrum av Norge
                 const norwayCenter = d3.geoCentroid(norwayFeature);
                 const [norwayX, norwayY] = projection(norwayCenter);
+                
+                console.log('Norge sentrum:', { geo: norwayCenter, projected: [norwayX, norwayY] });
                 
                 // Opprett zoom-transform for Norge
                 norwayZoomTransform = d3.zoomIdentity
@@ -301,6 +313,9 @@
                     .translate(-norwayX, -norwayY);
                 
                 console.log(`Norge zoom-transform opprettet - Scale: ${scale.toFixed(2)}x, Norge sentrum: (${norwayX.toFixed(2)}, ${norwayY.toFixed(2)})`);
+                console.log('Zoom transform:', norwayZoomTransform);
+            } else {
+                console.log('Norge feature IKKE funnet!');
             }
             
             // Tegn landene
@@ -355,12 +370,19 @@
             svg.selectAll('path.country').style('stroke-width', '0.8px');
             
             // Anvend Norge-zoom hvis tilgjengelig
+            console.log('Sjekker om Norge zoom-transform er tilgjengelig...');
+            console.log('norwayZoomTransform:', norwayZoomTransform);
+            
             if (norwayZoomTransform) {
+                console.log('Anvender Norge zoom-transform...');
                 // Bruk setTimeout for å sikre at zoom anvendes etter at alt er tegnet
                 setTimeout(() => {
+                    console.log('Anvender zoom-transform nå...');
                     svg.call(zoom.transform, norwayZoomTransform);
                     console.log(`Zoomet inn på Norge ved start - Scale: ${norwayZoomTransform.k.toFixed(2)}x`);
                 }, 100);
+            } else {
+                console.log('Ingen Norge zoom-transform tilgjengelig!');
             }
             
             // Logg statistikk
