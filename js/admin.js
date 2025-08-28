@@ -90,7 +90,13 @@ function applyGameSettings() {
         newValue: JSON.stringify(settings)
     }));
     
-    alert('Innstillinger lagret! Spillet vil automatisk oppdatere seg hvis det er åpent i en annen fane.');
+    // Try to reload the game window if it exists
+    if (window.opener && window.opener.location.href.includes('index.html')) {
+        window.opener.location.reload();
+        alert('Innstillinger lagret og spillet lastes på nytt!');
+    } else {
+        alert('Innstillinger lagret! Gå til spillet og trykk F5 (eller Cmd+R) for å laste innstillingene.');
+    }
 }
 
 // Test current settings
@@ -105,6 +111,16 @@ function testCurrentSettings() {
         alert(message);
     } else {
         alert('Ingen admin-innstillinger funnet.');
+    }
+}
+
+// Force new game
+function forceNewGame() {
+    if (window.opener && window.opener.game) {
+        window.opener.game.startNewGame();
+        alert('Nytt spill startet!');
+    } else {
+        alert('Spillet må være åpent i en annen fane for å starte nytt spill.');
     }
 }
 

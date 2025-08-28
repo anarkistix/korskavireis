@@ -339,6 +339,7 @@ class GeographyGame {
         
         // Sjekk admin-innstillinger
         const adminSettings = this.getAdminSettings();
+        console.log('Admin-innstillinger ved start av nytt spill:', adminSettings);
         
         if (adminSettings && adminSettings.mode === 'specific' && adminSettings.specificCountry) {
             // Bruk spesifikt land fra admin
@@ -348,10 +349,12 @@ class GeographyGame {
                 console.log(`Admin: Spill startet med spesifikt land: ${this.currentCountry.name}`);
             } else {
                 console.log(`Admin: Spesifikt land "${adminSettings.specificCountry}" ikke funnet, bruker tilfeldig`);
+                console.log('Tilgjengelige land:', this.countries.map(c => c.name).slice(0, 10));
                 this.selectRandomCountry();
             }
         } else {
             // Bruk tilfeldig land (standard)
+            console.log('Admin: Ingen spesifikt land satt, bruker tilfeldig');
             this.selectRandomCountry();
         }
         
