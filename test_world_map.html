@@ -82,14 +82,7 @@
             fill: #FFB74D;
         }
         
-        .pin {
-            font-family: Arial, sans-serif;
-            font-size: 24px; /* Standard størrelse som vil bli oppdatert dynamisk */
-            text-anchor: middle;
-            dominant-baseline: middle;
-            pointer-events: none;
-            z-index: 1000;
-        }
+
         
         /* Mobil-optimalisering */
         @media (max-width: 768px) {
@@ -123,9 +116,7 @@
                 font-size: 14px;
             }
             
-            .pin {
-                font-size: 20px; /* Mindre standard størrelse på mobil */
-            }
+
         }
         
         /* 9:16 format optimalisering */
@@ -151,9 +142,7 @@
                 font-size: 12px;
             }
             
-            .pin {
-                font-size: 16px; /* Enda mindre standard størrelse på små skjermer */
-            }
+
         }
         
         .info {
@@ -205,7 +194,7 @@
         <div class="info">
             <h3>ℹ️ Informasjon</h3>
             <p>Dette er en test som viser et verdenskart basert på GeoJSON-data fra <a href="https://github.com/Stefie/geojson-world" target="_blank">Stefie/geojson-world</a>.</p>
-            <p><strong>Norge</strong> er markert i <strong>grønn farge</strong>, <strong>Kina</strong>, <strong>Frankrike</strong> og <strong>Sverige</strong> er markert i <strong>oransje farge</strong> med emoji-numre, mens alle andre land er i <strong>grå farge</strong>.</p>
+            <p><strong>Norge</strong> er markert i <strong>grønn farge</strong>, <strong>Kina</strong>, <strong>Frankrike</strong> og <strong>Sverige</strong> er markert i <strong>oransje farge</strong>, mens alle andre land er i <strong>grå farge</strong>.</p>
             <p>Hover over landene for å se dem lysere, og klikk for å se landets navn i konsollen.</p>
         </div>
         
@@ -216,7 +205,7 @@
             </div>
             <div class="legend-item">
                 <div class="legend-color marked-color"></div>
-                <span>Markerte land (Kina, Frankrike, Sverige) med emoji-numre</span>
+                <span>Markerte land (Kina, Frankrike, Sverige)</span>
             </div>
             <div class="legend-item">
                 <div class="legend-color other-color"></div>
@@ -239,7 +228,6 @@
                 .scaleExtent([1, 8])
                 .on('zoom', function(event) {
                     svg.selectAll('path').attr('transform', event.transform);
-                    svg.selectAll('.pin').attr('transform', event.transform);
                     
                     // Dynamisk stroke-width basert på zoom-nivå
                     const scale = event.transform.k;
@@ -258,23 +246,10 @@
                     // Oppdater stroke-width for alle land
                     svg.selectAll('path.country').style('stroke-width', strokeWidth + 'px');
                     
-                    // Dynamisk emoji-størrelse basert på zoom-nivå
-                    let emojiSize;
-                    if (scale <= 1.5) {
-                        emojiSize = 24; // Mindre emojier for verdensoversikt
-                    } else if (scale <= 3) {
-                        emojiSize = 28; // Medium emojier for kontinent-zoom
-                    } else if (scale <= 5) {
-                        emojiSize = 32; // Større emojier for land-zoom
-                    } else {
-                        emojiSize = 36; // Meget store emojier for detalj-zoom
-                    }
-                    
-                    // Oppdater emoji-størrelse
-                    svg.selectAll('.pin').style('font-size', emojiSize + 'px');
+
                     
                     // Logg zoom-nivå for debugging
-                    console.log(`Zoom: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px, Emoji-size: ${emojiSize}px`);
+                    console.log(`Zoom: ${scale.toFixed(2)}x, Stroke-width: ${strokeWidth}px`);
                 }));
         
         // Opprett projection (Mercator)
@@ -324,73 +299,26 @@
                 })
                 .on('mouseover', function(event, d) {
                     const cca2 = d.properties.cca2;
-                    // Hent gjeldende zoom-nivå
-                    const currentTransform = d3.zoomTransform(svg.node());
-                    const scale = currentTransform.k;
-                    
-                    let hoverStrokeWidth;
-                    if (scale <= 1.5) {
-                        hoverStrokeWidth = 2;
-                    } else if (scale <= 3) {
-                        hoverStrokeWidth = 1;
-                    } else if (scale <= 5) {
-                        hoverStrokeWidth = 0.6;
-                    } else {
-                        hoverStrokeWidth = 0.4;
-                    }
-                    
-                    d3.select(this).style('stroke-width', hoverStrokeWidth + 'px');
+                    d3.select(this).style('fill', '#999');
                 })
                 .on('mouseout', function(event, d) {
-                    // Gjenopprett dynamisk stroke-width basert på zoom-nivå
-                    const currentTransform = d3.zoomTransform(svg.node());
-                    const scale = currentTransform.k;
+                    // Gjenopprett original farge basert på land-type
+                    const cca2 = d.properties.cca2;
+                    const isNorway = cca2 && cca2.toUpperCase() === 'NO';
+                    const isChina = cca2 && cca2.toUpperCase() === 'CN';
+                    const isFrance = cca2 && cca2.toUpperCase() === 'FR';
+                    const isSweden = cca2 && cca2.toUpperCase() === 'SE';
                     
-                    let strokeWidth;
-                    if (scale <= 1.5) {
-                        strokeWidth = 1;
-                    } else if (scale <= 3) {
-                        strokeWidth = 0.5;
-                    } else if (scale <= 5) {
-                        strokeWidth = 0.3;
+                    if (isNorway) {
+                        d3.select(this).style('fill', '#4CAF50');
+                    } else if (isChina || isFrance || isSweden) {
+                        d3.select(this).style('fill', '#FF9800');
                     } else {
-                        strokeWidth = 0.2;
+                        d3.select(this).style('fill', '#ccc');
                     }
-                    
-                    d3.select(this).style('stroke-width', strokeWidth + 'px');
                 });
             
-            // Legg til emoji-markører for spesifikke land
-            const pinData = [
-                { country: 'CN', number: 1, emoji: '1️⃣', name: 'Kina' },
-                { country: 'FR', number: 2, emoji: '2️⃣', name: 'Frankrike' },
-                { country: 'SE', number: 3, emoji: '3️⃣', name: 'Sverige' }
-            ];
-            
-            pinData.forEach(pin => {
-                const countryFeature = filteredFeatures.find(f => f.properties.cca2 === pin.country);
-                if (countryFeature) {
-                    // Beregn sentrum av landet
-                    const center = d3.geoCentroid(countryFeature);
-                    const [x, y] = projection(center);
-                    
-                    console.log(`Plasserer ${pin.emoji} for ${pin.name} på posisjon (${x}, ${y})`);
-                    
-                    // Legg til emoji-nummeret
-                    svg.append('text')
-                        .attr('class', 'pin')
-                        .attr('x', x)
-                        .attr('y', y - 20) // Litt over sentrum
-                        .text(pin.emoji)
-                        .style('fill', '#000000')
-                        .style('stroke', '#ffffff')
-                        .style('stroke-width', '2px')
-                        .style('paint-order', 'stroke')
-                        .attr('data-emoji', pin.emoji); // Lagre emoji for senere referanse
-                } else {
-                    console.log(`Fant ikke land med kode ${pin.country} for ${pin.name}`);
-                }
-            });
+
             
             // Initialiser stroke-width basert på start zoom-nivå (1x)
             svg.selectAll('path.country').style('stroke-width', '1px');
