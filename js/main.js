@@ -49,7 +49,7 @@ class GeographyGame {
                     iso3: country.iso3,
                     continent: country.continent,
                     region: country.region,
-                    imageFile: country.image_file,
+                    imageFile: country.imageFile,
                     flagFile: country.flagFile,
                     population: country.population,
                     populationYear: country.population_year,
