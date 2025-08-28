@@ -276,11 +276,19 @@
             console.log('Projeksjon konfigurert - Scale:', projection.scale(), 'Translate:', projection.translate());
             
             // Beregn Norge-zoom først
-            const norwayFeature = filteredFeatures.find(f => f.properties.cca2 === 'NO');
-            let norwayZoomTransform = null;
-            
             console.log('Søker etter Norge...');
+            
+            // Sjekk alle landkoder for å finne Norge
+            const norwayFeature = filteredFeatures.find(f => {
+                const cca2 = f.properties.cca2;
+                const name = f.properties.name;
+                console.log(`Land: ${name} (${cca2})`);
+                return cca2 === 'NO' || name === 'Norway' || name === 'Norge';
+            });
+            
             console.log('Norge feature funnet:', !!norwayFeature);
+            
+            let norwayZoomTransform = null;
             
             if (norwayFeature) {
                 console.log('Norge feature:', norwayFeature.properties);
