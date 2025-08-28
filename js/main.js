@@ -535,16 +535,37 @@ class GeographyGame {
         const countryImage = document.getElementById('country-image');
         const loadingIndicator = document.getElementById('loading-indicator');
         
+        console.log('displayCountryImage kalt');
+        console.log('currentCountry:', this.currentCountry);
+        
         if (this.currentCountry && this.currentCountry.imageFile) {
+            console.log('Viser bilde for:', this.currentCountry.name);
+            console.log('Bildefil:', this.currentCountry.imageFile);
+            
             // Skjul loading-indikator og vis bildet
             loadingIndicator.style.display = 'none';
             countryImage.style.display = 'block';
             
-            countryImage.src = `country_images/${this.currentCountry.imageFile}`;
+            const imagePath = `country_images/${this.currentCountry.imageFile}`;
+            console.log('Bildesti:', imagePath);
+            
+            countryImage.src = imagePath;
             countryImage.alt = `Landomriss av ${this.currentCountry.name}`;
+            
+            // Error handler for bilde
+            countryImage.onerror = () => {
+                console.error('Feil ved lasting av bilde:', imagePath);
+                this.showMessage('Feil ved lasting av landets bilde', 'error');
+            };
+            
+            countryImage.onload = () => {
+                console.log('Bilde lastet vellykket:', imagePath);
+            };
             
             // Vis hint-knappen når landet vises
             document.getElementById('hint-container').style.display = 'block';
+        } else {
+            console.log('Ingen currentCountry eller imageFile');
         }
     }
     
