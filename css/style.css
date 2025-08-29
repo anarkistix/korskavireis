@@ -524,7 +524,7 @@ main {
 
 .hint-flag {
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     background: #e9ecef;
     border: none;
     border-radius: 15px;
@@ -553,7 +553,7 @@ main {
 
 .population-hint {
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     background: #e9ecef;
     border: none;
     border-radius: 15px;
@@ -574,7 +574,7 @@ main {
 
 .capital-hint {
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     background: #e9ecef;
     border: none;
     border-radius: 15px;
@@ -595,7 +595,7 @@ main {
 
 .region-hint {
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     background: #e9ecef;
     border: none;
     border-radius: 15px;
