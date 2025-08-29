@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-01-35",
-  "commit": "73b1996",
-  "tag": "v1.4.7-stable",
-  "description": "Debugging av endGame og revealAllHints funksjoner - sporer funksjonskall",
-  "last_updated": "2025-08-30T01:35:00.000000"
+  "build": "2025-08-30-01-45",
+  "commit": "7e82876",
+  "tag": "v1.4.8-stable",
+  "description": "Fikset TypeError for undefined borders - naboland-hint skal nå fungere",
+  "last_updated": "2025-08-30T01:45:00.000000"
 }

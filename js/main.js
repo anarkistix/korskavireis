@@ -1414,9 +1414,9 @@ class GeographyGame {
             this.bordersHintUsed = true;
         } else if (this.currentCountry.borders && this.currentCountry.borders.length > 0) {
             const borders = this.currentLanguage === 'no' ? 
-                this.currentCountry.borders_no : 
+                (this.currentCountry.borders_no || this.currentCountry.borders) : 
                 this.currentCountry.borders;
-            bordersText.textContent = borders.join(', ');
+            bordersText.textContent = Array.isArray(borders) ? borders.join(', ') : borders;
             bordersHint.style.display = 'inline-block';
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
@@ -1485,9 +1485,9 @@ class GeographyGame {
                 bordersText.textContent = this.getText('island_no_borders');
             } else if (this.currentCountry.borders && this.currentCountry.borders.length > 0) {
                 const borders = this.currentLanguage === 'no' ? 
-                    this.currentCountry.borders_no : 
+                    (this.currentCountry.borders_no || this.currentCountry.borders) : 
                     this.currentCountry.borders;
-                bordersText.textContent = borders.join(', ');
+                bordersText.textContent = Array.isArray(borders) ? borders.join(', ') : borders;
             } else {
                 bordersText.textContent = this.getText('no_borders_data');
             }
