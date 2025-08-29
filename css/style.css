@@ -380,9 +380,9 @@ main {
 
 .hint-card {
     text-align: center;
-    padding: 1.5rem;
-    background: #e9ecef;
-    border: none;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -394,6 +394,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 30;
 }
 
 /* Spesifikke posisjoner for hver knapp */
@@ -423,26 +424,7 @@ main {
     opacity: 0.7;
 }
 
-.hint-card {
-    position: relative;
-    width: 180px;
-    height: 140px;
-    background: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: inherit;
-    margin: 0;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 30;
-}
+
 
 .lock-overlay {
     position: absolute;
