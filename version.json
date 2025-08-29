@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-02-05",
-  "commit": "712e3e5",
-  "tag": "v1.4.10-stable",
-  "description": "Ekstra spacing fix for desktop - margin-bottom på hint-container og margin-top på game-controls",
-  "last_updated": "2025-08-30T02:05:00.000000"
+  "build": "2025-08-30-02-15",
+  "commit": "db4c5ce",
+  "tag": "v1.4.11-stable",
+  "description": "Komplett mobil layout fix - reduserte hint-container høyde og lagt til breakpoint for ≤360px skjermer",
+  "last_updated": "2025-08-30T02:15:00.000000"
 }
