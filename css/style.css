@@ -443,6 +443,21 @@ main {
     left: 0;
 }
 
+#population-lock-overlay {
+    top: 0;
+    right: 0;
+}
+
+#capital-lock-overlay {
+    bottom: 0;
+    left: 0;
+}
+
+#region-lock-overlay {
+    bottom: 0;
+    right: 0;
+}
+
 .lock-icon {
     font-size: 2rem;
     color: white;

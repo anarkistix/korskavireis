@@ -207,13 +207,22 @@ class GeographyGame {
             });
         }
 
-        // Lock-overlay for hint 1
-        const lockOverlay = document.getElementById('hint-lock-overlay');
-        if (lockOverlay) {
-            lockOverlay.addEventListener('click', () => {
-                this.showLockMessage();
-            });
-        }
+        // Lock-overlays for alle hint
+        const lockOverlays = [
+            { id: 'hint-lock-overlay', attempts: 1 },
+            { id: 'population-lock-overlay', attempts: 2 },
+            { id: 'capital-lock-overlay', attempts: 3 },
+            { id: 'region-lock-overlay', attempts: 4 }
+        ];
+
+        lockOverlays.forEach(overlay => {
+            const element = document.getElementById(overlay.id);
+            if (element) {
+                element.addEventListener('click', () => {
+                    this.showLockMessage(overlay.attempts);
+                });
+            }
+        });
 
         // Befolkningshint-knapp
         const populationHintBtn = document.getElementById('population-hint-btn');
@@ -667,10 +676,8 @@ class GeographyGame {
 
         this.attempts++;
 
-        // Lås opp hint 1 etter første forsøk
-        if (this.attempts === 1) {
-            this.unlockHint1();
-        }
+        // Sjekk og lås opp hint basert på antall forsøk
+        this.checkAndUnlockHints();
 
         if (guessedCountry.name === this.currentCountry.name) {
             // Riktig gjetting
@@ -835,18 +842,8 @@ class GeographyGame {
         document.getElementById('country-image').style.display = 'none';
         document.getElementById('loading-indicator').style.display = 'block';
         
-        // Reset hint-knapp og lås den igjen
-        const hintBtn = document.getElementById('hint-btn');
-        const lockOverlay = document.getElementById('hint-lock-overlay');
-        if (hintBtn) {
-            hintBtn.querySelector('h4').textContent = 'Hint 1: Flagg';
-            hintBtn.disabled = false;
-            hintBtn.style.display = 'inline-block'; // Vis knappen igjen
-            hintBtn.classList.add('locked'); // Lås hint 1 igjen
-        }
-        if (lockOverlay) {
-            lockOverlay.style.display = 'flex'; // Vis lock-overlay igjen
-        }
+        // Reset og lås alle hint igjen
+        this.resetAllHints();
         
         // Reset hint-flag
         document.getElementById('hint-flag').style.display = 'none';
@@ -910,7 +907,7 @@ class GeographyGame {
     }
 
     showHint() {
-        if (!this.currentCountry || this.hintUsed) {
+        if (!this.currentCountry || this.hintUsed || this.attempts < 1) {
             return;
         }
 
@@ -931,10 +928,10 @@ class GeographyGame {
         }
     }
 
-    showLockMessage() {
+    showLockMessage(requiredAttempts) {
         const message = document.createElement('div');
         message.className = 'lock-message';
-        message.textContent = 'Du må gjette først før du kan bruke hint!';
+        message.textContent = `Du må gjette ${requiredAttempts} gang${requiredAttempts > 1 ? 'er' : ''} før du kan bruke dette hintet!`;
         document.body.appendChild(message);
         
         // Fjern meldingen etter animasjonen
@@ -945,9 +942,42 @@ class GeographyGame {
         }, 2000);
     }
 
-    unlockHint1() {
-        const hintBtn = document.getElementById('hint-btn');
-        const lockOverlay = document.getElementById('hint-lock-overlay');
+    checkAndUnlockHints() {
+        // Hint 1: Låst opp etter 1 forsøk
+        if (this.attempts >= 1) {
+            this.unlockHint(1);
+        }
+        
+        // Hint 2: Låst opp etter 2 forsøk
+        if (this.attempts >= 2) {
+            this.unlockHint(2);
+        }
+        
+        // Hint 3: Låst opp etter 3 forsøk
+        if (this.attempts >= 3) {
+            this.unlockHint(3);
+        }
+        
+        // Hint 4: Låst opp etter 4 forsøk
+        if (this.attempts >= 4) {
+            this.unlockHint(4);
+        }
+    }
+
+    unlockHint(hintNumber) {
+        const hintConfigs = {
+            1: { btnId: 'hint-btn', overlayId: 'hint-lock-overlay' },
+            2: { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay' },
+            3: { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay' },
+            4: { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay' }
+        };
+
+        const config = hintConfigs[hintNumber];
+        if (!config) return;
+
+        const hintBtn = document.getElementById(config.btnId);
+        const lockOverlay = document.getElementById(config.overlayId);
+        
         if (hintBtn) {
             hintBtn.classList.remove('locked');
         }
@@ -956,8 +986,37 @@ class GeographyGame {
         }
     }
 
+    unlockHint1() {
+        this.unlockHint(1);
+    }
+
+    resetAllHints() {
+        const hintConfigs = [
+            { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', text: 'Hint 1: Flagg' },
+            { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', text: 'Hint 2: Befolkning' },
+            { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', text: 'Hint 3: Hovedstad' },
+            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', text: 'Hint 4: Region' }
+        ];
+
+        hintConfigs.forEach(config => {
+            const hintBtn = document.getElementById(config.btnId);
+            const lockOverlay = document.getElementById(config.overlayId);
+            
+            if (hintBtn) {
+                hintBtn.querySelector('h4').textContent = config.text;
+                hintBtn.disabled = false;
+                hintBtn.style.display = 'inline-block';
+                hintBtn.classList.add('locked');
+            }
+            
+            if (lockOverlay) {
+                lockOverlay.style.display = 'flex';
+            }
+        });
+    }
+
     showPopulationHint() {
-        if (!this.currentCountry || this.populationHintUsed) {
+        if (!this.currentCountry || this.populationHintUsed || this.attempts < 2) {
             return;
         }
 
@@ -981,7 +1040,7 @@ class GeographyGame {
     }
 
     showCapitalHint() {
-        if (!this.currentCountry || this.capitalHintUsed) {
+        if (!this.currentCountry || this.capitalHintUsed || this.attempts < 3) {
             return;
         }
 
@@ -1002,7 +1061,7 @@ class GeographyGame {
     }
 
     showRegionHint() {
-        if (!this.currentCountry || this.regionHintUsed) {
+        if (!this.currentCountry || this.regionHintUsed || this.attempts < 4) {
             return;
         }
 
