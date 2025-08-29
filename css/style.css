@@ -441,7 +441,7 @@ main {
     margin: 0;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 60;
+    z-index: 10;
 }
 
 .lock-overlay {
@@ -539,7 +539,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 20;
 }
 
 .hint-flag img {
@@ -569,7 +569,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 20;
 }
 
 .capital-hint {
@@ -590,7 +590,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 20;
 }
 
 .region-hint {
@@ -611,7 +611,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 20;
 }
 
 .population-hint span {
