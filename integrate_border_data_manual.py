@@ -196,6 +196,12 @@ def integrate_border_data():
             'MC': 'MCO',  # Monaco
             'SM': 'SMR',  # San Marino
             'VA': 'VAT',  # Vatican City
+            'IR': 'IRN',  # Iran
+            'AO': 'AGO',  # Angola
+            'HT': 'HTI',  # Haiti
+            'DO': 'DOM',  # Dominican Republic
+            'PH': 'PHL',  # Philippines
+            'MG': 'MDG',  # Madagascar
         }
         
         # Create reverse mapping
