@@ -69,6 +69,8 @@ class GeographyGame {
         return this.translations[this.currentLanguage]?.[key] || key;
     }
 
+
+
     async updateLanguage(lang) {
         this.currentLanguage = lang;
         this.updateUIText();
@@ -918,12 +920,12 @@ class GeographyGame {
                 detailsDiv.className = 'feedback-details';
                 
                 if (isCorrect) {
-                    detailsDiv.innerHTML = `<span style="color: #28a745; font-weight: 600;"><strong>${guessedCountry.name}</strong> 🎉🎉🎉 RIKTIG 🎉🎉🎉</span>`;
+                    detailsDiv.innerHTML = `<span style="color: #28a745; font-weight: 600;"><strong>${guessedCountry.name}</strong> 🎉🎉🎉 ${this.getText('feedback_correct')} 🎉🎉🎉</span>`;
                 } else {
                     if (distance !== null && direction !== null) {
-                        detailsDiv.innerHTML = `<span style="color: #666;"><strong>${guessedCountry.name}</strong>. Landet vi skal fram til ligger <strong>${Math.round(distance)} km ${direction}</strong> for <strong>${guessedCountry.name}</strong></span>`;
+                        detailsDiv.innerHTML = `<span style="color: #666;"><strong>${guessedCountry.name}</strong>. ${this.getText('feedback_distance')} <strong>${Math.round(distance)} ${this.getText('feedback_km')} ${direction}</strong> ${this.getText('feedback_for')} <strong>${guessedCountry.name}</strong></span>`;
                     } else {
-                        detailsDiv.innerHTML = '<span style="color: #666;">Feil gjetting</span>';
+                        detailsDiv.innerHTML = `<span style="color: #666;">${this.getText('feedback_wrong')}</span>`;
                     }
                 }
                 
@@ -975,33 +977,33 @@ class GeographyGame {
         // Definer 8 hovedretninger med presise vinkler
         if (angle >= 337.5 || angle < 22.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: nord`);
-            return 'nord';
+            return this.getText('direction_north');
         } else if (angle >= 22.5 && angle < 67.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: nordøst`);
-            return 'nordøst';
+            return this.getText('direction_northeast');
         } else if (angle >= 67.5 && angle < 112.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: øst`);
-            return 'øst';
+            return this.getText('direction_east');
         } else if (angle >= 112.5 && angle < 157.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: sørøst`);
-            return 'sørøst';
+            return this.getText('direction_southeast');
         } else if (angle >= 157.5 && angle < 202.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: sør`);
-            return 'sør';
+            return this.getText('direction_south');
         } else if (angle >= 202.5 && angle < 247.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: sørvest`);
-            return 'sørvest';
+            return this.getText('direction_southwest');
         } else if (angle >= 247.5 && angle < 292.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: vest`);
-            return 'vest';
+            return this.getText('direction_west');
         } else if (angle >= 292.5 && angle < 337.5) {
             console.log(`Vinkel ${angle.toFixed(2)}° gir retning: nordvest`);
-            return 'nordvest';
+            return this.getText('direction_northwest');
         }
         
         // Dette burde aldri skje, men for sikkerhets skyld
         console.log(`Vinkel ${angle.toFixed(2)}° gir fallback: nord`);
-        return 'nord';
+        return this.getText('direction_north');
     }
 
     endGame(won) {
