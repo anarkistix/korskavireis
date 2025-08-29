@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-00-45",
-  "commit": "1c4bef7",
-  "tag": "v1.4.2-stable",
-  "description": "Fikset naboland-data - Iran, Angola, Haiti, Dominican Republic har nå riktige naboland",
-  "last_updated": "2025-08-30T00:45:00.000000"
+  "build": "2025-08-30-00-55",
+  "commit": "a4f9da0",
+  "tag": "v1.4.3-stable",
+  "description": "Oppdatert export.html med all landdata - fjell, naboland, Google Maps lenker",
+  "last_updated": "2025-08-30T00:55:00.000000"
 }

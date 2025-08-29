@@ -243,6 +243,18 @@
                 <div class="stat-number" id="countries-with-capital">-</div>
                 <div class="stat-label">Land med hovedstadsdata</div>
             </div>
+            <div class="stat-item">
+                <div class="stat-number" id="countries-with-mountain">-</div>
+                <div class="stat-label">Land med fjelldata</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="countries-with-borders">-</div>
+                <div class="stat-label">Land med naboland</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="total-islands">-</div>
+                <div class="stat-label">Øyer</div>
+            </div>
         </div>
 
         <div class="countries-grid" id="countries-container">
@@ -327,6 +339,26 @@
                             <span class="data-label">Region:</span>
                             <span class="data-value">${country.region || '<span class="missing">Mangler</span>'}</span>
                         </div>
+                        <div class="data-item">
+                            <span class="data-label">Høyeste fjell:</span>
+                            <span class="data-value">${country.highest_mountain || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Fjellhøyde:</span>
+                            <span class="data-value">${formatMountainHeight(country) || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Naboland:</span>
+                            <span class="data-value">${formatBorders(country) || '<span class="missing">Mangler</span>'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Øy-status:</span>
+                            <span class="data-value">${country.is_island ? 'Ja' : 'Nei'}</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">Google Maps:</span>
+                            <span class="data-value">${country.google_maps_url ? '<a href="' + country.google_maps_url + '" target="_blank">🔗 Åpne</a>' : '<span class="missing">Mangler</span>'}</span>
+                        </div>
                     </div>
                     
                     ${imageSrc ? `<img src="${imageSrc}" alt="${country.name} kart" class="country-image" onerror="this.style.display='none'">` : ''}
@@ -344,18 +376,49 @@
             return `${lat}, ${lon}`;
         }
 
+        function formatMountainHeight(country) {
+            if (!country.highest_mountain) return null;
+            
+            const meters = country.highest_elevation_meters;
+            const feet = country.highest_elevation_feet;
+            
+            if (meters && feet) {
+                return `${meters}m / ${feet}ft`;
+            } else if (meters) {
+                return `${meters}m`;
+            } else if (feet) {
+                return `${feet}ft`;
+            }
+            return null;
+        }
+
+        function formatBorders(country) {
+            if (country.is_island) {
+                return 'Øy (ingen naboland)';
+            } else if (country.borders && country.borders.length > 0) {
+                return country.borders.join(', ');
+            }
+            return null;
+        }
+
         function updateStats() {
             const total = countriesData.length;
             const withImages = countriesData.filter(c => c.imageFile).length;
             const withFlags = countriesData.filter(c => c.flagFile).length;
             const withPopulation = countriesData.filter(c => c.population).length;
             const withCapital = countriesData.filter(c => c.capital).length;
+            const withMountain = countriesData.filter(c => c.highest_mountain).length;
+            const withBorders = countriesData.filter(c => c.borders && c.borders.length > 0).length;
+            const totalIslands = countriesData.filter(c => c.is_island).length;
             
             document.getElementById('total-countries').textContent = total;
             document.getElementById('countries-with-images').textContent = withImages;
             document.getElementById('countries-with-flags').textContent = withFlags;
             document.getElementById('countries-with-population').textContent = withPopulation;
             document.getElementById('countries-with-capital').textContent = withCapital;
+            document.getElementById('countries-with-mountain').textContent = withMountain;
+            document.getElementById('countries-with-borders').textContent = withBorders;
+            document.getElementById('total-islands').textContent = totalIslands;
         }
 
         // Last land når siden laster
