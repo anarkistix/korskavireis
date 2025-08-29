@@ -12,6 +12,7 @@ class GeographyGame {
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
         this.regionHintUsed = false;
+        this.mountainHintUsed = false;
         this.currentLanguage = 'no'; // Default to Norwegian
         this.translations = {};
         
@@ -192,7 +193,8 @@ class GeographyGame {
             'hint-lock-overlay',
             'population-lock-overlay', 
             'capital-lock-overlay',
-            'region-lock-overlay'
+            'region-lock-overlay',
+            'mountain-lock-overlay'
         ];
 
         lockOverlayIds.forEach(id => {
@@ -232,6 +234,9 @@ class GeographyGame {
                     google_maps_url: country.google_maps_url,
                     capital: country.capital,
                     capital_coordinates: country.capital_coordinates,
+                    highest_mountain: country.highest_mountain,
+                    highest_elevation_meters: country.highest_elevation_meters,
+                    highest_elevation_feet: country.highest_elevation_feet,
                     center: center
                 };
             }).filter(country => country.name && country.imageFile);
@@ -433,6 +438,13 @@ class GeographyGame {
                 if (regionHintBtn) {
                     regionHintBtn.addEventListener('click', () => {
                         this.showRegionHint();
+                    });
+                }
+                
+                const mountainHintBtn = document.getElementById('mountain-hint-btn');
+                if (mountainHintBtn) {
+                    mountainHintBtn.addEventListener('click', () => {
+                        this.showMountainHint();
                     });
                 }
 
@@ -643,6 +655,7 @@ class GeographyGame {
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
         this.regionHintUsed = false;
+        this.mountainHintUsed = false;
         
         // Sjekk admin-innstillinger
         const adminSettings = await this.getAdminSettings();
@@ -1069,6 +1082,17 @@ class GeographyGame {
         
         // Reset regionhint
         document.getElementById('region-hint').style.display = 'none';
+
+        // Reset mountainhint-knapp
+        const mountainHintBtn = document.getElementById('mountain-hint-btn');
+        if (mountainHintBtn) {
+            mountainHintBtn.querySelector('h4').textContent = this.getText('hint_5_title');
+            mountainHintBtn.disabled = false;
+            mountainHintBtn.style.display = 'inline-block'; // Vis knappen igjen
+        }
+        
+        // Reset mountainhint
+        document.getElementById('mountain-hint').style.display = 'none';
     }
 
     updateStats() {
@@ -1157,6 +1181,11 @@ class GeographyGame {
         if (this.attempts >= 4) {
             this.unlockHint(4);
         }
+        
+        // Hint 5: Låst opp etter 5 forsøk
+        if (this.attempts >= 5) {
+            this.unlockHint(5);
+        }
     }
 
     unlockHint(hintNumber) {
@@ -1164,7 +1193,8 @@ class GeographyGame {
             1: { btnId: 'hint-btn', overlayId: 'hint-lock-overlay' },
             2: { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay' },
             3: { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay' },
-            4: { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay' }
+            4: { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay' },
+            5: { btnId: 'mountain-hint-btn', overlayId: 'mountain-lock-overlay' }
         };
 
         const config = hintConfigs[hintNumber];
@@ -1190,7 +1220,8 @@ class GeographyGame {
             { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', textKey: 'hint_1_title', contentId: 'hint-flag' },
             { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', textKey: 'hint_2_title', contentId: 'population-hint' },
             { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', textKey: 'hint_3_title', contentId: 'capital-hint' },
-            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', textKey: 'hint_4_title', contentId: 'region-hint' }
+            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', textKey: 'hint_4_title', contentId: 'region-hint' },
+            { btnId: 'mountain-hint-btn', overlayId: 'mountain-lock-overlay', textKey: 'hint_5_title', contentId: 'mountain-hint' }
         ];
 
         hintConfigs.forEach(config => {
@@ -1293,6 +1324,35 @@ class GeographyGame {
             regionHintBtn.querySelector('h4').textContent = this.getText('no_region_data');
             regionHintBtn.disabled = true;
             this.regionHintUsed = true;
+        }
+    }
+
+    showMountainHint() {
+        if (!this.currentCountry || this.mountainHintUsed || this.attempts < 5) {
+            return;
+        }
+
+        const mountainHint = document.getElementById('mountain-hint');
+        const mountainText = document.getElementById('mountain-text');
+        const mountainHintBtn = document.getElementById('mountain-hint-btn');
+        const lockOverlay = document.getElementById('mountain-lock-overlay');
+
+        if (this.currentCountry.highest_mountain) {
+            const mountainName = this.currentCountry.highest_mountain;
+            const elevationMeters = this.currentCountry.highest_elevation_meters;
+            const elevationFeet = this.currentCountry.highest_elevation_feet;
+            mountainText.textContent = `${mountainName} (${elevationMeters}m / ${elevationFeet}ft)`;
+            mountainHint.style.display = 'inline-block';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            // Ikke skjul knappen - la den være synlig
+            this.mountainHintUsed = true;
+        } else {
+            mountainHintBtn.querySelector('h4').textContent = this.getText('no_mountain_data');
+            mountainHintBtn.disabled = true;
+            this.mountainHintUsed = true;
         }
     }
     

@@ -1,0 +1,1163 @@
+{
+  "summary": {
+    "total_countries": 192,
+    "countries_with_mountains": 192,
+    "countries_without_mountains": 0,
+    "coverage_percentage": 100.0
+  },
+  "countries_with_mountains": [
+    {
+      "name": "Egypt",
+      "mountain": "Mount Catherine",
+      "elevation_m": 2629,
+      "elevation_ft": 8625
+    },
+    {
+      "name": "India",
+      "mountain": "Kangchenjunga",
+      "elevation_m": 8586,
+      "elevation_ft": 28169
+    },
+    {
+      "name": "Vatican City",
+      "mountain": "Vatican Hill",
+      "elevation_m": 75,
+      "elevation_ft": 246
+    },
+    {
+      "name": "North Macedonia",
+      "mountain": "Mount Korab",
+      "elevation_m": 2764,
+      "elevation_ft": 9068
+    },
+    {
+      "name": "Tunisia",
+      "mountain": "Jebel ech Chambi",
+      "elevation_m": 1544,
+      "elevation_ft": 5066
+    },
+    {
+      "name": "Niger",
+      "mountain": "Mont Idoukal-n-Taghès",
+      "elevation_m": 2022,
+      "elevation_ft": 6634
+    },
+    {
+      "name": "Iraq",
+      "mountain": "Cheekha Dar",
+      "elevation_m": 3611,
+      "elevation_ft": 11847
+    },
+    {
+      "name": "Morocco",
+      "mountain": "Jbel Toubkal",
+      "elevation_m": 4167,
+      "elevation_ft": 13671
+    },
+    {
+      "name": "Switzerland",
+      "mountain": "Dufourspitze",
+      "elevation_m": 4634,
+      "elevation_ft": 15203
+    },
+    {
+      "name": "South Africa",
+      "mountain": "Mafadi",
+      "elevation_m": 3450,
+      "elevation_ft": 11319
+    },
+    {
+      "name": "Israel",
+      "mountain": "Mount Hermon",
+      "elevation_m": 2236,
+      "elevation_ft": 7336
+    },
+    {
+      "name": "Libya",
+      "mountain": "Bikku Bitti",
+      "elevation_m": 2267,
+      "elevation_ft": 7438
+    },
+    {
+      "name": "Bangladesh",
+      "mountain": "Saka Haphong",
+      "elevation_m": 1052,
+      "elevation_ft": 3451
+    },
+    {
+      "name": "San Marino",
+      "mountain": "Monte Titano",
+      "elevation_m": 739,
+      "elevation_ft": 2425
+    },
+    {
+      "name": "Uruguay",
+      "mountain": "Cerro Catedral",
+      "elevation_m": 514,
+      "elevation_ft": 1686
+    },
+    {
+      "name": "Papua New Guinea",
+      "mountain": "Mount Wilhelm",
+      "elevation_m": 4509,
+      "elevation_ft": 14793
+    },
+    {
+      "name": "Cape Verde",
+      "mountain": "Mount Fogo",
+      "elevation_m": 2829,
+      "elevation_ft": 9281
+    },
+    {
+      "name": "Estonia",
+      "mountain": "Suur Munamägi",
+      "elevation_m": 318,
+      "elevation_ft": 1043
+    },
+    {
+      "name": "Saudi Arabia",
+      "mountain": "Jabal Sawda",
+      "elevation_m": 3000,
+      "elevation_ft": 9843
+    },
+    {
+      "name": "Belize",
+      "mountain": "Doyle's Delight",
+      "elevation_m": 1124,
+      "elevation_ft": 3688
+    },
+    {
+      "name": "Benin",
+      "mountain": "Mont Sokbaro",
+      "elevation_m": 658,
+      "elevation_ft": 2159
+    },
+    {
+      "name": "Luxembourg",
+      "mountain": "Kneiff",
+      "elevation_m": 560,
+      "elevation_ft": 1837
+    },
+    {
+      "name": "New Zealand",
+      "mountain": "Aoraki / Mount Cook",
+      "elevation_m": 3724,
+      "elevation_ft": 12218
+    },
+    {
+      "name": "Kuwait",
+      "mountain": "Mutla Ridge",
+      "elevation_m": 306,
+      "elevation_ft": 1004
+    },
+    {
+      "name": "Syria",
+      "mountain": "Mount Hermon",
+      "elevation_m": 2814,
+      "elevation_ft": 9232
+    },
+    {
+      "name": "Algeria",
+      "mountain": "Mount Tahat",
+      "elevation_m": 2908,
+      "elevation_ft": 9541
+    },
+    {
+      "name": "Mali",
+      "mountain": "Hombori Tondo",
+      "elevation_m": 1155,
+      "elevation_ft": 3789
+    },
+    {
+      "name": "Cyprus",
+      "mountain": "Mount Olympus",
+      "elevation_m": 1952,
+      "elevation_ft": 6404
+    },
+    {
+      "name": "Australia",
+      "mountain": "Mount Kosciuszko",
+      "elevation_m": 2228,
+      "elevation_ft": 7310
+    },
+    {
+      "name": "France",
+      "mountain": "Mont Blanc",
+      "elevation_m": 4809,
+      "elevation_ft": 15777
+    },
+    {
+      "name": "Vietnam",
+      "mountain": "Fansipan",
+      "elevation_m": 3143,
+      "elevation_ft": 10312
+    },
+    {
+      "name": "Serbia",
+      "mountain": "Midžor",
+      "elevation_m": 2169,
+      "elevation_ft": 7116
+    },
+    {
+      "name": "Ukraine",
+      "mountain": "Hoverla",
+      "elevation_m": 2061,
+      "elevation_ft": 6762
+    },
+    {
+      "name": "Antigua and Barbuda",
+      "mountain": "Mount Obama",
+      "elevation_m": 402,
+      "elevation_ft": 1319
+    },
+    {
+      "name": "Denmark",
+      "mountain": "Møllehøj",
+      "elevation_m": 170,
+      "elevation_ft": 558
+    },
+    {
+      "name": "Italy",
+      "mountain": "Monte Bianco",
+      "elevation_m": 4809,
+      "elevation_ft": 15777
+    },
+    {
+      "name": "Cambodia",
+      "mountain": "Phnom Aural",
+      "elevation_m": 1810,
+      "elevation_ft": 5938
+    },
+    {
+      "name": "Equatorial Guinea",
+      "mountain": "Pico Basile",
+      "elevation_m": 3008,
+      "elevation_ft": 9869
+    },
+    {
+      "name": "Iceland",
+      "mountain": "Hvannadalshnúkur",
+      "elevation_m": 2110,
+      "elevation_ft": 6923
+    },
+    {
+      "name": "Georgia",
+      "mountain": "Shkhara",
+      "elevation_m": 5201,
+      "elevation_ft": 17064
+    },
+    {
+      "name": "Lesotho",
+      "mountain": "Thabana Ntlenyana",
+      "elevation_m": 3482,
+      "elevation_ft": 11424
+    },
+    {
+      "name": "Russia",
+      "mountain": "Mount Elbrus",
+      "elevation_m": 5642,
+      "elevation_ft": 18510
+    },
+    {
+      "name": "Bahrain",
+      "mountain": "Jabal ad Dukhan",
+      "elevation_m": 122,
+      "elevation_ft": 400
+    },
+    {
+      "name": "Barbados",
+      "mountain": "Mount Hillaby",
+      "elevation_m": 336,
+      "elevation_ft": 1102
+    },
+    {
+      "name": "Nigeria",
+      "mountain": "Chappal Waddi",
+      "elevation_m": 2419,
+      "elevation_ft": 7936
+    },
+    {
+      "name": "Dominica",
+      "mountain": "Morne Diablotins",
+      "elevation_m": 1447,
+      "elevation_ft": 4747
+    },
+    {
+      "name": "Indonesia",
+      "mountain": "Puncak Jaya",
+      "elevation_m": 4884,
+      "elevation_ft": 16024
+    },
+    {
+      "name": "Bahamas",
+      "mountain": "Mount Alvernia",
+      "elevation_m": 63,
+      "elevation_ft": 207
+    },
+    {
+      "name": "Romania",
+      "mountain": "Moldoveanu Peak",
+      "elevation_m": 2544,
+      "elevation_ft": 8346
+    },
+    {
+      "name": "Canada",
+      "mountain": "Mount Logan",
+      "elevation_m": 5959,
+      "elevation_ft": 19551
+    },
+    {
+      "name": "Saint Kitts and Nevis",
+      "mountain": "Mount Liamuiga",
+      "elevation_m": 1156,
+      "elevation_ft": 3793
+    },
+    {
+      "name": "Togo",
+      "mountain": "Mount Agou",
+      "elevation_m": 986,
+      "elevation_ft": 3235
+    },
+    {
+      "name": "Turkey",
+      "mountain": "Mount Ararat",
+      "elevation_m": 5137,
+      "elevation_ft": 16854
+    },
+    {
+      "name": "Tajikistan",
+      "mountain": "Ismoil Somoni Peak",
+      "elevation_m": 7495,
+      "elevation_ft": 24590
+    },
+    {
+      "name": "Mauritania",
+      "mountain": "Kediet ej Jill",
+      "elevation_m": 915,
+      "elevation_ft": 3002
+    },
+    {
+      "name": "Pakistan",
+      "mountain": "K2",
+      "elevation_m": 8611,
+      "elevation_ft": 28251
+    },
+    {
+      "name": "Colombia",
+      "mountain": "Pico Cristóbal Colón",
+      "elevation_m": 5775,
+      "elevation_ft": 18947
+    },
+    {
+      "name": "Sao Tome and Principe",
+      "mountain": "Pico de São Tomé",
+      "elevation_m": 2024,
+      "elevation_ft": 6640
+    },
+    {
+      "name": "Peru",
+      "mountain": "Huascarán",
+      "elevation_m": 6768,
+      "elevation_ft": 22205
+    },
+    {
+      "name": "Sri Lanka",
+      "mountain": "Pidurutalagala",
+      "elevation_m": 2524,
+      "elevation_ft": 8281
+    },
+    {
+      "name": "Costa Rica",
+      "mountain": "Cerro Chirripó",
+      "elevation_m": 3820,
+      "elevation_ft": 12533
+    },
+    {
+      "name": "Gambia",
+      "mountain": "Red Rock",
+      "elevation_m": 53,
+      "elevation_ft": 174
+    },
+    {
+      "name": "Ecuador",
+      "mountain": "Chimborazo",
+      "elevation_m": 6268,
+      "elevation_ft": 20564
+    },
+    {
+      "name": "Netherlands",
+      "mountain": "Mount Scenery",
+      "elevation_m": 887,
+      "elevation_ft": 2910
+    },
+    {
+      "name": "Albania",
+      "mountain": "Korab",
+      "elevation_m": 2764,
+      "elevation_ft": 9068
+    },
+    {
+      "name": "Jamaica",
+      "mountain": "Blue Mountain Peak",
+      "elevation_m": 2256,
+      "elevation_ft": 7402
+    },
+    {
+      "name": "Honduras",
+      "mountain": "Cerro Las Minas",
+      "elevation_m": 2870,
+      "elevation_ft": 9416
+    },
+    {
+      "name": "Vanuatu",
+      "mountain": "Mount Tabwemasana",
+      "elevation_m": 1879,
+      "elevation_ft": 6165
+    },
+    {
+      "name": "Mongolia",
+      "mountain": "Khüiten Peak",
+      "elevation_m": 4374,
+      "elevation_ft": 14350
+    },
+    {
+      "name": "Slovakia",
+      "mountain": "Gerlachovský štít",
+      "elevation_m": 2655,
+      "elevation_ft": 8711
+    },
+    {
+      "name": "Ethiopia",
+      "mountain": "Ras Dejen",
+      "elevation_m": 4550,
+      "elevation_ft": 14928
+    },
+    {
+      "name": "Iran",
+      "mountain": "Mount Damavand",
+      "elevation_m": 5610,
+      "elevation_ft": 18406
+    },
+    {
+      "name": "Belgium",
+      "mountain": "Signal de Botrange",
+      "elevation_m": 694,
+      "elevation_ft": 2277
+    },
+    {
+      "name": "Malawi",
+      "mountain": "Mount Mulanje",
+      "elevation_m": 3002,
+      "elevation_ft": 9849
+    },
+    {
+      "name": "Oman",
+      "mountain": "Jebel Shams",
+      "elevation_m": 3009,
+      "elevation_ft": 9872
+    },
+    {
+      "name": "Chad",
+      "mountain": "Emi Koussi",
+      "elevation_m": 3445,
+      "elevation_ft": 11304
+    },
+    {
+      "name": "Jordan",
+      "mountain": "Jabal Umm ad Dami",
+      "elevation_m": 1854,
+      "elevation_ft": 6083
+    },
+    {
+      "name": "Suriname",
+      "mountain": "Juliana Top",
+      "elevation_m": 1230,
+      "elevation_ft": 4035
+    },
+    {
+      "name": "Guatemala",
+      "mountain": "Volcán Tajumulco",
+      "elevation_m": 4220,
+      "elevation_ft": 13845
+    },
+    {
+      "name": "Namibia",
+      "mountain": "Königstein",
+      "elevation_m": 2606,
+      "elevation_ft": 8550
+    },
+    {
+      "name": "Grenada",
+      "mountain": "Mount Saint Catherine",
+      "elevation_m": 840,
+      "elevation_ft": 2756
+    },
+    {
+      "name": "East Timor",
+      "mountain": "Mount Ramelau",
+      "elevation_m": 2963,
+      "elevation_ft": 9721
+    },
+    {
+      "name": "Croatia",
+      "mountain": "Dinara",
+      "elevation_m": 1831,
+      "elevation_ft": 6007
+    },
+    {
+      "name": "Tanzania",
+      "mountain": "Mount Kilimanjaro",
+      "elevation_m": 5895,
+      "elevation_ft": 19341
+    },
+    {
+      "name": "Spain",
+      "mountain": "Teide",
+      "elevation_m": 3718,
+      "elevation_ft": 12198
+    },
+    {
+      "name": "Uzbekistan",
+      "mountain": "Khazret Sultan",
+      "elevation_m": 4643,
+      "elevation_ft": 15233
+    },
+    {
+      "name": "Samoa",
+      "mountain": "Mount Silisili",
+      "elevation_m": 1858,
+      "elevation_ft": 6096
+    },
+    {
+      "name": "Angola",
+      "mountain": "Mount Moco",
+      "elevation_m": 2620,
+      "elevation_ft": 8596
+    },
+    {
+      "name": "Monaco",
+      "mountain": "Chemin des Révoires",
+      "elevation_m": 161,
+      "elevation_ft": 528
+    },
+    {
+      "name": "Maldives",
+      "mountain": "Mount Villingili",
+      "elevation_m": 5,
+      "elevation_ft": 16
+    },
+    {
+      "name": "Brunei",
+      "mountain": "Bukit Pagon",
+      "elevation_m": 1850,
+      "elevation_ft": 6070
+    },
+    {
+      "name": "El Salvador",
+      "mountain": "Cerro El Pital",
+      "elevation_m": 2730,
+      "elevation_ft": 8957
+    },
+    {
+      "name": "Uganda",
+      "mountain": "Mount Stanley",
+      "elevation_m": 5109,
+      "elevation_ft": 16762
+    },
+    {
+      "name": "Saint Vincent and the Grenadines",
+      "mountain": "La Soufrière",
+      "elevation_m": 1234,
+      "elevation_ft": 4049
+    },
+    {
+      "name": "Kazakhstan",
+      "mountain": "Khan Tengri",
+      "elevation_m": 7010,
+      "elevation_ft": 23002
+    },
+    {
+      "name": "Trinidad and Tobago",
+      "mountain": "El Cerro del Aripo",
+      "elevation_m": 940,
+      "elevation_ft": 3084
+    },
+    {
+      "name": "Taiwan",
+      "mountain": "Yu Shan",
+      "elevation_m": 3952,
+      "elevation_ft": 12966
+    },
+    {
+      "name": "Laos",
+      "mountain": "Phou Bia",
+      "elevation_m": 2817,
+      "elevation_ft": 9242
+    },
+    {
+      "name": "Liechtenstein",
+      "mountain": "Grauspitz",
+      "elevation_m": 2599,
+      "elevation_ft": 8527
+    },
+    {
+      "name": "South Sudan",
+      "mountain": "Kinyeti",
+      "elevation_m": 3187,
+      "elevation_ft": 10456
+    },
+    {
+      "name": "Bulgaria",
+      "mountain": "Musala",
+      "elevation_m": 2925,
+      "elevation_ft": 9596
+    },
+    {
+      "name": "Haiti",
+      "mountain": "Pic la Selle",
+      "elevation_m": 2680,
+      "elevation_ft": 8793
+    },
+    {
+      "name": "Malta",
+      "mountain": "Ta' Dmejrek",
+      "elevation_m": 253,
+      "elevation_ft": 830
+    },
+    {
+      "name": "Nicaragua",
+      "mountain": "Mogotón",
+      "elevation_m": 2107,
+      "elevation_ft": 6913
+    },
+    {
+      "name": "Djibouti",
+      "mountain": "Moussa Ali",
+      "elevation_m": 2028,
+      "elevation_ft": 6654
+    },
+    {
+      "name": "Germany",
+      "mountain": "Zugspitze",
+      "elevation_m": 2962,
+      "elevation_ft": 9717
+    },
+    {
+      "name": "South Korea",
+      "mountain": "Hallasan",
+      "elevation_m": 1950,
+      "elevation_ft": 6398
+    },
+    {
+      "name": "Kiribati",
+      "mountain": "Banaba Island",
+      "elevation_m": 81,
+      "elevation_ft": 266
+    },
+    {
+      "name": "Yemen",
+      "mountain": "Jabal an-Nabi Shu'ayb",
+      "elevation_m": 3666,
+      "elevation_ft": 12028
+    },
+    {
+      "name": "Tonga",
+      "mountain": "Kao Island",
+      "elevation_m": 1030,
+      "elevation_ft": 3379
+    },
+    {
+      "name": "Guinea",
+      "mountain": "Mount Richard-Molard",
+      "elevation_m": 1752,
+      "elevation_ft": 5748
+    },
+    {
+      "name": "Madagascar",
+      "mountain": "Maromokotro",
+      "elevation_m": 2876,
+      "elevation_ft": 9436
+    },
+    {
+      "name": "Zambia",
+      "mountain": "Mafinga Central",
+      "elevation_m": 2329,
+      "elevation_ft": 7641
+    },
+    {
+      "name": "Norway",
+      "mountain": "Galdhøpiggen",
+      "elevation_m": 2469,
+      "elevation_ft": 8100
+    },
+    {
+      "name": "Liberia",
+      "mountain": "Mount Wuteve",
+      "elevation_m": 1440,
+      "elevation_ft": 4724
+    },
+    {
+      "name": "Eswatini",
+      "mountain": "Emlembe",
+      "elevation_m": 1862,
+      "elevation_ft": 6109
+    },
+    {
+      "name": "Central African Republic",
+      "mountain": "Mont Ngaoui",
+      "elevation_m": 1420,
+      "elevation_ft": 4659
+    },
+    {
+      "name": "Andorra",
+      "mountain": "Coma Pedrosa",
+      "elevation_m": 2943,
+      "elevation_ft": 9656
+    },
+    {
+      "name": "Belarus",
+      "mountain": "Dzyarzhynskaya Hara",
+      "elevation_m": 345,
+      "elevation_ft": 1132
+    },
+    {
+      "name": "Montenegro",
+      "mountain": "Zla Kolata",
+      "elevation_m": 2534,
+      "elevation_ft": 8314
+    },
+    {
+      "name": "Senegal",
+      "mountain": "Unnamed location",
+      "elevation_m": 648,
+      "elevation_ft": 2126
+    },
+    {
+      "name": "United Kingdom",
+      "mountain": "Ben Nevis",
+      "elevation_m": 1345,
+      "elevation_ft": 4413
+    },
+    {
+      "name": "North Korea",
+      "mountain": "Mount Paektu",
+      "elevation_m": 2744,
+      "elevation_ft": 9003
+    },
+    {
+      "name": "Lebanon",
+      "mountain": "Qurnat as Sawda'",
+      "elevation_m": 3088,
+      "elevation_ft": 10133
+    },
+    {
+      "name": "Gabon",
+      "mountain": "Mont Bengoué",
+      "elevation_m": 1070,
+      "elevation_ft": 3510
+    },
+    {
+      "name": "Palau",
+      "mountain": "Mount Ngerchelchuus",
+      "elevation_m": 242,
+      "elevation_ft": 794
+    },
+    {
+      "name": "Portugal",
+      "mountain": "Mount Pico",
+      "elevation_m": 2351,
+      "elevation_ft": 7713
+    },
+    {
+      "name": "Moldova",
+      "mountain": "Bălănești Hill",
+      "elevation_m": 430,
+      "elevation_ft": 1411
+    },
+    {
+      "name": "Dominican Republic",
+      "mountain": "Pico Duarte",
+      "elevation_m": 3098,
+      "elevation_ft": 10164
+    },
+    {
+      "name": "Hungary",
+      "mountain": "Kékes",
+      "elevation_m": 1014,
+      "elevation_ft": 3327
+    },
+    {
+      "name": "Nepal",
+      "mountain": "Mount Everest",
+      "elevation_m": 8848,
+      "elevation_ft": 29029
+    },
+    {
+      "name": "Poland",
+      "mountain": "Rysy",
+      "elevation_m": 2499,
+      "elevation_ft": 8199
+    },
+    {
+      "name": "Latvia",
+      "mountain": "Gaiziņkalns",
+      "elevation_m": 312,
+      "elevation_ft": 1024
+    },
+    {
+      "name": "Mozambique",
+      "mountain": "Mount Binga",
+      "elevation_m": 2436,
+      "elevation_ft": 7992
+    },
+    {
+      "name": "Brazil",
+      "mountain": "Pico da Neblina",
+      "elevation_m": 2995,
+      "elevation_ft": 9826
+    },
+    {
+      "name": "Zimbabwe",
+      "mountain": "Mount Nyangani",
+      "elevation_m": 2592,
+      "elevation_ft": 8504
+    },
+    {
+      "name": "Ghana",
+      "mountain": "Mount Afadjato",
+      "elevation_m": 885,
+      "elevation_ft": 2904
+    },
+    {
+      "name": "Rwanda",
+      "mountain": "Mount Karisimbi",
+      "elevation_m": 4507,
+      "elevation_ft": 14787
+    },
+    {
+      "name": "Finland",
+      "mountain": "Halti",
+      "elevation_m": 1324,
+      "elevation_ft": 4344
+    },
+    {
+      "name": "Singapore",
+      "mountain": "Bukit Timah Hill",
+      "elevation_m": 164,
+      "elevation_ft": 538
+    },
+    {
+      "name": "Solomon Islands",
+      "mountain": "Mount Popomanaseu",
+      "elevation_m": 2335,
+      "elevation_ft": 7661
+    },
+    {
+      "name": "Fiji",
+      "mountain": "Mount Tomanivi",
+      "elevation_m": 1324,
+      "elevation_ft": 4344
+    },
+    {
+      "name": "Argentina",
+      "mountain": "Aconcagua",
+      "elevation_m": 6961,
+      "elevation_ft": 22838
+    },
+    {
+      "name": "Bhutan",
+      "mountain": "Gangkhar Puensum",
+      "elevation_m": 7570,
+      "elevation_ft": 24836
+    },
+    {
+      "name": "Somalia",
+      "mountain": "Shimbiris",
+      "elevation_m": 2450,
+      "elevation_ft": 8038
+    },
+    {
+      "name": "Seychelles",
+      "mountain": "Morne Seychellois",
+      "elevation_m": 905,
+      "elevation_ft": 2969
+    },
+    {
+      "name": "United Arab Emirates",
+      "mountain": "Jabal Yibir",
+      "elevation_m": 1527,
+      "elevation_ft": 5010
+    },
+    {
+      "name": "Mexico",
+      "mountain": "Pico de Orizaba",
+      "elevation_m": 5636,
+      "elevation_ft": 18491
+    },
+    {
+      "name": "Sudan",
+      "mountain": "Deriba Caldera",
+      "elevation_m": 3042,
+      "elevation_ft": 9980
+    },
+    {
+      "name": "United States",
+      "mountain": "Denali",
+      "elevation_m": 6190,
+      "elevation_ft": 20310
+    },
+    {
+      "name": "Congo",
+      "mountain": "Mount Nabemba",
+      "elevation_m": 1020,
+      "elevation_ft": 3346
+    },
+    {
+      "name": "Qatar",
+      "mountain": "Qurayn Abu al Bawl",
+      "elevation_m": 103,
+      "elevation_ft": 338
+    },
+    {
+      "name": "Azerbaijan",
+      "mountain": "Mount Bazardüzü",
+      "elevation_m": 4466,
+      "elevation_ft": 14652
+    },
+    {
+      "name": "Democratic Republic of the Congo",
+      "mountain": "Mount Stanley",
+      "elevation_m": 5109,
+      "elevation_ft": 16762
+    },
+    {
+      "name": "Panama",
+      "mountain": "Volcán Barú",
+      "elevation_m": 3475,
+      "elevation_ft": 11401
+    },
+    {
+      "name": "Ivory Coast",
+      "mountain": "Mount Nimba",
+      "elevation_m": 1752,
+      "elevation_ft": 5748
+    },
+    {
+      "name": "Lithuania",
+      "mountain": "Aukštojas Hill",
+      "elevation_m": 294,
+      "elevation_ft": 965
+    },
+    {
+      "name": "Greece",
+      "mountain": "Mount Olympus",
+      "elevation_m": 2917,
+      "elevation_ft": 9570
+    },
+    {
+      "name": "Kyrgyzstan",
+      "mountain": "Jengish Chokusu",
+      "elevation_m": 7439,
+      "elevation_ft": 24406
+    },
+    {
+      "name": "Bosnia and Herzegovina",
+      "mountain": "Maglić",
+      "elevation_m": 2386,
+      "elevation_ft": 7828
+    },
+    {
+      "name": "Paraguay",
+      "mountain": "Cerro Peró",
+      "elevation_m": 842,
+      "elevation_ft": 2762
+    },
+    {
+      "name": "Thailand",
+      "mountain": "Doi Inthanon",
+      "elevation_m": 2565,
+      "elevation_ft": 8415
+    },
+    {
+      "name": "Austria",
+      "mountain": "Grossglockner",
+      "elevation_m": 3798,
+      "elevation_ft": 12461
+    },
+    {
+      "name": "Eritrea",
+      "mountain": "Emba Soira",
+      "elevation_m": 3018,
+      "elevation_ft": 9902
+    },
+    {
+      "name": "Ireland",
+      "mountain": "Carrauntoohil",
+      "elevation_m": 1038,
+      "elevation_ft": 3405
+    },
+    {
+      "name": "Nauru",
+      "mountain": "Command Ridge",
+      "elevation_m": 71,
+      "elevation_ft": 233
+    },
+    {
+      "name": "Sweden",
+      "mountain": "Kebnekaise",
+      "elevation_m": 2106,
+      "elevation_ft": 6910
+    },
+    {
+      "name": "Cameroon",
+      "mountain": "Mount Cameroon",
+      "elevation_m": 4040,
+      "elevation_ft": 13255
+    },
+    {
+      "name": "Philippines",
+      "mountain": "Mount Apo",
+      "elevation_m": 2954,
+      "elevation_ft": 9692
+    },
+    {
+      "name": "Chile",
+      "mountain": "Ojos del Salado",
+      "elevation_m": 6893,
+      "elevation_ft": 22615
+    },
+    {
+      "name": "Guyana",
+      "mountain": "Mount Roraima",
+      "elevation_m": 2810,
+      "elevation_ft": 9220
+    },
+    {
+      "name": "Slovenia",
+      "mountain": "Triglav",
+      "elevation_m": 2864,
+      "elevation_ft": 9396
+    },
+    {
+      "name": "Kenya",
+      "mountain": "Mount Kenya",
+      "elevation_m": 5199,
+      "elevation_ft": 17057
+    },
+    {
+      "name": "Saint Lucia",
+      "mountain": "Mount Gimie",
+      "elevation_m": 950,
+      "elevation_ft": 3117
+    },
+    {
+      "name": "Turkmenistan",
+      "mountain": "Aýrybaba",
+      "elevation_m": 3139,
+      "elevation_ft": 10299
+    },
+    {
+      "name": "Comoros",
+      "mountain": "Mount Karthala",
+      "elevation_m": 2360,
+      "elevation_ft": 7743
+    },
+    {
+      "name": "Botswana",
+      "mountain": "Otse Hill",
+      "elevation_m": 1494,
+      "elevation_ft": 4902
+    },
+    {
+      "name": "Czech Republic",
+      "mountain": "Sněžka",
+      "elevation_m": 1603,
+      "elevation_ft": 5259
+    },
+    {
+      "name": "Venezuela",
+      "mountain": "Pico Bolívar",
+      "elevation_m": 4978,
+      "elevation_ft": 16332
+    },
+    {
+      "name": "Sierra Leone",
+      "mountain": "Mount Bintumani",
+      "elevation_m": 1948,
+      "elevation_ft": 6391
+    },
+    {
+      "name": "Guinea-Bissau",
+      "mountain": "Unnamed location",
+      "elevation_m": 300,
+      "elevation_ft": 984
+    },
+    {
+      "name": "Burundi",
+      "mountain": "Mount Heha",
+      "elevation_m": 2684,
+      "elevation_ft": 8806
+    },
+    {
+      "name": "Bolivia",
+      "mountain": "Nevado Sajama",
+      "elevation_m": 6542,
+      "elevation_ft": 21463
+    },
+    {
+      "name": "Cuba",
+      "mountain": "Pico Turquino",
+      "elevation_m": 1974,
+      "elevation_ft": 6476
+    },
+    {
+      "name": "Malaysia",
+      "mountain": "Mount Kinabalu",
+      "elevation_m": 4095,
+      "elevation_ft": 13435
+    },
+    {
+      "name": "Afghanistan",
+      "mountain": "Noshaq",
+      "elevation_m": 7492,
+      "elevation_ft": 24580
+    },
+    {
+      "name": "China",
+      "mountain": "Mount Everest",
+      "elevation_m": 8848,
+      "elevation_ft": 29029
+    },
+    {
+      "name": "Japan",
+      "mountain": "Mount Fuji",
+      "elevation_m": 3776,
+      "elevation_ft": 12388
+    },
+    {
+      "name": "Burkina Faso",
+      "mountain": "Tena Kourou",
+      "elevation_m": 749,
+      "elevation_ft": 2457
+    },
+    {
+      "name": "Armenia",
+      "mountain": "Mount Aragats",
+      "elevation_m": 4090,
+      "elevation_ft": 13419
+    },
+    {
+      "name": "Myanmar",
+      "mountain": "Hkakabo Razi",
+      "elevation_m": 5881,
+      "elevation_ft": 19295
+    },
+    {
+      "name": "Mauritius",
+      "mountain": "Piton de la Petite Rivière Noire",
+      "elevation_m": 828,
+      "elevation_ft": 2717
+    }
+  ],
+  "countries_without_mountains": []
+}

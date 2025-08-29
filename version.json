@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-29-12-39",
-  "commit": "07408e3",
-  "tag": "v1.0.0-stable",
-  "description": "Stabil versjon med perfekt hint-system",
-  "last_updated": "2025-08-29T12:39:09.564170"
+  "build": "2025-08-29-23-00",
+  "commit": "6a315bd",
+  "tag": "v1.2.2-stable",
+  "description": "Fikset hint-posisjonering - capital og region hints vises nå på riktig plass",
+  "last_updated": "2025-08-29T23:00:00.000000"
 }
