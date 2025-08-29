@@ -1020,6 +1020,22 @@ class GeographyGame {
 
     endGame(won) {
         this.isGameActive = false;
+        
+        if (won) {
+            // Vis landnavn og alle hint når spillet vinnes
+            const revealBox = document.getElementById('country-reveal-box');
+            const revealedCountryName = document.getElementById('revealed-country-name');
+            const countryName = this.currentLanguage === 'no' ? 
+                this.currentCountry.name_no || this.currentCountry.name : 
+                this.currentCountry.name;
+            
+            revealedCountryName.textContent = countryName;
+            revealBox.style.display = 'block';
+            
+            // Vis alle hint automatisk
+            this.revealAllHints();
+        }
+        
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('submit-btn').style.display = 'none';
         document.getElementById('give-up-btn').style.display = 'none';

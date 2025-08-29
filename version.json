@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-01-05",
-  "commit": "5a68662",
-  "tag": "v1.4.4-stable",
-  "description": "Fikset språk-problem - landnavn i autocomplete matcher nå valgt språk",
-  "last_updated": "2025-08-30T01:05:00.000000"
+  "build": "2025-08-30-01-15",
+  "commit": "b704ddc",
+  "tag": "v1.4.5-stable",
+  "description": "Viser landnavn og alle hint når spillet vinnes - samme som ved 'Gi opp'",
+  "last_updated": "2025-08-30T01:15:00.000000"
 }
