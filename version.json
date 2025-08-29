@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-01-45",
-  "commit": "7e82876",
-  "tag": "v1.4.8-stable",
-  "description": "Fikset TypeError for undefined borders - naboland-hint skal nå fungere",
-  "last_updated": "2025-08-30T01:45:00.000000"
+  "build": "2025-08-30-01-55",
+  "commit": "1d61279",
+  "tag": "v1.4.9-stable",
+  "description": "Fikset mobil CSS - svarefelt dyttes ned for å unngå overlapping med 2x3 hint-grid",
+  "last_updated": "2025-08-30T01:55:00.000000"
 }
