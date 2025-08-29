@@ -207,6 +207,14 @@ class GeographyGame {
             });
         }
 
+        // Lock-overlay for hint 1
+        const lockOverlay = document.getElementById('hint-lock-overlay');
+        if (lockOverlay) {
+            lockOverlay.addEventListener('click', () => {
+                this.showLockMessage();
+            });
+        }
+
         // Befolkningshint-knapp
         const populationHintBtn = document.getElementById('population-hint-btn');
         if (populationHintBtn) {
@@ -902,12 +910,6 @@ class GeographyGame {
     }
 
     showHint() {
-        // Sjekk om hint er låst (ingen forsøk gjort ennå)
-        if (this.attempts === 0) {
-            this.showLockMessage();
-            return;
-        }
-
         if (!this.currentCountry || this.hintUsed) {
             return;
         }

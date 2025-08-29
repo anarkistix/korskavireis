@@ -435,7 +435,7 @@ main {
     justify-content: center;
     align-items: center;
     z-index: 10;
-    pointer-events: none;
+    cursor: not-allowed;
 }
 
 #hint-lock-overlay {
