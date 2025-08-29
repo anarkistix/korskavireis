@@ -948,7 +948,7 @@ class GeographyGame {
         if (this.currentCountry.flagFile) {
             hintFlagImg.src = `flags/${this.currentCountry.flagFile.replace('flags/', '')}?v=${Date.now()}`;
             hintFlag.style.display = 'inline-block';
-            hintBtn.style.display = 'none'; // Skjul knappen og vis flagget i stedet
+            // Ikke skjul knappen - la den være synlig
             this.hintUsed = true;
         } else {
             // Hvis ingen flagg er tilgjengelig, vis en melding
@@ -1022,15 +1022,16 @@ class GeographyGame {
 
     resetAllHints() {
         const hintConfigs = [
-            { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', text: 'Hint 1: Flagg' },
-            { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', text: 'Hint 2: Befolkning' },
-            { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', text: 'Hint 3: Hovedstad' },
-            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', text: 'Hint 4: Region' }
+            { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', text: 'Hint 1: Flagg', contentId: 'hint-flag' },
+            { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', text: 'Hint 2: Befolkning', contentId: 'population-hint' },
+            { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', text: 'Hint 3: Hovedstad', contentId: 'capital-hint' },
+            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', text: 'Hint 4: Region', contentId: 'region-hint' }
         ];
 
         hintConfigs.forEach(config => {
             const hintBtn = document.getElementById(config.btnId);
             const lockOverlay = document.getElementById(config.overlayId);
+            const hintContent = document.getElementById(config.contentId);
             
             if (hintBtn) {
                 hintBtn.querySelector('h4').textContent = config.text;
@@ -1041,6 +1042,10 @@ class GeographyGame {
             
             if (lockOverlay) {
                 lockOverlay.style.display = 'flex';
+            }
+            
+            if (hintContent) {
+                hintContent.style.display = 'none';
             }
         });
     }
@@ -1059,14 +1064,14 @@ class GeographyGame {
             const year = this.currentCountry.populationYear || 'N/A';
             populationText.textContent = `${formattedPopulation} innbyggere (${year})`;
             populationHint.style.display = 'inline-block';
-            populationHintBtn.style.display = 'none'; // Skjul knappen og vis befolkningstall i stedet
+            // Ikke skjul knappen - la den være synlig
             this.populationHintUsed = true;
-                        } else {
-                    // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
-                    populationHintBtn.querySelector('h4').textContent = 'Ingen befolkningsdata tilgjengelig';
-                    populationHintBtn.disabled = true;
-                    this.populationHintUsed = true;
-                }
+        } else {
+            // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
+            populationHintBtn.querySelector('h4').textContent = 'Ingen befolkningsdata tilgjengelig';
+            populationHintBtn.disabled = true;
+            this.populationHintUsed = true;
+        }
     }
 
     showCapitalHint() {
@@ -1081,7 +1086,7 @@ class GeographyGame {
         if (this.currentCountry.capital) {
             capitalText.textContent = this.currentCountry.capital;
             capitalHint.style.display = 'inline-block';
-            capitalHintBtn.style.display = 'none';
+            // Ikke skjul knappen - la den være synlig
             this.capitalHintUsed = true;
         } else {
             capitalHintBtn.querySelector('h4').textContent = 'Ingen hovedstadsdata tilgjengelig';
@@ -1102,7 +1107,7 @@ class GeographyGame {
         if (this.currentCountry.region) {
             regionText.textContent = this.currentCountry.region;
             regionHint.style.display = 'inline-block';
-            regionHintBtn.style.display = 'none';
+            // Ikke skjul knappen - la den være synlig
             this.regionHintUsed = true;
         } else {
             regionHintBtn.querySelector('h4').textContent = 'Ingen regionsdata tilgjengelig';
