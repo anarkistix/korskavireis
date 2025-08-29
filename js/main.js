@@ -12,6 +12,8 @@ class GeographyGame {
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
         this.regionHintUsed = false;
+        this.currentLanguage = 'no'; // Default to Norwegian
+        this.translations = {};
         
         this.init();
     }
@@ -19,11 +21,26 @@ class GeographyGame {
     async init() {
         console.log('Initialiserer geografisk gjettespill...');
         try {
+            await this.loadTranslations();
             await this.loadCountries();
+            
+            // Last lagret språkvalg
+            const savedLanguage = localStorage.getItem('selectedLanguage');
+            if (savedLanguage) {
+                this.currentLanguage = savedLanguage;
+                // Oppdater aktiv knapp
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-lang="${savedLanguage}"]`)?.classList.add('active');
+            }
+            
             console.log('Land lastet, setter opp event listeners...');
             this.setupEventListeners();
             console.log('Event listeners satt opp, oppdaterer stats...');
             this.updateStats();
+            console.log('Stats oppdatert, oppdaterer UI-tekster...');
+            this.updateUIText();
             console.log('Stats oppdatert, starter nytt spill...');
             await this.startNewGame();
             console.log('Nytt spill startet');
@@ -35,6 +52,93 @@ class GeographyGame {
         setTimeout(() => {
             this.forceShowAllLockOverlays();
         }, 100);
+    }
+
+    async loadTranslations() {
+        try {
+            const response = await fetch('translations.json');
+            this.translations = await response.json();
+            console.log('✅ Oversettelser lastet');
+        } catch (error) {
+            console.error('Feil ved lasting av oversettelser:', error);
+        }
+    }
+
+    getText(key) {
+        return this.translations[this.currentLanguage]?.[key] || key;
+    }
+
+    updateLanguage(lang) {
+        this.currentLanguage = lang;
+        this.updateUIText();
+        this.updateCountryNames();
+    }
+
+    updateUIText() {
+        // Oppdater UI-tekster
+        document.querySelector('h1').textContent = this.getText('title');
+        document.querySelector('.country-display h2').textContent = this.getText('subtitle');
+        document.getElementById('loading-indicator').textContent = this.getText('loading');
+        document.getElementById('country-input').placeholder = this.getText('input_placeholder');
+        document.getElementById('submit-btn').textContent = this.getText('guess_button');
+        document.getElementById('give-up-btn').textContent = this.getText('give_up_button');
+        document.getElementById('new-game-btn').textContent = this.getText('new_game_button');
+        document.getElementById('google-maps-btn').textContent = this.getText('google_maps_button');
+        
+        // Oppdater hint-titler
+        document.querySelector('#hint-btn h4').textContent = this.getText('hint_1_title');
+        document.querySelector('#population-hint-btn h4').textContent = this.getText('hint_2_title');
+        document.querySelector('#capital-hint-btn h4').textContent = this.getText('hint_3_title');
+        document.querySelector('#region-hint-btn h4').textContent = this.getText('hint_4_title');
+        
+        // Oppdater footer
+        document.querySelector('footer p:first-child').textContent = this.getText('footer_copyright');
+        document.querySelector('footer p:last-child').textContent = this.getText('footer_built_by');
+    }
+
+    async updateCountryNames() {
+        // Last riktig landfil basert på språk
+        const filename = this.currentLanguage === 'no' ? 'countries_data_no.json' : 'countries_data.json';
+        try {
+            const response = await fetch(filename + '?v=' + Date.now());
+            const data = await response.json();
+            
+            // Oppdater landnavn i countries-array
+            this.countries = this.countries.map(country => {
+                const newData = data.find(c => c.iso3 === country.iso3);
+                if (newData) {
+                    return {
+                        ...country,
+                        name: this.currentLanguage === 'no' ? newData.name_no : newData.name
+                    };
+                }
+                return country;
+            });
+            
+            console.log(`✅ Landnavn oppdatert til ${this.currentLanguage}`);
+        } catch (error) {
+            console.error('Feil ved oppdatering av landnavn:', error);
+        }
+    }
+
+    async switchLanguage(lang) {
+        // Oppdater aktiv knapp
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+        
+        // Oppdater språk
+        this.currentLanguage = lang;
+        
+        // Oppdater UI og landnavn
+        this.updateUIText();
+        await this.updateCountryNames();
+        
+        // Lagre språkvalg i localStorage
+        localStorage.setItem('selectedLanguage', lang);
+        
+        console.log(`🌍 Språk endret til: ${lang}`);
     }
 
     forceShowAllLockOverlays() {
@@ -252,6 +356,15 @@ class GeographyGame {
             } else {
                 console.error(`Lock overlay ${overlay.id} ikke funnet!`);
             }
+        });
+
+        // Språkvelger event listeners
+        const langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                this.switchLanguage(lang);
+            });
         });
 
         // Befolkningshint-knapp
@@ -712,7 +825,7 @@ class GeographyGame {
         if (guessedCountry.name === this.currentCountry.name) {
             // Riktig gjetting
             this.addFeedbackItem(guessedCountry, true);
-            this.showMessage(`Gratulerer! Du gjettet riktig på forsøk ${this.attempts}! Landet var ${this.currentCountry.name}.`, 'success');
+            this.showMessage(`${this.getText('correct_guess')} ${this.currentCountry.name}.`, 'success');
             this.endGame(true);
         } else {
             // Feil gjetting
@@ -735,7 +848,7 @@ class GeographyGame {
             }
 
             if (this.attempts >= this.maxAttempts) {
-                this.showMessage(`Spillet er slutt! Riktig land var: ${this.currentCountry.name}`, 'error');
+                this.showMessage(`${this.getText('gave_up')} ${this.currentCountry.name}`, 'error');
                 this.endGame(false);
             }
         }
@@ -966,7 +1079,8 @@ class GeographyGame {
     showLockMessage(requiredAttempts) {
         const message = document.createElement('div');
         message.className = 'lock-message';
-        message.textContent = `Du må gjette ${requiredAttempts} gang${requiredAttempts > 1 ? 'er' : ''} før du kan bruke dette hintet!`;
+        const key = `lock_message_${requiredAttempts}`;
+        message.textContent = this.getText(key);
         document.body.appendChild(message);
         
         // Fjern meldingen etter animasjonen
@@ -1068,7 +1182,7 @@ class GeographyGame {
         if (this.currentCountry.population) {
             const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
             const year = this.currentCountry.populationYear || 'N/A';
-            populationText.textContent = `${formattedPopulation} innbyggere (${year})`;
+            populationText.textContent = `${formattedPopulation} ${this.getText('inhabitants')} (${year})`;
             populationHint.style.display = 'inline-block';
             // Skjul lock-overlay når hint åpnes
             if (lockOverlay) {
@@ -1078,7 +1192,7 @@ class GeographyGame {
             this.populationHintUsed = true;
         } else {
             // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
-            populationHintBtn.querySelector('h4').textContent = 'Ingen befolkningsdata tilgjengelig';
+            populationHintBtn.querySelector('h4').textContent = this.getText('no_population_data');
             populationHintBtn.disabled = true;
             this.populationHintUsed = true;
         }
@@ -1104,7 +1218,7 @@ class GeographyGame {
             // Ikke skjul knappen - la den være synlig
             this.capitalHintUsed = true;
         } else {
-            capitalHintBtn.querySelector('h4').textContent = 'Ingen hovedstadsdata tilgjengelig';
+            capitalHintBtn.querySelector('h4').textContent = this.getText('no_capital_data');
             capitalHintBtn.disabled = true;
             this.capitalHintUsed = true;
         }
@@ -1130,7 +1244,7 @@ class GeographyGame {
             // Ikke skjul knappen - la den være synlig
             this.regionHintUsed = true;
         } else {
-            regionHintBtn.querySelector('h4').textContent = 'Ingen regionsdata tilgjengelig';
+            regionHintBtn.querySelector('h4').textContent = this.getText('no_region_data');
             regionHintBtn.disabled = true;
             this.regionHintUsed = true;
         }
@@ -1138,7 +1252,7 @@ class GeographyGame {
     
     giveUp() {
         // Vis riktig svar
-        this.showMessage(`Du ga opp! Riktig land var: ${this.currentCountry.name}`, 'info');
+        this.showMessage(`${this.getText('gave_up')} ${this.currentCountry.name}`, 'info');
         
         // Endre knappene
         document.getElementById('submit-btn').style.display = 'none';
@@ -1163,7 +1277,7 @@ class GeographyGame {
         if (this.currentCountry && this.currentCountry.google_maps_url) {
             window.open(this.currentCountry.google_maps_url, '_blank');
         } else {
-            this.showMessage('Google Maps link ikke tilgjengelig for dette landet', 'error');
+            this.showMessage(this.getText('no_maps_link'), 'error');
         }
     }
 
