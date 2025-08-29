@@ -133,34 +133,16 @@ class GeographyGame {
     }
 
     async updateCountryNames() {
-        // Last riktig landfil basert på språk
-        const filename = this.currentLanguage === 'no' ? 'countries_data_no.json' : 'countries_data.json';
-        try {
-            const response = await fetch(filename + '?v=' + Date.now());
-            const data = await response.json();
-            
-            // Oppdater landnavn i countries-array
-            this.countries = this.countries.map(country => {
-                const newData = data.find(c => c.iso3 === country.iso3);
-                if (newData) {
-                    return {
-                        ...country,
-                        name: this.currentLanguage === 'no' ? newData.name_no : newData.name
-                    };
-                }
-                return country;
-            });
-            
-            console.log(`✅ Landnavn oppdatert til ${this.currentLanguage}`);
-            
-            // Oppdater autocomplete-liste hvis det er tekst i input-feltet
-            const input = document.getElementById('country-input');
-            if (input && input.value.length > 0) {
-                this.showSuggestions(input.value);
-            }
-        } catch (error) {
-            console.error('Feil ved oppdatering av landnavn:', error);
+        // Last land på nytt med riktig språk
+        await this.loadCountries();
+        
+        // Oppdater autocomplete-liste hvis det er tekst i input-feltet
+        const input = document.getElementById('country-input');
+        if (input && input.value.length > 0) {
+            this.showSuggestions(input.value);
         }
+        
+        console.log(`✅ Landnavn oppdatert til ${this.currentLanguage}`);
     }
 
     async switchLanguage(lang) {
@@ -212,8 +194,10 @@ class GeographyGame {
 
     async loadCountries() {
         try {
-            console.log('Laster land fra countries_data.json...');
-            const response = await fetch('countries_data.json?v=' + Date.now());
+            // Last riktig fil basert på språk
+            const filename = this.currentLanguage === 'no' ? 'countries_data_no.json' : 'countries_data.json';
+            console.log(`Laster land fra ${filename}...`);
+            const response = await fetch(filename + '?v=' + Date.now());
             const data = await response.json();
             
             this.countries = data.map(country => {
@@ -225,7 +209,7 @@ class GeographyGame {
 
                 
                 return {
-                    name: country.name,
+                    name: this.currentLanguage === 'no' ? country.name_no : country.name,
                     iso3: country.iso3,
                     continent: country.continent,
                     region: country.region,

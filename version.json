@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-00-55",
-  "commit": "a4f9da0",
-  "tag": "v1.4.3-stable",
-  "description": "Oppdatert export.html med all landdata - fjell, naboland, Google Maps lenker",
-  "last_updated": "2025-08-30T00:55:00.000000"
+  "build": "2025-08-30-01-05",
+  "commit": "5a68662",
+  "tag": "v1.4.4-stable",
+  "description": "Fikset språk-problem - landnavn i autocomplete matcher nå valgt språk",
+  "last_updated": "2025-08-30T01:05:00.000000"
 }
