@@ -101,6 +101,26 @@
                             <label>Region:</label>
                             <span id="country-region">-</span>
                         </div>
+                        <div class="data-item">
+                            <label>Høyeste fjell:</label>
+                            <span id="country-highest-mountain">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Fjellhøyde (m):</label>
+                            <span id="country-elevation-meters">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Fjellhøyde (ft):</label>
+                            <span id="country-elevation-feet">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Naboland:</label>
+                            <span id="country-borders">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Øy-status:</label>
+                            <span id="country-island">-</span>
+                        </div>
                     </div>
 
                     <div class="image-preview">
@@ -124,6 +144,26 @@
                             <div class="form-group">
                                 <label for="edit-population-year">Befolkningsår:</label>
                                 <input type="number" id="edit-population-year" min="1900" max="2030" />
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-highest-mountain">Høyeste fjell:</label>
+                                <input type="text" id="edit-highest-mountain" />
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-elevation-meters">Fjellhøyde (m):</label>
+                                <input type="number" id="edit-elevation-meters" min="0" />
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-elevation-feet">Fjellhøyde (ft):</label>
+                                <input type="number" id="edit-elevation-feet" min="0" />
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-borders">Naboland (kommaseparert):</label>
+                                <input type="text" id="edit-borders" placeholder="Norge, Sverige, Finland" />
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-is-island">Øy:</label>
+                                <input type="checkbox" id="edit-is-island" />
                             </div>
                             <button onclick="saveCountryData()" class="admin-btn">Lagre endringer</button>
                         </div>
@@ -153,6 +193,18 @@
                     <div class="status-item">
                         <span class="status-label">Land med hovedstadsdata:</span>
                         <span id="countries-with-capital" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Land med fjelldata:</span>
+                        <span id="countries-with-mountain" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Land med nabolandsdata:</span>
+                        <span id="countries-with-borders" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Øyer:</span>
+                        <span id="total-islands" class="status-value">-</span>
                     </div>
                 </div>
                 

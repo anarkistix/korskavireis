@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-00-25",
-  "commit": "65c8428",
-  "tag": "v1.4.0-stable",
-  "description": "Ny 'Gi opp' funksjonalitet - viser landnavn i boks og avslører alle hint automatisk",
-  "last_updated": "2025-08-30T00:25:00.000000"
+  "build": "2025-08-30-00-35",
+  "commit": "dd4b438",
+  "tag": "v1.4.1-stable",
+  "description": "Oppdatert admin-panel med fjell og naboland data - visning og redigering",
+  "last_updated": "2025-08-30T00:35:00.000000"
 }

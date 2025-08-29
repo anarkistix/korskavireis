@@ -346,6 +346,23 @@ function displayCountryData(country) {
     
     document.getElementById('country-region').textContent = country.region || '-';
     
+    // Display mountain data
+    document.getElementById('country-highest-mountain').textContent = country.highest_mountain || '-';
+    document.getElementById('country-elevation-meters').textContent = country.highest_elevation_meters || '-';
+    document.getElementById('country-elevation-feet').textContent = country.highest_elevation_feet || '-';
+    
+    // Display border data
+    if (country.is_island) {
+        document.getElementById('country-borders').textContent = 'Øy (ingen naboland)';
+        document.getElementById('country-island').textContent = 'Ja';
+    } else if (country.borders && country.borders.length > 0) {
+        document.getElementById('country-borders').textContent = country.borders.join(', ');
+        document.getElementById('country-island').textContent = 'Nei';
+    } else {
+        document.getElementById('country-borders').textContent = 'Ingen data';
+        document.getElementById('country-island').textContent = 'Ukjent';
+    }
+    
     // Display current image
     const imageElement = document.getElementById('current-country-image');
     const imageFile = country.imageFile || country.image_file;
@@ -359,6 +376,11 @@ function displayCountryData(country) {
     // Populate edit form
     document.getElementById('edit-population').value = country.population || '';
     document.getElementById('edit-population-year').value = country.population_year || '';
+    document.getElementById('edit-highest-mountain').value = country.highest_mountain || '';
+    document.getElementById('edit-elevation-meters').value = country.highest_elevation_meters || '';
+    document.getElementById('edit-elevation-feet').value = country.highest_elevation_feet || '';
+    document.getElementById('edit-borders').value = country.borders ? country.borders.join(', ') : '';
+    document.getElementById('edit-is-island').checked = country.is_island || false;
 }
 
 // Upload new image
@@ -398,10 +420,20 @@ function saveCountryData() {
     
     const population = document.getElementById('edit-population').value;
     const populationYear = document.getElementById('edit-population-year').value;
+    const highestMountain = document.getElementById('edit-highest-mountain').value;
+    const elevationMeters = document.getElementById('edit-elevation-meters').value;
+    const elevationFeet = document.getElementById('edit-elevation-feet').value;
+    const borders = document.getElementById('edit-borders').value;
+    const isIsland = document.getElementById('edit-is-island').checked;
     
     // Update the country data
     currentCountry.population = population ? parseInt(population) : null;
     currentCountry.population_year = populationYear ? parseInt(populationYear) : null;
+    currentCountry.highest_mountain = highestMountain || null;
+    currentCountry.highest_elevation_meters = elevationMeters ? parseInt(elevationMeters) : null;
+    currentCountry.highest_elevation_feet = elevationFeet ? parseInt(elevationFeet) : null;
+    currentCountry.borders = borders ? borders.split(',').map(b => b.trim()).filter(b => b) : [];
+    currentCountry.is_island = isIsland;
     
     // In a real implementation, you would save this to the server
     // For now, we'll just update the display
@@ -419,12 +451,18 @@ function updateSystemStatus() {
     const countriesWithFlags = countriesData.filter(c => c.flagFile).length;
     const countriesWithPopulation = countriesData.filter(c => c.population).length;
     const countriesWithCapital = countriesData.filter(c => c.capital).length;
+    const countriesWithMountain = countriesData.filter(c => c.highest_mountain).length;
+    const countriesWithBorders = countriesData.filter(c => c.borders && c.borders.length > 0).length;
+    const totalIslands = countriesData.filter(c => c.is_island).length;
     
     document.getElementById('total-countries').textContent = totalCountries;
     document.getElementById('countries-with-images').textContent = countriesWithImages;
     document.getElementById('countries-with-flags').textContent = countriesWithFlags;
     document.getElementById('countries-with-population').textContent = countriesWithPopulation;
     document.getElementById('countries-with-capital').textContent = countriesWithCapital;
+    document.getElementById('countries-with-mountain').textContent = countriesWithMountain;
+    document.getElementById('countries-with-borders').textContent = countriesWithBorders;
+    document.getElementById('total-islands').textContent = totalIslands;
 }
 
 // Enter key support for login
