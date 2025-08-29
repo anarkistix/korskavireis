@@ -428,7 +428,7 @@ main {
 /* Hint container */
 .hint-container {
     margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0rem;
     text-align: center;
     width: 400px;
     height: 600px;
