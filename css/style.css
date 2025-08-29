@@ -394,7 +394,6 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 /* Spesifikke posisjoner for hver knapp */
@@ -428,14 +427,20 @@ main {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 180px;
+    height: 140px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
+    pointer-events: none;
+}
+
+#hint-lock-overlay {
+    top: 0;
+    left: 0;
 }
 
 .lock-icon {

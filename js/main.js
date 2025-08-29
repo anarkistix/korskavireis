@@ -829,19 +829,15 @@ class GeographyGame {
         
         // Reset hint-knapp og lås den igjen
         const hintBtn = document.getElementById('hint-btn');
+        const lockOverlay = document.getElementById('hint-lock-overlay');
         if (hintBtn) {
             hintBtn.querySelector('h4').textContent = 'Hint 1: Flagg';
             hintBtn.disabled = false;
             hintBtn.style.display = 'inline-block'; // Vis knappen igjen
             hintBtn.classList.add('locked'); // Lås hint 1 igjen
-            
-            // Legg til lock-overlay hvis den ikke finnes
-            if (!hintBtn.querySelector('.lock-overlay')) {
-                const lockOverlay = document.createElement('div');
-                lockOverlay.className = 'lock-overlay';
-                lockOverlay.innerHTML = '<span class="lock-icon">🔒</span>';
-                hintBtn.appendChild(lockOverlay);
-            }
+        }
+        if (lockOverlay) {
+            lockOverlay.style.display = 'flex'; // Vis lock-overlay igjen
         }
         
         // Reset hint-flag
@@ -949,13 +945,12 @@ class GeographyGame {
 
     unlockHint1() {
         const hintBtn = document.getElementById('hint-btn');
+        const lockOverlay = document.getElementById('hint-lock-overlay');
         if (hintBtn) {
             hintBtn.classList.remove('locked');
-            // Fjern lock-overlay
-            const lockOverlay = hintBtn.querySelector('.lock-overlay');
-            if (lockOverlay) {
-                lockOverlay.remove();
-            }
+        }
+        if (lockOverlay) {
+            lockOverlay.style.display = 'none';
         }
     }
 
