@@ -49,8 +49,6 @@ class GeographyGame {
             const element = document.getElementById(id);
             if (element) {
                 element.style.display = 'flex';
-                element.style.background = 'rgba(0, 0, 0, 0.5)';
-                element.style.zIndex = '100';
                 console.log(`Force show: ${id} er nå synlig`);
             } else {
                 console.error(`Force show: ${id} ikke funnet!`);
@@ -246,9 +244,8 @@ class GeographyGame {
             if (element) {
                 // Sikre at lock-overlay er synlig ved start
                 element.style.display = 'flex';
-                element.style.background = 'rgba(0, 0, 0, 0.5)';
-                element.style.zIndex = '100';
-                element.addEventListener('click', () => {
+                element.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Hindre at klikket går til knappen
                     this.showLockMessage(overlay.attempts);
                 });
                 console.log(`Lock overlay ${overlay.id} initialisert`);
@@ -1044,13 +1041,8 @@ class GeographyGame {
             
             if (lockOverlay) {
                 lockOverlay.style.display = 'flex';
-                lockOverlay.style.background = 'rgba(0, 0, 0, 0.5)';
-                lockOverlay.style.zIndex = '100';
             }
         });
-        
-        // Tving visning av alle lock-overlays
-        this.forceShowAllLockOverlays();
     }
 
     showPopulationHint() {
