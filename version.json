@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-03:00",
-  "commit": "3a47438",
-  "tag": "v1.4.15-stable",
-  "description": "Økt spacing ytterligere - margin-bottom 6rem på hint-container og margin-top 3rem på game-controls for å garantere ingen overlapping.",
-  "last_updated": "2025-08-30T03:00:00.000000"
+  "build": "2025-08-30-03:10",
+  "commit": "4a47438",
+  "tag": "v1.4.16-stable",
+  "description": "DRASTISK spacing fix - margin-bottom 10rem på hint-container og margin-top 5rem på game-controls + ORANGE og GRØNNE borders for å bekrefte endringer.",
+  "last_updated": "2025-08-30T03:10:00.000000"
 }
