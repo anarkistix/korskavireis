@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-03:20",
-  "commit": "6a47438",
-  "tag": "v1.4.18-stable",
-  "description": "Fikset mobile hint-container høyder: 768px=400px, 480px=360px, 360px=140px, 320px=120px - nå skal oransje ramme dekke ALLE hint på mobil.",
-  "last_updated": "2025-08-30T03:20:00.000000"
+  "build": "2025-08-30-03:25",
+  "commit": "7a47438",
+  "tag": "v1.4.19-stable",
+  "description": "Ytterligere økt mobile hint-container høyder: 768px=500px, 480px=450px, 360px=180px, 320px=160px - GARANTERER at oransje ramme dekker ALLE hint.",
+  "last_updated": "2025-08-30T03:25:00.000000"
 }
