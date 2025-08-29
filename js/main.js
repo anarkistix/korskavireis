@@ -218,6 +218,8 @@ class GeographyGame {
         lockOverlays.forEach(overlay => {
             const element = document.getElementById(overlay.id);
             if (element) {
+                // Sikre at lock-overlay er synlig ved start
+                element.style.display = 'flex';
                 element.addEventListener('click', () => {
                     this.showLockMessage(overlay.attempts);
                 });
