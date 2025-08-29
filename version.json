@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-00-10",
-  "commit": "0a47d13",
+  "build": "2025-08-30-00-15",
+  "commit": "0ce5282",
   "tag": "v1.3.2-stable",
   "description": "Fikset git submodule feil - fjernet temp_flags som forårsaket build-feil",
-  "last_updated": "2025-08-30T00:10:00.000000"
+  "last_updated": "2025-08-30T00:15:00.000000"
 }
