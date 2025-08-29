@@ -922,7 +922,7 @@ img {
     
     .hint-container {
         width: 350px;
-        height: 280px;
+        height: 400px;
     }
     
     .hint-card {
@@ -991,7 +991,7 @@ img {
     
     .hint-container {
         width: 300px;
-        height: 240px;
+        height: 360px;
     }
     
     .game-controls {
@@ -1044,7 +1044,7 @@ img {
 @media (max-width: 360px) {
     .hint-container {
         width: 320px;
-        height: 120px;
+        height: 140px;
     }
     
     .hint-card {
@@ -1142,7 +1142,7 @@ img {
 @media (max-width: 320px) {
     .hint-container {
         width: 280px;
-        height: 100px;
+        height: 120px;
     }
     
     .hint-card {
