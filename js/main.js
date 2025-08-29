@@ -944,10 +944,15 @@ class GeographyGame {
         const hintFlag = document.getElementById('hint-flag');
         const hintFlagImg = document.getElementById('hint-flag-img');
         const hintBtn = document.getElementById('hint-btn');
+        const lockOverlay = document.getElementById('hint-lock-overlay');
 
         if (this.currentCountry.flagFile) {
             hintFlagImg.src = `flags/${this.currentCountry.flagFile.replace('flags/', '')}?v=${Date.now()}`;
             hintFlag.style.display = 'inline-block';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
             // Ikke skjul knappen - la den være synlig
             this.hintUsed = true;
         } else {
@@ -1058,12 +1063,17 @@ class GeographyGame {
         const populationHint = document.getElementById('population-hint');
         const populationText = document.getElementById('population-text');
         const populationHintBtn = document.getElementById('population-hint-btn');
+        const lockOverlay = document.getElementById('population-lock-overlay');
 
         if (this.currentCountry.population) {
             const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
             const year = this.currentCountry.populationYear || 'N/A';
             populationText.textContent = `${formattedPopulation} innbyggere (${year})`;
             populationHint.style.display = 'inline-block';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
             // Ikke skjul knappen - la den være synlig
             this.populationHintUsed = true;
         } else {
@@ -1082,10 +1092,15 @@ class GeographyGame {
         const capitalHint = document.getElementById('capital-hint');
         const capitalText = document.getElementById('capital-text');
         const capitalHintBtn = document.getElementById('capital-hint-btn');
+        const lockOverlay = document.getElementById('capital-lock-overlay');
 
         if (this.currentCountry.capital) {
             capitalText.textContent = this.currentCountry.capital;
             capitalHint.style.display = 'inline-block';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
             // Ikke skjul knappen - la den være synlig
             this.capitalHintUsed = true;
         } else {
@@ -1103,10 +1118,15 @@ class GeographyGame {
         const regionHint = document.getElementById('region-hint');
         const regionText = document.getElementById('region-text');
         const regionHintBtn = document.getElementById('region-hint-btn');
+        const lockOverlay = document.getElementById('region-lock-overlay');
 
         if (this.currentCountry.region) {
             regionText.textContent = this.currentCountry.region;
             regionHint.style.display = 'inline-block';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
             // Ikke skjul knappen - la den være synlig
             this.regionHintUsed = true;
         } else {
