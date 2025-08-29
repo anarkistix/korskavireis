@@ -11,6 +11,7 @@ class GeographyGame {
         this.hintUsed = false;
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
+        this.regionHintUsed = false;
         
         this.init();
     }
@@ -29,6 +30,30 @@ class GeographyGame {
         } catch (error) {
             console.error('Feil i init:', error);
         }
+        
+        // Tving visning av alle lock-overlays etter init
+        setTimeout(() => {
+            this.forceShowAllLockOverlays();
+        }, 100);
+    }
+
+    forceShowAllLockOverlays() {
+        const lockOverlayIds = [
+            'hint-lock-overlay',
+            'population-lock-overlay', 
+            'capital-lock-overlay',
+            'region-lock-overlay'
+        ];
+
+        lockOverlayIds.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'flex';
+                console.log(`Force show: ${id} er nå synlig`);
+            } else {
+                console.error(`Force show: ${id} ikke funnet!`);
+            }
+        });
     }
 
     async loadCountries() {
@@ -206,6 +231,29 @@ class GeographyGame {
             });
         }
 
+        // Lock-overlays for alle hint
+        const lockOverlays = [
+            { id: 'hint-lock-overlay', attempts: 1 },
+            { id: 'population-lock-overlay', attempts: 2 },
+            { id: 'capital-lock-overlay', attempts: 3 },
+            { id: 'region-lock-overlay', attempts: 4 }
+        ];
+
+        lockOverlays.forEach(overlay => {
+            const element = document.getElementById(overlay.id);
+            if (element) {
+                // Sikre at lock-overlay er synlig ved start
+                element.style.display = 'flex';
+                element.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Hindre at klikket går til knappen
+                    this.showLockMessage(overlay.attempts);
+                });
+                console.log(`Lock overlay ${overlay.id} initialisert`);
+            } else {
+                console.error(`Lock overlay ${overlay.id} ikke funnet!`);
+            }
+        });
+
         // Befolkningshint-knapp
         const populationHintBtn = document.getElementById('population-hint-btn');
         if (populationHintBtn) {
@@ -215,12 +263,19 @@ class GeographyGame {
         }
 
         // Hovedstadshint-knapp
-        const capitalHintBtn = document.getElementById('capital-hint-btn');
-        if (capitalHintBtn) {
-            capitalHintBtn.addEventListener('click', () => {
-                this.showCapitalHint();
-            });
-        }
+                        const capitalHintBtn = document.getElementById('capital-hint-btn');
+                if (capitalHintBtn) {
+                    capitalHintBtn.addEventListener('click', () => {
+                        this.showCapitalHint();
+                    });
+                }
+                
+                const regionHintBtn = document.getElementById('region-hint-btn');
+                if (regionHintBtn) {
+                    regionHintBtn.addEventListener('click', () => {
+                        this.showRegionHint();
+                    });
+                }
 
         // Nytt spill-knapp
         document.getElementById('new-game-btn').addEventListener('click', () => {
@@ -428,6 +483,7 @@ class GeographyGame {
         this.hintUsed = false;
         this.populationHintUsed = false;
         this.capitalHintUsed = false;
+        this.regionHintUsed = false;
         
         // Sjekk admin-innstillinger
         const adminSettings = await this.getAdminSettings();
@@ -650,6 +706,9 @@ class GeographyGame {
 
         this.attempts++;
 
+        // Sjekk og lås opp hint basert på antall forsøk
+        this.checkAndUnlockHints();
+
         if (guessedCountry.name === this.currentCountry.name) {
             // Riktig gjetting
             this.addFeedbackItem(guessedCountry, true);
@@ -813,13 +872,8 @@ class GeographyGame {
         document.getElementById('country-image').style.display = 'none';
         document.getElementById('loading-indicator').style.display = 'block';
         
-        // Reset hint-knapp
-        const hintBtn = document.getElementById('hint-btn');
-        if (hintBtn) {
-            hintBtn.querySelector('h4').textContent = 'Hint 1: Flagg';
-            hintBtn.disabled = false;
-            hintBtn.style.display = 'inline-block'; // Vis knappen igjen
-        }
+        // Reset og lås alle hint igjen
+        this.resetAllHints();
         
         // Reset hint-flag
         document.getElementById('hint-flag').style.display = 'none';
@@ -845,6 +899,17 @@ class GeographyGame {
         
         // Reset hovedstadshint
         document.getElementById('capital-hint').style.display = 'none';
+
+        // Reset regionhint-knapp
+        const regionHintBtn = document.getElementById('region-hint-btn');
+        if (regionHintBtn) {
+            regionHintBtn.querySelector('h4').textContent = 'Hint 4: Region';
+            regionHintBtn.disabled = false;
+            regionHintBtn.style.display = 'inline-block'; // Vis knappen igjen
+        }
+        
+        // Reset regionhint
+        document.getElementById('region-hint').style.display = 'none';
     }
 
     updateStats() {
@@ -872,18 +937,23 @@ class GeographyGame {
     }
 
     showHint() {
-        if (!this.currentCountry || this.hintUsed) {
+        if (!this.currentCountry || this.hintUsed || this.attempts < 1) {
             return;
         }
 
         const hintFlag = document.getElementById('hint-flag');
         const hintFlagImg = document.getElementById('hint-flag-img');
         const hintBtn = document.getElementById('hint-btn');
+        const lockOverlay = document.getElementById('hint-lock-overlay');
 
         if (this.currentCountry.flagFile) {
             hintFlagImg.src = `flags/${this.currentCountry.flagFile.replace('flags/', '')}?v=${Date.now()}`;
             hintFlag.style.display = 'inline-block';
-            hintBtn.style.display = 'none'; // Skjul knappen og vis flagget i stedet
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            // Ikke skjul knappen - la den være synlig
             this.hintUsed = true;
         } else {
             // Hvis ingen flagg er tilgjengelig, vis en melding
@@ -893,48 +963,176 @@ class GeographyGame {
         }
     }
 
+    showLockMessage(requiredAttempts) {
+        const message = document.createElement('div');
+        message.className = 'lock-message';
+        message.textContent = `Du må gjette ${requiredAttempts} gang${requiredAttempts > 1 ? 'er' : ''} før du kan bruke dette hintet!`;
+        document.body.appendChild(message);
+        
+        // Fjern meldingen etter animasjonen
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+        }, 2000);
+    }
+
+    checkAndUnlockHints() {
+        // Hint 1: Låst opp etter 1 forsøk
+        if (this.attempts >= 1) {
+            this.unlockHint(1);
+        }
+        
+        // Hint 2: Låst opp etter 2 forsøk
+        if (this.attempts >= 2) {
+            this.unlockHint(2);
+        }
+        
+        // Hint 3: Låst opp etter 3 forsøk
+        if (this.attempts >= 3) {
+            this.unlockHint(3);
+        }
+        
+        // Hint 4: Låst opp etter 4 forsøk
+        if (this.attempts >= 4) {
+            this.unlockHint(4);
+        }
+    }
+
+    unlockHint(hintNumber) {
+        const hintConfigs = {
+            1: { btnId: 'hint-btn', overlayId: 'hint-lock-overlay' },
+            2: { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay' },
+            3: { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay' },
+            4: { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay' }
+        };
+
+        const config = hintConfigs[hintNumber];
+        if (!config) return;
+
+        const hintBtn = document.getElementById(config.btnId);
+        const lockOverlay = document.getElementById(config.overlayId);
+        
+        if (hintBtn) {
+            hintBtn.classList.remove('locked');
+        }
+        if (lockOverlay) {
+            lockOverlay.style.display = 'none';
+        }
+    }
+
+    unlockHint1() {
+        this.unlockHint(1);
+    }
+
+    resetAllHints() {
+        const hintConfigs = [
+            { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', text: 'Hint 1: Flagg', contentId: 'hint-flag' },
+            { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', text: 'Hint 2: Befolkning', contentId: 'population-hint' },
+            { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', text: 'Hint 3: Hovedstad', contentId: 'capital-hint' },
+            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', text: 'Hint 4: Region', contentId: 'region-hint' }
+        ];
+
+        hintConfigs.forEach(config => {
+            const hintBtn = document.getElementById(config.btnId);
+            const lockOverlay = document.getElementById(config.overlayId);
+            const hintContent = document.getElementById(config.contentId);
+            
+            if (hintBtn) {
+                hintBtn.querySelector('h4').textContent = config.text;
+                hintBtn.disabled = false;
+                hintBtn.style.display = 'inline-block';
+                hintBtn.classList.add('locked');
+            }
+            
+            if (lockOverlay) {
+                lockOverlay.style.display = 'flex';
+            }
+            
+            if (hintContent) {
+                hintContent.style.display = 'none';
+            }
+        });
+    }
+
     showPopulationHint() {
-        if (!this.currentCountry || this.populationHintUsed) {
+        if (!this.currentCountry || this.populationHintUsed || this.attempts < 2) {
             return;
         }
 
         const populationHint = document.getElementById('population-hint');
         const populationText = document.getElementById('population-text');
         const populationHintBtn = document.getElementById('population-hint-btn');
+        const lockOverlay = document.getElementById('population-lock-overlay');
 
         if (this.currentCountry.population) {
             const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
             const year = this.currentCountry.populationYear || 'N/A';
             populationText.textContent = `${formattedPopulation} innbyggere (${year})`;
             populationHint.style.display = 'inline-block';
-            populationHintBtn.style.display = 'none'; // Skjul knappen og vis befolkningstall i stedet
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            // Ikke skjul knappen - la den være synlig
             this.populationHintUsed = true;
-                        } else {
-                    // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
-                    populationHintBtn.querySelector('h4').textContent = 'Ingen befolkningsdata tilgjengelig';
-                    populationHintBtn.disabled = true;
-                    this.populationHintUsed = true;
-                }
+        } else {
+            // Hvis ingen befolkningsdata er tilgjengelig, vis en melding
+            populationHintBtn.querySelector('h4').textContent = 'Ingen befolkningsdata tilgjengelig';
+            populationHintBtn.disabled = true;
+            this.populationHintUsed = true;
+        }
     }
 
     showCapitalHint() {
-        if (!this.currentCountry || this.capitalHintUsed) {
+        if (!this.currentCountry || this.capitalHintUsed || this.attempts < 3) {
             return;
         }
 
         const capitalHint = document.getElementById('capital-hint');
         const capitalText = document.getElementById('capital-text');
         const capitalHintBtn = document.getElementById('capital-hint-btn');
+        const lockOverlay = document.getElementById('capital-lock-overlay');
 
         if (this.currentCountry.capital) {
             capitalText.textContent = this.currentCountry.capital;
             capitalHint.style.display = 'inline-block';
-            capitalHintBtn.style.display = 'none';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            // Ikke skjul knappen - la den være synlig
             this.capitalHintUsed = true;
         } else {
             capitalHintBtn.querySelector('h4').textContent = 'Ingen hovedstadsdata tilgjengelig';
             capitalHintBtn.disabled = true;
             this.capitalHintUsed = true;
+        }
+    }
+
+    showRegionHint() {
+        if (!this.currentCountry || this.regionHintUsed || this.attempts < 4) {
+            return;
+        }
+
+        const regionHint = document.getElementById('region-hint');
+        const regionText = document.getElementById('region-text');
+        const regionHintBtn = document.getElementById('region-hint-btn');
+        const lockOverlay = document.getElementById('region-lock-overlay');
+
+        if (this.currentCountry.region) {
+            regionText.textContent = this.currentCountry.region;
+            regionHint.style.display = 'inline-block';
+            // Skjul lock-overlay når hint åpnes
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            // Ikke skjul knappen - la den være synlig
+            this.regionHintUsed = true;
+        } else {
+            regionHintBtn.querySelector('h4').textContent = 'Ingen regionsdata tilgjengelig';
+            regionHintBtn.disabled = true;
+            this.regionHintUsed = true;
         }
     }
     
@@ -1009,8 +1207,8 @@ async function loadVersionInfo() {
     }
 }
 
-// Last versjonsinformasjon når siden lastes
-document.addEventListener('DOMContentLoaded', function() {
+// Check for admin settings on page load
+document.addEventListener('DOMContentLoaded', () => {
     loadVersionInfo();
     window.game = new GeographyGame();
     

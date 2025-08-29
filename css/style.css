@@ -368,27 +368,115 @@ main {
 .hint-container {
     margin-top: 1rem;
     text-align: center;
-    width: 100%;
+    width: 400px;
+    height: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
 }
+
+/* Skjul hint-innhold som ikke er knapper */
+/* Hint-innhold skal være skjult som standard, men ikke av denne regelen */
 
 .hint-card {
     text-align: center;
-    padding: 1.5rem;
-    background: #e9ecef;
-    border: none;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0 0.5rem;
-    display: inline-block;
-    vertical-align: top;
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 30;
+}
+
+/* Spesifikke posisjoner for hver knapp */
+#hint-btn {
+    top: 0;
+    left: 0;
+}
+
+#population-hint-btn {
+    top: 0;
+    right: 0;
+}
+
+#capital-hint-btn {
+    bottom: 0;
+    left: 0;
+}
+
+#region-hint-btn {
+    bottom: 0;
+    right: 0;
+}
+
+/* Hengelås-funksjonalitet */
+.hint-card.locked {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+
+.lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: not-allowed;
+}
+
+.lock-icon {
+    font-size: 2rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hint-card.locked:hover .lock-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hint-card.locked:hover .lock-icon {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Tilbakemelding for låst hint */
+.lock-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #dc3545;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    font-weight: 600;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
 }
 
 .hint-card:hover {
@@ -418,21 +506,22 @@ main {
 
 .hint-flag {
     text-align: center;
-    padding: 1.5rem;
-    background: #e9ecef;
-    border: none;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0 0.5rem;
-    display: inline-block;
-    vertical-align: top;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 40;
 }
 
 .hint-flag img {
@@ -446,21 +535,65 @@ main {
 
 .population-hint {
     text-align: center;
-    padding: 1.5rem;
-    background: #e9ecef;
-    border: none;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0 0.5rem;
-    display: inline-block;
-    vertical-align: top;
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 40;
+}
+
+.capital-hint {
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease;
+    cursor: pointer;
+    width: 180px;
+    height: 140px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+}
+
+.region-hint {
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease;
+    cursor: pointer;
+    width: 180px;
+    height: 140px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
 }
 
 .population-hint span {
@@ -489,23 +622,33 @@ main {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-.capital-hint {
+
+
+.capital-hint span {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
     text-align: center;
-    padding: 1.5rem;
-    background: #e9ecef;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    animation: slideIn 0.3s ease;
-    cursor: pointer;
-    width: 180px;
-    height: 140px;
-    margin: 0 0.5rem;
-    display: inline-block;
-    vertical-align: top;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    line-height: 1.3;
+}
+
+.region-hint-btn {
+    background: #e9ecef !important;
+    margin: 0;
+}
+
+.region-hint-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+
+.region-hint span {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
 }
 
 .capital-hint span {
@@ -628,12 +771,25 @@ img {
 
     
     .hint-container {
-        text-align: center;
+        width: 350px;
+        height: 280px;
+    }
+    
+    .hint-card {
+        width: 160px;
+        height: 120px;
+    }
+    
+    .hint-flag, .population-hint, .capital-hint, .region-hint {
+        width: 160px;
+        height: 120px;
     }
     
     .hint-card,
     .hint-flag,
-    .population-hint {
+    .population-hint,
+    .capital-hint,
+    .region-hint {
         width: 160px;
         height: 120px;
         padding: 1.25rem;
@@ -684,12 +840,25 @@ img {
     }
     
     .hint-container {
-        text-align: center;
+        width: 300px;
+        height: 240px;
+    }
+    
+    .hint-card {
+        width: 140px;
+        height: 100px;
+    }
+    
+    .hint-flag, .population-hint, .capital-hint, .region-hint {
+        width: 140px;
+        height: 100px;
     }
     
     .hint-card,
     .hint-flag,
-    .population-hint {
+    .population-hint,
+    .capital-hint,
+    .region-hint {
         width: 140px;
         height: 100px;
         padding: 1rem;
@@ -711,34 +880,4 @@ img {
         border: none;
         outline: none;
     }
-}
-
-/* Version Info */
-.version-info {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    color: #6c757d;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.version-info span {
-    background: rgba(108, 117, 125, 0.1);
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-family: 'Courier New', monospace;
-    font-weight: 500;
-}
-
-#version-display {
-    color: #007bff;
-    font-weight: bold;
-}
-
-#build-info {
-    color: #6c757d;
-    font-size: 0.75rem;
 }
