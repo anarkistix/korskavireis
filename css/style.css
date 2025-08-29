@@ -370,6 +370,10 @@ main {
     text-align: center;
     width: 100%;
     padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .hint-card {
@@ -383,13 +387,11 @@ main {
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0.75rem 1rem;
-    display: inline-block;
-    vertical-align: top;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 0 0 auto;
 }
 
 .hint-card:hover {
@@ -428,12 +430,10 @@ main {
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0.75rem 1rem;
-    display: inline-block;
-    vertical-align: top;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 0 0 auto;
 }
 
 .hint-flag img {
@@ -456,10 +456,11 @@ main {
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0.75rem 1rem;
-    display: inline-block;
-    vertical-align: top;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
     justify-content: center;
     align-items: center;
 }
@@ -635,6 +636,7 @@ img {
     
     .hint-container {
         text-align: center;
+        gap: 0.75rem;
     }
     
     .hint-card,
@@ -643,7 +645,6 @@ img {
         width: 160px;
         height: 120px;
         padding: 1.25rem;
-        margin: 0.5rem 0.75rem;
     }
     
     .hint-icon {
@@ -692,6 +693,7 @@ img {
     
     .hint-container {
         text-align: center;
+        gap: 0.6rem;
     }
     
     .hint-card,
@@ -700,7 +702,6 @@ img {
         width: 140px;
         height: 100px;
         padding: 1rem;
-        margin: 0.4rem 0.6rem;
     }
     
     .hint-icon {
