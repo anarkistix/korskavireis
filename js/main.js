@@ -35,12 +35,13 @@ class GeographyGame {
                 document.querySelector(`[data-lang="${savedLanguage}"]`)?.classList.add('active');
             }
             
+            // Oppdater UI-tekster etter at oversettelser er lastet
+            this.updateUIText();
+            
             console.log('Land lastet, setter opp event listeners...');
             this.setupEventListeners();
             console.log('Event listeners satt opp, oppdaterer stats...');
             this.updateStats();
-            console.log('Stats oppdatert, oppdaterer UI-tekster...');
-            this.updateUIText();
             console.log('Stats oppdatert, starter nytt spill...');
             await this.startNewGame();
             console.log('Nytt spill startet');
@@ -68,32 +69,63 @@ class GeographyGame {
         return this.translations[this.currentLanguage]?.[key] || key;
     }
 
-    updateLanguage(lang) {
+    async updateLanguage(lang) {
         this.currentLanguage = lang;
         this.updateUIText();
-        this.updateCountryNames();
+        await this.updateCountryNames();
     }
 
     updateUIText() {
-        // Oppdater UI-tekster
-        document.querySelector('h1').textContent = this.getText('title');
-        document.querySelector('.country-display h2').textContent = this.getText('subtitle');
-        document.getElementById('loading-indicator').textContent = this.getText('loading');
-        document.getElementById('country-input').placeholder = this.getText('input_placeholder');
-        document.getElementById('submit-btn').textContent = this.getText('guess_button');
-        document.getElementById('give-up-btn').textContent = this.getText('give_up_button');
-        document.getElementById('new-game-btn').textContent = this.getText('new_game_button');
-        document.getElementById('google-maps-btn').textContent = this.getText('google_maps_button');
-        
-        // Oppdater hint-titler
-        document.querySelector('#hint-btn h4').textContent = this.getText('hint_1_title');
-        document.querySelector('#population-hint-btn h4').textContent = this.getText('hint_2_title');
-        document.querySelector('#capital-hint-btn h4').textContent = this.getText('hint_3_title');
-        document.querySelector('#region-hint-btn h4').textContent = this.getText('hint_4_title');
-        
-        // Oppdater footer
-        document.querySelector('footer p:first-child').textContent = this.getText('footer_copyright');
-        document.querySelector('footer p:last-child').textContent = this.getText('footer_built_by');
+        try {
+            // Oppdater UI-tekster
+            const h1 = document.querySelector('h1');
+            if (h1) h1.textContent = this.getText('title');
+            
+            const subtitle = document.querySelector('.country-display h2');
+            if (subtitle) subtitle.textContent = this.getText('subtitle');
+            
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) loadingIndicator.textContent = this.getText('loading');
+            
+            const countryInput = document.getElementById('country-input');
+            if (countryInput) countryInput.placeholder = this.getText('input_placeholder');
+            
+            const submitBtn = document.getElementById('submit-btn');
+            if (submitBtn) submitBtn.textContent = this.getText('guess_button');
+            
+            const giveUpBtn = document.getElementById('give-up-btn');
+            if (giveUpBtn) giveUpBtn.textContent = this.getText('give_up_button');
+            
+            const newGameBtn = document.getElementById('new-game-btn');
+            if (newGameBtn) newGameBtn.textContent = this.getText('new_game_button');
+            
+            const googleMapsBtn = document.getElementById('google-maps-btn');
+            if (googleMapsBtn) googleMapsBtn.textContent = this.getText('google_maps_button');
+            
+            // Oppdater hint-titler
+            const hintBtn = document.querySelector('#hint-btn h4');
+            if (hintBtn) hintBtn.textContent = this.getText('hint_1_title');
+            
+            const populationHintBtn = document.querySelector('#population-hint-btn h4');
+            if (populationHintBtn) populationHintBtn.textContent = this.getText('hint_2_title');
+            
+            const capitalHintBtn = document.querySelector('#capital-hint-btn h4');
+            if (capitalHintBtn) capitalHintBtn.textContent = this.getText('hint_3_title');
+            
+            const regionHintBtn = document.querySelector('#region-hint-btn h4');
+            if (regionHintBtn) regionHintBtn.textContent = this.getText('hint_4_title');
+            
+            // Oppdater footer
+            const footerCopyright = document.querySelector('footer p:first-child');
+            if (footerCopyright) footerCopyright.textContent = this.getText('footer_copyright');
+            
+            const footerBuiltBy = document.querySelector('footer p:last-child');
+            if (footerBuiltBy) footerBuiltBy.textContent = this.getText('footer_built_by');
+            
+            console.log('✅ UI-tekster oppdatert');
+        } catch (error) {
+            console.error('Feil ved oppdatering av UI-tekster:', error);
+        }
     }
 
     async updateCountryNames() {
@@ -361,9 +393,9 @@ class GeographyGame {
         // Språkvelger event listeners
         const langButtons = document.querySelectorAll('.lang-btn');
         langButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const lang = btn.getAttribute('data-lang');
-                this.switchLanguage(lang);
+                await this.switchLanguage(lang);
             });
         });
 
