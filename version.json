@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-02-15",
-  "commit": "db4c5ce",
-  "tag": "v1.4.11-stable",
-  "description": "Komplett mobil layout fix - reduserte hint-container høyde og lagt til breakpoint for ≤360px skjermer",
-  "last_updated": "2025-08-30T02:15:00.000000"
+  "build": "2025-08-30-02-30",
+  "commit": "9cbadac",
+  "tag": "v1.4.12-stable",
+  "description": "Ny mobil layout - 3x2 grid på små skjermer (≤360px) og kompakt layout (≤320px)",
+  "last_updated": "2025-08-30T02:30:00.000000"
 }

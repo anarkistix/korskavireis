@@ -1035,27 +1035,28 @@ img {
     }
 }
 
-/* Ekstra små skjermer */
+/* Ekstra små skjermer - 3x2 grid i stedet for 2x3 */
 @media (max-width: 360px) {
     .hint-container {
-        width: 280px;
-        height: 180px;
+        width: 320px;
+        height: 120px;
     }
     
     .hint-card {
-        width: 130px;
-        height: 80px;
+        width: 100px;
+        height: 50px;
     }
     
     .hint-card h4 {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        margin: 0;
     }
     
     .hint-icon {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     
-    /* Juster posisjoner for enda mindre skjermer */
+    /* 3x2 grid layout */
     #hint-btn {
         top: 0;
         left: 0;
@@ -1063,39 +1064,169 @@ img {
     
     #population-hint-btn {
         top: 0;
-        right: 0;
+        left: 110px;
     }
     
     #capital-hint-btn {
-        top: 100px;
-        left: 0;
+        top: 0;
+        left: 220px;
     }
     
     #region-hint-btn {
-        top: 100px;
-        right: 0;
-    }
-    
-    #mountain-hint-btn {
-        top: 180px;
+        top: 60px;
         left: 0;
     }
     
+    #mountain-hint-btn {
+        top: 60px;
+        left: 110px;
+    }
+    
     #borders-hint-btn {
-        top: 180px;
-        right: 0;
+        top: 60px;
+        left: 220px;
     }
     
     .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
-        width: 130px;
-        height: 80px;
+        width: 100px;
+        height: 50px;
+        padding: 0.5rem;
+    }
+    
+    /* Hint content posisjoner for 3x2 grid */
+    .hint-flag {
+        top: 0;
+        left: 0;
+    }
+    
+    .population-hint {
+        top: 0;
+        left: 110px;
+    }
+    
+    .capital-hint {
+        top: 0;
+        left: 220px;
+    }
+    
+    .region-hint {
+        top: 60px;
+        left: 0;
+    }
+    
+    .mountain-hint {
+        top: 60px;
+        left: 110px;
+    }
+    
+    .borders-hint {
+        top: 60px;
+        left: 220px;
     }
     
     .game-controls {
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
     
     .feedback-container {
-        margin-top: 1rem;
+        margin-top: 1.5rem;
+    }
+}
+
+/* Enda mindre skjermer - kompakt layout */
+@media (max-width: 320px) {
+    .hint-container {
+        width: 280px;
+        height: 100px;
+    }
+    
+    .hint-card {
+        width: 85px;
+        height: 40px;
+    }
+    
+    .hint-card h4 {
+        font-size: 0.6rem;
+        margin: 0;
+    }
+    
+    .hint-icon {
+        font-size: 1rem;
+    }
+    
+    /* Kompakt 3x2 grid */
+    #hint-btn {
+        top: 0;
+        left: 0;
+    }
+    
+    #population-hint-btn {
+        top: 0;
+        left: 95px;
+    }
+    
+    #capital-hint-btn {
+        top: 0;
+        left: 190px;
+    }
+    
+    #region-hint-btn {
+        top: 50px;
+        left: 0;
+    }
+    
+    #mountain-hint-btn {
+        top: 50px;
+        left: 95px;
+    }
+    
+    #borders-hint-btn {
+        top: 50px;
+        left: 190px;
+    }
+    
+    .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
+        width: 85px;
+        height: 40px;
+        padding: 0.3rem;
+    }
+    
+    /* Hint content posisjoner */
+    .hint-flag {
+        top: 0;
+        left: 0;
+    }
+    
+    .population-hint {
+        top: 0;
+        left: 95px;
+    }
+    
+    .capital-hint {
+        top: 0;
+        left: 190px;
+    }
+    
+    .region-hint {
+        top: 50px;
+        left: 0;
+    }
+    
+    .mountain-hint {
+        top: 50px;
+        left: 95px;
+    }
+    
+    .borders-hint {
+        top: 50px;
+        left: 190px;
+    }
+    
+    .game-controls {
+        margin-top: 2.5rem;
+    }
+    
+    .feedback-container {
+        margin-top: 2rem;
     }
 }
