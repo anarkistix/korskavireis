@@ -30,6 +30,32 @@ class GeographyGame {
         } catch (error) {
             console.error('Feil i init:', error);
         }
+        
+        // Tving visning av alle lock-overlays etter init
+        setTimeout(() => {
+            this.forceShowAllLockOverlays();
+        }, 100);
+    }
+
+    forceShowAllLockOverlays() {
+        const lockOverlayIds = [
+            'hint-lock-overlay',
+            'population-lock-overlay', 
+            'capital-lock-overlay',
+            'region-lock-overlay'
+        ];
+
+        lockOverlayIds.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'flex';
+                element.style.background = 'rgba(0, 0, 0, 0.5)';
+                element.style.zIndex = '100';
+                console.log(`Force show: ${id} er nå synlig`);
+            } else {
+                console.error(`Force show: ${id} ikke funnet!`);
+            }
+        });
     }
 
     async loadCountries() {
@@ -220,9 +246,14 @@ class GeographyGame {
             if (element) {
                 // Sikre at lock-overlay er synlig ved start
                 element.style.display = 'flex';
+                element.style.background = 'rgba(0, 0, 0, 0.5)';
+                element.style.zIndex = '100';
                 element.addEventListener('click', () => {
                     this.showLockMessage(overlay.attempts);
                 });
+                console.log(`Lock overlay ${overlay.id} initialisert`);
+            } else {
+                console.error(`Lock overlay ${overlay.id} ikke funnet!`);
             }
         });
 
@@ -1013,8 +1044,13 @@ class GeographyGame {
             
             if (lockOverlay) {
                 lockOverlay.style.display = 'flex';
+                lockOverlay.style.background = 'rgba(0, 0, 0, 0.5)';
+                lockOverlay.style.zIndex = '100';
             }
         });
+        
+        // Tving visning av alle lock-overlays
+        this.forceShowAllLockOverlays();
     }
 
     showPopulationHint() {
