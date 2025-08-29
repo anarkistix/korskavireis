@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-01-25",
-  "commit": "9adba5f",
-  "tag": "v1.4.6-stable",
-  "description": "Debugging og z-index fix for naboland-hint - skal nå vises ved riktig gjetting og gi opp",
-  "last_updated": "2025-08-30T01:25:00.000000"
+  "build": "2025-08-30-01-35",
+  "commit": "73b1996",
+  "tag": "v1.4.7-stable",
+  "description": "Debugging av endGame og revealAllHints funksjoner - sporer funksjonskall",
+  "last_updated": "2025-08-30T01:35:00.000000"
 }

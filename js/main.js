@@ -1019,9 +1019,11 @@ class GeographyGame {
     }
 
     endGame(won) {
+        console.log('🎮 endGame kalt med won:', won);
         this.isGameActive = false;
         
         if (won) {
+            console.log('🏆 Spillet vunnet - viser landnavn og hint');
             // Vis landnavn og alle hint når spillet vinnes
             const revealBox = document.getElementById('country-reveal-box');
             const revealedCountryName = document.getElementById('revealed-country-name');
@@ -1033,6 +1035,7 @@ class GeographyGame {
             revealBox.style.display = 'block';
             
             // Vis alle hint automatisk
+            console.log('🔍 Kaller revealAllHints()...');
             this.revealAllHints();
         }
         
@@ -1427,6 +1430,7 @@ class GeographyGame {
     }
     
     revealAllHints() {
+        console.log('🎯 revealAllHints() kalt');
         // Vis flagg-hint
         const hintFlag = document.getElementById('hint-flag');
         const hintFlagImg = document.getElementById('hint-flag-img');
@@ -1475,32 +1479,19 @@ class GeographyGame {
         // Vis naboland-hint
         const bordersHint = document.getElementById('borders-hint');
         const bordersText = document.getElementById('borders-text');
-        console.log('🔍 Debugging naboland-hint:', {
-            bordersHint: !!bordersHint,
-            bordersText: !!bordersText,
-            isIsland: this.currentCountry.is_island,
-            borders: this.currentCountry.borders,
-            bordersNo: this.currentCountry.borders_no
-        });
         
         if (bordersHint && bordersText) {
             if (this.currentCountry.is_island) {
                 bordersText.textContent = this.getText('island_no_borders');
-                console.log('🏝️ Viser øy-melding:', this.getText('island_no_borders'));
             } else if (this.currentCountry.borders && this.currentCountry.borders.length > 0) {
                 const borders = this.currentLanguage === 'no' ? 
                     this.currentCountry.borders_no : 
                     this.currentCountry.borders;
                 bordersText.textContent = borders.join(', ');
-                console.log('🗺️ Viser naboland:', borders.join(', '));
             } else {
                 bordersText.textContent = this.getText('no_borders_data');
-                console.log('❌ Viser ingen data melding:', this.getText('no_borders_data'));
             }
             bordersHint.style.display = 'inline-block';
-            console.log('✅ Naboland-hint satt til synlig');
-        } else {
-            console.log('❌ Kunne ikke finne naboland-hint elementer');
         }
         
         // Skjul alle lock-overlays
@@ -1522,6 +1513,7 @@ class GeographyGame {
     }
     
     giveUp() {
+        console.log('🏳️ giveUp() kalt');
         // Vis landnavn i reveal-boks
         const revealBox = document.getElementById('country-reveal-box');
         const revealedCountryName = document.getElementById('revealed-country-name');
