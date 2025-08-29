@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-00-15",
-  "commit": "0ce5282",
-  "tag": "v1.3.2-stable",
-  "description": "Fikset git submodule feil - fjernet temp_flags som forårsaket build-feil",
-  "last_updated": "2025-08-30T00:15:00.000000"
+  "build": "2025-08-30-00-25",
+  "commit": "65c8428",
+  "tag": "v1.4.0-stable",
+  "description": "Ny 'Gi opp' funksjonalitet - viser landnavn i boks og avslører alle hint automatisk",
+  "last_updated": "2025-08-30T00:25:00.000000"
 }

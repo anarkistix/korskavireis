@@ -1119,6 +1119,9 @@ class GeographyGame {
         
         // Reset bordershint
         document.getElementById('borders-hint').style.display = 'none';
+        
+        // Skjul landnavn reveal-boks
+        document.getElementById('country-reveal-box').style.display = 'none';
     }
 
     updateStats() {
@@ -1423,9 +1426,100 @@ class GeographyGame {
         }
     }
     
+    revealAllHints() {
+        // Vis flagg-hint
+        const hintFlag = document.getElementById('hint-flag');
+        const hintFlagImg = document.getElementById('hint-flag-img');
+        if (hintFlag && hintFlagImg && this.currentCountry.flagFile) {
+            hintFlagImg.src = `flags/${this.currentCountry.flagFile}?v=${Date.now()}`;
+            hintFlag.style.display = 'inline-block';
+        }
+        
+        // Vis befolknings-hint
+        const populationHint = document.getElementById('population-hint');
+        const populationText = document.getElementById('population-text');
+        if (populationHint && populationText && this.currentCountry.population) {
+            const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
+            const year = this.currentCountry.populationYear || 'N/A';
+            populationText.textContent = `${formattedPopulation} ${this.getText('inhabitants')} (${year})`;
+            populationHint.style.display = 'inline-block';
+        }
+        
+        // Vis hovedstad-hint
+        const capitalHint = document.getElementById('capital-hint');
+        const capitalText = document.getElementById('capital-text');
+        if (capitalHint && capitalText && this.currentCountry.capital) {
+            capitalText.textContent = this.currentCountry.capital;
+            capitalHint.style.display = 'inline-block';
+        }
+        
+        // Vis region-hint
+        const regionHint = document.getElementById('region-hint');
+        const regionText = document.getElementById('region-text');
+        if (regionHint && regionText && this.currentCountry.region) {
+            regionText.textContent = this.currentCountry.region;
+            regionHint.style.display = 'inline-block';
+        }
+        
+        // Vis fjell-hint
+        const mountainHint = document.getElementById('mountain-hint');
+        const mountainText = document.getElementById('mountain-text');
+        if (mountainHint && mountainText && this.currentCountry.highest_mountain) {
+            const mountain = this.currentCountry.highest_mountain;
+            const meters = this.currentCountry.highest_elevation_meters;
+            const feet = this.currentCountry.highest_elevation_feet;
+            mountainText.textContent = `${mountain} (${meters}m / ${feet}ft)`;
+            mountainHint.style.display = 'inline-block';
+        }
+        
+        // Vis naboland-hint
+        const bordersHint = document.getElementById('borders-hint');
+        const bordersText = document.getElementById('borders-text');
+        if (bordersHint && bordersText) {
+            if (this.currentCountry.is_island) {
+                bordersText.textContent = this.getText('island_no_borders');
+            } else if (this.currentCountry.borders && this.currentCountry.borders.length > 0) {
+                const borders = this.currentLanguage === 'no' ? 
+                    this.currentCountry.borders_no : 
+                    this.currentCountry.borders;
+                bordersText.textContent = borders.join(', ');
+            } else {
+                bordersText.textContent = this.getText('no_borders_data');
+            }
+            bordersHint.style.display = 'inline-block';
+        }
+        
+        // Skjul alle lock-overlays
+        const lockOverlays = [
+            'hint-lock-overlay',
+            'population-lock-overlay',
+            'capital-lock-overlay',
+            'region-lock-overlay',
+            'mountain-lock-overlay',
+            'borders-lock-overlay'
+        ];
+        
+        lockOverlays.forEach(overlayId => {
+            const overlay = document.getElementById(overlayId);
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        });
+    }
+    
     giveUp() {
-        // Vis riktig svar
-        this.showMessage(`${this.getText('gave_up')} ${this.currentCountry.name}`, 'info');
+        // Vis landnavn i reveal-boks
+        const revealBox = document.getElementById('country-reveal-box');
+        const revealedCountryName = document.getElementById('revealed-country-name');
+        const countryName = this.currentLanguage === 'no' ? 
+            this.currentCountry.name_no || this.currentCountry.name : 
+            this.currentCountry.name;
+        
+        revealedCountryName.textContent = countryName;
+        revealBox.style.display = 'block';
+        
+        // Vis alle hint automatisk
+        this.revealAllHints();
         
         // Endre knappene
         document.getElementById('submit-btn').style.display = 'none';

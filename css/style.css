@@ -401,6 +401,26 @@ main {
     color: #155724;
 }
 
+/* Country reveal box */
+.country-reveal-box {
+    margin: 1rem auto;
+    text-align: center;
+    width: 400px;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: white;
+    animation: slideIn 0.5s ease;
+}
+
+.country-reveal-box h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 /* Hint container */
 .hint-container {
     margin-top: 1rem;
