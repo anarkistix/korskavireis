@@ -369,6 +369,7 @@ main {
     margin-top: 1rem;
     text-align: center;
     width: 100%;
+    padding: 0.5rem;
 }
 
 .hint-card {
@@ -382,7 +383,7 @@ main {
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0 0.5rem;
+    margin: 0.75rem 1rem;
     display: inline-block;
     vertical-align: top;
     display: flex;
@@ -427,7 +428,7 @@ main {
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0 0.5rem;
+    margin: 0.75rem 1rem;
     display: inline-block;
     vertical-align: top;
     display: flex;
@@ -455,7 +456,7 @@ main {
     cursor: pointer;
     width: 180px;
     height: 140px;
-    margin: 0 0.5rem;
+    margin: 0.75rem 1rem;
     display: inline-block;
     vertical-align: top;
     display: flex;
@@ -642,6 +643,7 @@ img {
         width: 160px;
         height: 120px;
         padding: 1.25rem;
+        margin: 0.5rem 0.75rem;
     }
     
     .hint-icon {
@@ -698,6 +700,7 @@ img {
         width: 140px;
         height: 100px;
         padding: 1rem;
+        margin: 0.4rem 0.6rem;
     }
     
     .hint-icon {
