@@ -659,6 +659,11 @@ class GeographyGame {
 
         this.attempts++;
 
+        // Lås opp hint 1 etter første forsøk
+        if (this.attempts === 1) {
+            this.unlockHint1();
+        }
+
         if (guessedCountry.name === this.currentCountry.name) {
             // Riktig gjetting
             this.addFeedbackItem(guessedCountry, true);
@@ -822,12 +827,21 @@ class GeographyGame {
         document.getElementById('country-image').style.display = 'none';
         document.getElementById('loading-indicator').style.display = 'block';
         
-        // Reset hint-knapp
+        // Reset hint-knapp og lås den igjen
         const hintBtn = document.getElementById('hint-btn');
         if (hintBtn) {
             hintBtn.querySelector('h4').textContent = 'Hint 1: Flagg';
             hintBtn.disabled = false;
             hintBtn.style.display = 'inline-block'; // Vis knappen igjen
+            hintBtn.classList.add('locked'); // Lås hint 1 igjen
+            
+            // Legg til lock-overlay hvis den ikke finnes
+            if (!hintBtn.querySelector('.lock-overlay')) {
+                const lockOverlay = document.createElement('div');
+                lockOverlay.className = 'lock-overlay';
+                lockOverlay.innerHTML = '<span class="lock-icon">🔒</span>';
+                hintBtn.appendChild(lockOverlay);
+            }
         }
         
         // Reset hint-flag
@@ -892,6 +906,12 @@ class GeographyGame {
     }
 
     showHint() {
+        // Sjekk om hint er låst (ingen forsøk gjort ennå)
+        if (this.attempts === 0) {
+            this.showLockMessage();
+            return;
+        }
+
         if (!this.currentCountry || this.hintUsed) {
             return;
         }
@@ -910,6 +930,32 @@ class GeographyGame {
             hintBtn.querySelector('h4').textContent = 'Ingen flagg tilgjengelig';
             hintBtn.disabled = true;
             this.hintUsed = true;
+        }
+    }
+
+    showLockMessage() {
+        const message = document.createElement('div');
+        message.className = 'lock-message';
+        message.textContent = 'Du må gjette først før du kan bruke hint!';
+        document.body.appendChild(message);
+        
+        // Fjern meldingen etter animasjonen
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+        }, 2000);
+    }
+
+    unlockHint1() {
+        const hintBtn = document.getElementById('hint-btn');
+        if (hintBtn) {
+            hintBtn.classList.remove('locked');
+            // Fjern lock-overlay
+            const lockOverlay = hintBtn.querySelector('.lock-overlay');
+            if (lockOverlay) {
+                lockOverlay.remove();
+            }
         }
     }
 
