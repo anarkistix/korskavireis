@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-02-30",
-  "commit": "9cbadac",
-  "tag": "v1.4.12-stable",
-  "description": "Ny mobil layout - 3x2 grid på små skjermer (≤360px) og kompakt layout (≤320px)",
-  "last_updated": "2025-08-30T02:30:00.000000"
+  "build": "2025-08-30-02-45",
+  "commit": "6da7fd3",
+  "tag": "v1.4.13-stable",
+  "description": "Økt spacing - margin-bottom 4rem på hint-container og margin-top 2rem på game-controls for å fikse overlapping",
+  "last_updated": "2025-08-30T02:45:00.000000"
 }
