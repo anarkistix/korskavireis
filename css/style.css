@@ -757,7 +757,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 40;
+    z-index: 1001;
 }
 
 .mountain-hint-btn {

@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-01-15",
-  "commit": "b704ddc",
-  "tag": "v1.4.5-stable",
-  "description": "Viser landnavn og alle hint når spillet vinnes - samme som ved 'Gi opp'",
-  "last_updated": "2025-08-30T01:15:00.000000"
+  "build": "2025-08-30-01-25",
+  "commit": "9adba5f",
+  "tag": "v1.4.6-stable",
+  "description": "Debugging og z-index fix for naboland-hint - skal nå vises ved riktig gjetting og gi opp",
+  "last_updated": "2025-08-30T01:25:00.000000"
 }
