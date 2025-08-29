@@ -15,6 +15,7 @@ class GeographyGame {
         this.mountainHintUsed = false;
         this.currentLanguage = 'no'; // Default to Norwegian
         this.translations = {};
+        this.bordersHintUsed = false;
         
         this.init();
     }
@@ -194,7 +195,8 @@ class GeographyGame {
             'population-lock-overlay', 
             'capital-lock-overlay',
             'region-lock-overlay',
-            'mountain-lock-overlay'
+            'mountain-lock-overlay',
+            'borders-lock-overlay'
         ];
 
         lockOverlayIds.forEach(id => {
@@ -237,6 +239,9 @@ class GeographyGame {
                     highest_mountain: country.highest_mountain,
                     highest_elevation_meters: country.highest_elevation_meters,
                     highest_elevation_feet: country.highest_elevation_feet,
+                    borders: country.borders,
+                    borders_no: country.borders_no,
+                    is_island: country.is_island,
                     center: center
                 };
             }).filter(country => country.name && country.imageFile);
@@ -391,7 +396,9 @@ class GeographyGame {
             { id: 'hint-lock-overlay', attempts: 1 },
             { id: 'population-lock-overlay', attempts: 2 },
             { id: 'capital-lock-overlay', attempts: 3 },
-            { id: 'region-lock-overlay', attempts: 4 }
+            { id: 'region-lock-overlay', attempts: 4 },
+            { id: 'mountain-lock-overlay', attempts: 5 },
+            { id: 'borders-lock-overlay', attempts: 6 }
         ];
 
         lockOverlays.forEach(overlay => {
@@ -445,6 +452,13 @@ class GeographyGame {
                 if (mountainHintBtn) {
                     mountainHintBtn.addEventListener('click', () => {
                         this.showMountainHint();
+                    });
+                }
+                
+                const bordersHintBtn = document.getElementById('borders-hint-btn');
+                if (bordersHintBtn) {
+                    bordersHintBtn.addEventListener('click', () => {
+                        this.showBordersHint();
                     });
                 }
 
@@ -656,6 +670,7 @@ class GeographyGame {
         this.capitalHintUsed = false;
         this.regionHintUsed = false;
         this.mountainHintUsed = false;
+        this.bordersHintUsed = false;
         
         // Sjekk admin-innstillinger
         const adminSettings = await this.getAdminSettings();
@@ -1093,6 +1108,17 @@ class GeographyGame {
         
         // Reset mountainhint
         document.getElementById('mountain-hint').style.display = 'none';
+
+        // Reset bordershint-knapp
+        const bordersHintBtn = document.getElementById('borders-hint-btn');
+        if (bordersHintBtn) {
+            bordersHintBtn.querySelector('h4').textContent = this.getText('hint_6_title');
+            bordersHintBtn.disabled = false;
+            bordersHintBtn.style.display = 'inline-block'; // Vis knappen igjen
+        }
+        
+        // Reset bordershint
+        document.getElementById('borders-hint').style.display = 'none';
     }
 
     updateStats() {
@@ -1186,6 +1212,11 @@ class GeographyGame {
         if (this.attempts >= 5) {
             this.unlockHint(5);
         }
+        
+        // Hint 6: Låst opp etter 6 forsøk
+        if (this.attempts >= 6) {
+            this.unlockHint(6);
+        }
     }
 
     unlockHint(hintNumber) {
@@ -1194,7 +1225,8 @@ class GeographyGame {
             2: { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay' },
             3: { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay' },
             4: { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay' },
-            5: { btnId: 'mountain-hint-btn', overlayId: 'mountain-lock-overlay' }
+            5: { btnId: 'mountain-hint-btn', overlayId: 'mountain-lock-overlay' },
+            6: { btnId: 'borders-hint-btn', overlayId: 'borders-lock-overlay' }
         };
 
         const config = hintConfigs[hintNumber];
@@ -1221,7 +1253,8 @@ class GeographyGame {
             { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', textKey: 'hint_2_title', contentId: 'population-hint' },
             { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', textKey: 'hint_3_title', contentId: 'capital-hint' },
             { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', textKey: 'hint_4_title', contentId: 'region-hint' },
-            { btnId: 'mountain-hint-btn', overlayId: 'mountain-lock-overlay', textKey: 'hint_5_title', contentId: 'mountain-hint' }
+            { btnId: 'mountain-hint-btn', overlayId: 'mountain-lock-overlay', textKey: 'hint_5_title', contentId: 'mountain-hint' },
+            { btnId: 'borders-hint-btn', overlayId: 'borders-lock-overlay', textKey: 'hint_6_title', contentId: 'borders-hint' }
         ];
 
         hintConfigs.forEach(config => {
@@ -1353,6 +1386,40 @@ class GeographyGame {
             mountainHintBtn.querySelector('h4').textContent = this.getText('no_mountain_data');
             mountainHintBtn.disabled = true;
             this.mountainHintUsed = true;
+        }
+    }
+    
+    showBordersHint() {
+        if (!this.currentCountry || this.bordersHintUsed || this.attempts < 6) {
+            return;
+        }
+
+        const bordersHint = document.getElementById('borders-hint');
+        const bordersText = document.getElementById('borders-text');
+        const bordersHintBtn = document.getElementById('borders-hint-btn');
+        const lockOverlay = document.getElementById('borders-lock-overlay');
+
+        if (this.currentCountry.is_island) {
+            bordersText.textContent = this.getText('island_no_borders');
+            bordersHint.style.display = 'inline-block';
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            this.bordersHintUsed = true;
+        } else if (this.currentCountry.borders && this.currentCountry.borders.length > 0) {
+            const borders = this.currentLanguage === 'no' ? 
+                this.currentCountry.borders_no : 
+                this.currentCountry.borders;
+            bordersText.textContent = borders.join(', ');
+            bordersHint.style.display = 'inline-block';
+            if (lockOverlay) {
+                lockOverlay.style.display = 'none';
+            }
+            this.bordersHintUsed = true;
+        } else {
+            bordersHintBtn.querySelector('h4').textContent = this.getText('no_borders_data');
+            bordersHintBtn.disabled = true;
+            this.bordersHintUsed = true;
         }
     }
     

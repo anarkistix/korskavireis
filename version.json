@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-29-23-00",
-  "commit": "6a315bd",
-  "tag": "v1.2.2-stable",
-  "description": "Fikset hint-posisjonering - capital og region hints vises nå på riktig plass",
-  "last_updated": "2025-08-29T23:00:00.000000"
+  "build": "2025-08-29-23-20",
+  "commit": "cdcdd75",
+  "tag": "v1.3.1-stable",
+  "description": "Endret hint-grid fra 3x2 til 2x3 layout - 6 hint i 2 kolonner, 3 rader",
+  "last_updated": "2025-08-29T23:20:00.000000"
 }
