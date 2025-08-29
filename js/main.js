@@ -148,6 +148,12 @@ class GeographyGame {
             });
             
             console.log(`✅ Landnavn oppdatert til ${this.currentLanguage}`);
+            
+            // Oppdater autocomplete-liste hvis det er tekst i input-feltet
+            const input = document.getElementById('country-input');
+            if (input && input.value.length > 0) {
+                this.showSuggestions(input.value);
+            }
         } catch (error) {
             console.error('Feil ved oppdatering av landnavn:', error);
         }
@@ -166,6 +172,12 @@ class GeographyGame {
         // Oppdater UI og landnavn
         this.updateUIText();
         await this.updateCountryNames();
+        
+        // Oppdater autocomplete-liste hvis det er tekst i input-feltet
+        const input = document.getElementById('country-input');
+        if (input && input.value.length > 0) {
+            this.showSuggestions(input.value);
+        }
         
         // Lagre språkvalg i localStorage
         localStorage.setItem('selectedLanguage', lang);
@@ -1026,7 +1038,7 @@ class GeographyGame {
         // Reset befolkningshint-knapp
         const populationHintBtn = document.getElementById('population-hint-btn');
         if (populationHintBtn) {
-            populationHintBtn.querySelector('h4').textContent = 'Hint 2: Befolkning';
+            populationHintBtn.querySelector('h4').textContent = this.getText('hint_2_title');
             populationHintBtn.disabled = false;
             populationHintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }
@@ -1037,7 +1049,7 @@ class GeographyGame {
         // Reset hovedstadshint-knapp
         const capitalHintBtn = document.getElementById('capital-hint-btn');
         if (capitalHintBtn) {
-            capitalHintBtn.querySelector('h4').textContent = 'Hint 3: Hovedstad';
+            capitalHintBtn.querySelector('h4').textContent = this.getText('hint_3_title');
             capitalHintBtn.disabled = false;
             capitalHintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }
@@ -1048,7 +1060,7 @@ class GeographyGame {
         // Reset regionhint-knapp
         const regionHintBtn = document.getElementById('region-hint-btn');
         if (regionHintBtn) {
-            regionHintBtn.querySelector('h4').textContent = 'Hint 4: Region';
+            regionHintBtn.querySelector('h4').textContent = this.getText('hint_4_title');
             regionHintBtn.disabled = false;
             regionHintBtn.style.display = 'inline-block'; // Vis knappen igjen
         }
@@ -1173,10 +1185,10 @@ class GeographyGame {
 
     resetAllHints() {
         const hintConfigs = [
-            { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', text: 'Hint 1: Flagg', contentId: 'hint-flag' },
-            { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', text: 'Hint 2: Befolkning', contentId: 'population-hint' },
-            { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', text: 'Hint 3: Hovedstad', contentId: 'capital-hint' },
-            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', text: 'Hint 4: Region', contentId: 'region-hint' }
+            { btnId: 'hint-btn', overlayId: 'hint-lock-overlay', textKey: 'hint_1_title', contentId: 'hint-flag' },
+            { btnId: 'population-hint-btn', overlayId: 'population-lock-overlay', textKey: 'hint_2_title', contentId: 'population-hint' },
+            { btnId: 'capital-hint-btn', overlayId: 'capital-lock-overlay', textKey: 'hint_3_title', contentId: 'capital-hint' },
+            { btnId: 'region-hint-btn', overlayId: 'region-lock-overlay', textKey: 'hint_4_title', contentId: 'region-hint' }
         ];
 
         hintConfigs.forEach(config => {
@@ -1185,7 +1197,7 @@ class GeographyGame {
             const hintContent = document.getElementById(config.contentId);
             
             if (hintBtn) {
-                hintBtn.querySelector('h4').textContent = config.text;
+                hintBtn.querySelector('h4').textContent = this.getText(config.textKey);
                 hintBtn.disabled = false;
                 hintBtn.style.display = 'inline-block';
                 hintBtn.classList.add('locked');
