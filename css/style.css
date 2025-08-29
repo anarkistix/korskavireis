@@ -525,8 +525,8 @@ main {
 .hint-flag {
     text-align: center;
     padding: 1rem;
-    background: #e9ecef;
-    border: none;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
@@ -554,8 +554,8 @@ main {
 .population-hint {
     text-align: center;
     padding: 1rem;
-    background: #e9ecef;
-    border: none;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
@@ -575,8 +575,8 @@ main {
 .capital-hint {
     text-align: center;
     padding: 1rem;
-    background: #e9ecef;
-    border: none;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
@@ -596,8 +596,8 @@ main {
 .region-hint {
     text-align: center;
     padding: 1rem;
-    background: #e9ecef;
-    border: none;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
