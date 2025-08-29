@@ -539,7 +539,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 20;
+    z-index: 40;
 }
 
 .hint-flag img {
@@ -569,7 +569,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 20;
+    z-index: 40;
 }
 
 .capital-hint {
@@ -590,7 +590,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 20;
+    z-index: 40;
 }
 
 .region-hint {
@@ -611,7 +611,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 20;
+    z-index: 40;
 }
 
 .population-hint span {
