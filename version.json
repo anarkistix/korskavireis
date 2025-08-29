@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-03:10",
-  "commit": "4a47438",
-  "tag": "v1.4.16-stable",
-  "description": "DRASTISK spacing fix - margin-bottom 10rem på hint-container og margin-top 5rem på game-controls + ORANGE og GRØNNE borders for å bekrefte endringer.",
-  "last_updated": "2025-08-30T03:10:00.000000"
+  "build": "2025-08-30-03:15",
+  "commit": "5a47438",
+  "tag": "v1.4.17-stable",
+  "description": "Fikset hint-container høyde fra 480px til 600px - nå skal oransje ramme dekke ALLE seks hint-knapper.",
+  "last_updated": "2025-08-30T03:15:00.000000"
 }
