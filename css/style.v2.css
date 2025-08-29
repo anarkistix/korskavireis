@@ -155,7 +155,7 @@ main {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .input-container {
@@ -425,7 +425,7 @@ main {
 /* Hint container */
 .hint-container {
     margin-top: 1rem;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
     text-align: center;
     width: 400px;
     height: 480px;
