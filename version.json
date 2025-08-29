@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-03:45",
-  "commit": "11a47438",
-  "tag": "v1.4.23-stable",
-  "description": "Zero gap - margin-bottom på hint-container fra 0.5rem til 0rem for minimal spacing.",
-  "last_updated": "2025-08-30T03:45:00.000000"
+  "build": "2025-08-30-03:50",
+  "commit": "12a47438",
+  "tag": "v1.4.24-stable",
+  "description": "Negative margin - margin-bottom på hint-container fra 0rem til -0.5rem for overlapping spacing.",
+  "last_updated": "2025-08-30T03:50:00.000000"
 }
