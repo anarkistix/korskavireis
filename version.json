@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-04:20",
-  "commit": "18a47438",
-  "tag": "v1.4.30-stable",
-  "description": "Fixed mountain and borders hint sizing - restored padding, z-index and font size to match other hint boxes exactly.",
-  "last_updated": "2025-08-30T04:20:00.000000"
+  "build": "2025-08-30-04:27",
+  "commit": "19a47438",
+  "tag": "v1.4.31-stable",
+  "description": "Hardcoded mountain/borders hint sizes to match buttons at 768px and 480px breakpoints.",
+  "last_updated": "2025-08-30T04:27:00.000000"
 }

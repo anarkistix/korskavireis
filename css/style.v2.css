@@ -933,7 +933,7 @@ img {
         height: 120px;
     }
     
-    .hint-flag, .population-hint, .capital-hint, .region-hint {
+    .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
         width: 160px;
         height: 120px;
     }
@@ -942,7 +942,9 @@ img {
     .hint-flag,
     .population-hint,
     .capital-hint,
-    .region-hint {
+    .region-hint,
+    .mountain-hint,
+    .borders-hint {
         width: 160px;
         height: 120px;
         padding: 1.25rem;
@@ -1010,7 +1012,7 @@ img {
         height: 100px;
     }
     
-    .hint-flag, .population-hint, .capital-hint, .region-hint {
+    .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
         width: 140px;
         height: 100px;
     }
@@ -1019,7 +1021,9 @@ img {
     .hint-flag,
     .population-hint,
     .capital-hint,
-    .region-hint {
+    .region-hint,
+    .mountain-hint,
+    .borders-hint {
         width: 140px;
         height: 100px;
         padding: 1rem;
