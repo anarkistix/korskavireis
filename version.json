@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-04:27",
-  "commit": "19a47438",
-  "tag": "v1.4.31-stable",
-  "description": "Hardcoded mountain/borders hint sizes to match buttons at 768px and 480px breakpoints.",
-  "last_updated": "2025-08-30T04:27:00.000000"
+  "build": "2025-08-30-10:05",
+  "commit": "1aa47438",
+  "tag": "v1.4.32-stable",
+  "description": "Removed temporary debug borders: orange hint-container frame and green game-controls background/border.",
+  "last_updated": "2025-08-30T10:05:00.000000"
 }

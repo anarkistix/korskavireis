@@ -156,9 +156,7 @@ main {
     gap: 1rem;
     align-items: center;
     margin-top: 1rem;
-    background-color: rgba(0, 255, 0, 0.1);
-    border: 2px solid green;
-    padding: 1rem;
+    padding: 0;
 }
 
 .input-container {
@@ -435,8 +433,8 @@ main {
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    background-color: rgba(255, 165, 0, 0.1);
-    border: 2px solid orange;
+    background-color: transparent;
+    border: none;
 }
 
 /* Skjul hint-innhold som ikke er knapper */
