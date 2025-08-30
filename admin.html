@@ -213,6 +213,57 @@
                     <p class="export-info">Åpner en ny tab med alle land alfabetisk sortert og pent formatert</p>
                 </div>
             </div>
+
+            <div class="admin-section">
+                <h2>📈 Besøksstatistikk (lokal)</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span class="status-label">Totale besøk:</span>
+                        <span id="stat-total-visits" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Unike besøkende:</span>
+                        <span id="stat-unique-visitors" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Språk (NO/EN):</span>
+                        <span id="stat-languages" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Enheter (Mobil/Desktop):</span>
+                        <span id="stat-devices" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Nettlesere:</span>
+                        <span id="stat-browsers" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Spill startet:</span>
+                        <span id="stat-games-started" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Spill vunnet:</span>
+                        <span id="stat-games-won" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Ga opp:</span>
+                        <span id="stat-give-ups" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Snitt forsøk ved seier:</span>
+                        <span id="stat-avg-attempts" class="status-value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Hintbruk (1-6):</span>
+                        <span id="stat-hints" class="status-value">-</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <button onclick="refreshStats()" class="admin-btn">Oppdater statistikk</button>
+                    <button onclick="resetStats()" class="admin-btn secondary">Nullstill statistikk</button>
+                </div>
+                <p class="export-info">Data lagres i nettleserens localStorage (klient-side). For server-side analytics: integrer med f.eks. Plausible/GA4.</p>
+            </div>
         </main>
     </div>
 

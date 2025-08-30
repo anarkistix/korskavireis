@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-10:08",
-  "commit": "1ba47438",
-  "tag": "v1.4.33-stable",
-  "description": "Desktop-only: moved #country-input 15px down (no change on mobile).",
-  "last_updated": "2025-08-30T10:08:00.000000"
+  "build": "2025-08-30-10:15",
+  "commit": "1ca47438",
+  "tag": "v1.5.0-stats",
+  "description": "Added client-side visit/game stats and admin stats section with refresh/reset.",
+  "last_updated": "2025-08-30T10:15:00.000000"
 }

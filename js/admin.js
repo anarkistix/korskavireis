@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadCountriesData();
     updateSystemStatus();
     loadCurrentSettings();
+    refreshStats();
 });
 
 // Load current settings from config.json or localStorage
@@ -463,6 +464,57 @@ function updateSystemStatus() {
     document.getElementById('countries-with-mountain').textContent = countriesWithMountain;
     document.getElementById('countries-with-borders').textContent = countriesWithBorders;
     document.getElementById('total-islands').textContent = totalIslands;
+}
+
+// =========================
+// Lokal besøksstatistikk
+// =========================
+function getSiteStats() {
+    try {
+        const raw = localStorage.getItem('siteStats');
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+}
+
+function refreshStats() {
+    const stats = getSiteStats();
+    if (!stats) {
+        setStat('stat-total-visits', 0);
+        setStat('stat-unique-visitors', 0);
+        setStat('stat-languages', 'NO: 0 / EN: 0');
+        setStat('stat-devices', 'Mobil: 0 / Desktop: 0');
+        setStat('stat-browsers', '-');
+        setStat('stat-games-started', 0);
+        setStat('stat-games-won', 0);
+        setStat('stat-give-ups', 0);
+        setStat('stat-avg-attempts', 0);
+        setStat('stat-hints', '1:0, 2:0, 3:0, 4:0, 5:0, 6:0');
+        return;
+    }
+    setStat('stat-total-visits', stats.totalVisits || 0);
+    setStat('stat-unique-visitors', stats.uniqueVisitors || 0);
+    setStat('stat-languages', `NO: ${stats.visitsByLanguage?.no||0} / EN: ${stats.visitsByLanguage?.en||0}`);
+    setStat('stat-devices', `Mobil: ${stats.devices?.mobile||0} / Desktop: ${stats.devices?.desktop||0}`);
+    const browsers = stats.userAgents || {};
+    setStat('stat-browsers', `Chrome: ${browsers.Chrome||0}, Safari: ${browsers.Safari||0}, Firefox: ${browsers.Firefox||0}, Edge: ${browsers.Edge||0}, Other: ${browsers.Other||0}`);
+    setStat('stat-games-started', stats.gamesStarted || 0);
+    setStat('stat-games-won', stats.gamesWon || 0);
+    setStat('stat-give-ups', stats.giveUps || 0);
+    const avg = (stats.gamesWon && stats.totalAttemptsOnWins) ? (stats.totalAttemptsOnWins / stats.gamesWon).toFixed(2) : 0;
+    setStat('stat-avg-attempts', avg);
+    const hints = stats.hintUsage || {};
+    setStat('stat-hints', `1:${hints[1]||0}, 2:${hints[2]||0}, 3:${hints[3]||0}, 4:${hints[4]||0}, 5:${hints[5]||0}, 6:${hints[6]||0}`);
+}
+
+function resetStats() {
+    if (!confirm('Er du sikker på at du vil nullstille lokal statistikk?')) return;
+    localStorage.removeItem('siteStats');
+    refreshStats();
+}
+
+function setStat(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
 }
 
 // Enter key support for login

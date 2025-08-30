@@ -1605,6 +1605,11 @@ async function loadVersionInfo() {
 document.addEventListener('DOMContentLoaded', () => {
     loadVersionInfo();
     window.game = new GeographyGame();
+    // Statistikk: registrer besøk og valgt språk
+    try {
+        recordVisit();
+        recordLanguage(window.game.currentLanguage);
+    } catch (e) { console.warn('Stats visit error:', e); }
     
     // Check if there are admin settings and show notification
     const adminSettings = localStorage.getItem('adminGameSettings');
@@ -1670,3 +1675,158 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 });
+
+// =========================
+// Enkel klient-statistikk
+// =========================
+function loadSiteStats() {
+    const raw = localStorage.getItem('siteStats');
+    if (!raw) {
+        return {
+            totalVisits: 0,
+            uniqueVisitors: 0,
+            visitsByLanguage: { no: 0, en: 0 },
+            gamesStarted: 0,
+            gamesWon: 0,
+            giveUps: 0,
+            totalAttemptsOnWins: 0,
+            hintUsage: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 },
+            devices: { mobile: 0, desktop: 0 },
+            userAgents: { Chrome: 0, Safari: 0, Firefox: 0, Edge: 0, Other: 0 },
+            lastUpdated: new Date().toISOString()
+        };
+    }
+    try { return JSON.parse(raw); } catch { return loadSiteStats(); }
+}
+
+function saveSiteStats(stats) {
+    stats.lastUpdated = new Date().toISOString();
+    localStorage.setItem('siteStats', JSON.stringify(stats));
+}
+
+function recordVisit() {
+    const stats = loadSiteStats();
+    stats.totalVisits += 1;
+    // Unik besøkende
+    if (!localStorage.getItem('visitorId')) {
+        localStorage.setItem('visitorId', Math.random().toString(36).slice(2));
+        stats.uniqueVisitors += 1;
+    }
+    // Enhet
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+    if (isMobile) stats.devices.mobile += 1; else stats.devices.desktop += 1;
+    // Nettleser
+    const ua = navigator.userAgent;
+    const browser = /Edg\//.test(ua) ? 'Edge' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : /Firefox\//.test(ua) ? 'Firefox' : 'Other';
+    stats.userAgents[browser] = (stats.userAgents[browser] || 0) + 1;
+    saveSiteStats(stats);
+}
+
+function recordLanguage(lang) {
+    const stats = loadSiteStats();
+    if (lang === 'no') stats.visitsByLanguage.no += 1; else stats.visitsByLanguage.en += 1;
+    saveSiteStats(stats);
+}
+
+function recordGameStarted() {
+    const stats = loadSiteStats();
+    stats.gamesStarted += 1;
+    saveSiteStats(stats);
+}
+
+function recordGameWon(attempts) {
+    const stats = loadSiteStats();
+    stats.gamesWon += 1;
+    stats.totalAttemptsOnWins += (attempts || 0);
+    saveSiteStats(stats);
+}
+
+function recordGiveUp() {
+    const stats = loadSiteStats();
+    stats.giveUps += 1;
+    saveSiteStats(stats);
+}
+
+function recordHintUsed(hintNumber) {
+    const stats = loadSiteStats();
+    if (!stats.hintUsage[String(hintNumber)]) stats.hintUsage[String(hintNumber)] = 0;
+    stats.hintUsage[String(hintNumber)] += 1;
+    saveSiteStats(stats);
+}
+
+// Hook inn i språkbytte
+const _origSwitchLanguage = GeographyGame.prototype.switchLanguage;
+GeographyGame.prototype.switchLanguage = async function(lang) {
+    await _origSwitchLanguage.call(this, lang);
+    try { recordLanguage(lang); } catch (e) { /* ignore */ }
+};
+
+// Hook spillstart
+const _origStartNewGame = GeographyGame.prototype.startNewGame;
+GeographyGame.prototype.startNewGame = async function() {
+    await _origStartNewGame.call(this);
+    try { recordGameStarted(); } catch (e) { /* ignore */ }
+};
+
+// Hook slutt på spill
+const _origEndGame = GeographyGame.prototype.endGame;
+GeographyGame.prototype.endGame = function(won) {
+    try { if (won) recordGameWon(this.attempts); } catch (e) { /* ignore */ }
+    return _origEndGame.call(this, won);
+};
+
+// Hook give up
+const _origGiveUp = GeographyGame.prototype.giveUp;
+GeographyGame.prototype.giveUp = function() {
+    try { recordGiveUp(); } catch (e) { /* ignore */ }
+    return _origGiveUp.call(this);
+};
+
+// Hook hintbruk
+const _origShowHint = GeographyGame.prototype.showHint;
+GeographyGame.prototype.showHint = function() {
+    const beforeUsed = this.hintUsed;
+    const r = _origShowHint.call(this);
+    if (!beforeUsed && this.hintUsed) { try { recordHintUsed(1); } catch (e) {} }
+    return r;
+};
+
+const _origShowPopulationHint = GeographyGame.prototype.showPopulationHint;
+GeographyGame.prototype.showPopulationHint = function() {
+    const before = this.populationHintUsed;
+    const r = _origShowPopulationHint.call(this);
+    if (!before && this.populationHintUsed) { try { recordHintUsed(2); } catch (e) {} }
+    return r;
+};
+
+const _origShowCapitalHint = GeographyGame.prototype.showCapitalHint;
+GeographyGame.prototype.showCapitalHint = function() {
+    const before = this.capitalHintUsed;
+    const r = _origShowCapitalHint.call(this);
+    if (!before && this.capitalHintUsed) { try { recordHintUsed(3); } catch (e) {} }
+    return r;
+};
+
+const _origShowRegionHint = GeographyGame.prototype.showRegionHint;
+GeographyGame.prototype.showRegionHint = function() {
+    const before = this.regionHintUsed;
+    const r = _origShowRegionHint.call(this);
+    if (!before && this.regionHintUsed) { try { recordHintUsed(4); } catch (e) {} }
+    return r;
+};
+
+const _origShowMountainHint = GeographyGame.prototype.showMountainHint;
+GeographyGame.prototype.showMountainHint = function() {
+    const before = this.mountainHintUsed;
+    const r = _origShowMountainHint.call(this);
+    if (!before && this.mountainHintUsed) { try { recordHintUsed(5); } catch (e) {} }
+    return r;
+};
+
+const _origShowBordersHint = GeographyGame.prototype.showBordersHint;
+GeographyGame.prototype.showBordersHint = function() {
+    const before = this.bordersHintUsed;
+    const r = _origShowBordersHint.call(this);
+    if (!before && this.bordersHintUsed) { try { recordHintUsed(6); } catch (e) {} }
+    return r;
+};
