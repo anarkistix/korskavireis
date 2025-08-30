@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-04:10",
-  "commit": "16a47438",
-  "tag": "v1.4.28-stable",
-  "description": "Fixed hint button text positioning - adjusted padding, font sizes, and lock overlay for better fit within boxes.",
-  "last_updated": "2025-08-30T04:10:00.000000"
+  "build": "2025-08-30-04:15",
+  "commit": "17a47438",
+  "tag": "v1.4.29-stable",
+  "description": "Fixed mountain and borders hint sizing - adjusted padding, font size, z-index and overflow to match other hint buttons.",
+  "last_updated": "2025-08-30T04:15:00.000000"
 }
