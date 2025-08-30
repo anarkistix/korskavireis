@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-10:05",
-  "commit": "1aa47438",
-  "tag": "v1.4.32-stable",
-  "description": "Removed temporary debug borders: orange hint-container frame and green game-controls background/border.",
-  "last_updated": "2025-08-30T10:05:00.000000"
+  "build": "2025-08-30-10:08",
+  "commit": "1ba47438",
+  "tag": "v1.4.33-stable",
+  "description": "Desktop-only: moved #country-input 15px down (no change on mobile).",
+  "last_updated": "2025-08-30T10:08:00.000000"
 }

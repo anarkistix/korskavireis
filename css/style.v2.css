@@ -874,6 +874,13 @@ img {
     object-fit: contain;
 }
 
+/* Desktop-justering: flytt svarfeltet 15px ned (ikke på mobil) */
+@media (min-width: 769px) {
+    #country-input {
+        margin-top: 15px;
+    }
+}
+
 /* Responsivt design */
 @media (max-width: 768px) {
     header h1 {
