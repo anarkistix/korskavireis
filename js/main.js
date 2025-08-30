@@ -119,6 +119,13 @@ class GeographyGame {
             const regionHintBtn = document.querySelector('#region-hint-btn h4');
             if (regionHintBtn) regionHintBtn.textContent = this.getText('hint_4_title');
             
+            // Oppdater hint 5 og 6 titler
+            const mountainHintBtn = document.querySelector('#mountain-hint-btn h4');
+            if (mountainHintBtn) mountainHintBtn.textContent = this.getText('hint_5_title');
+            
+            const bordersHintBtn = document.querySelector('#borders-hint-btn h4');
+            if (bordersHintBtn) bordersHintBtn.textContent = this.getText('hint_6_title');
+            
             // Oppdater footer
             const footerCopyright = document.querySelector('footer p:first-child');
             if (footerCopyright) footerCopyright.textContent = this.getText('footer_copyright');
