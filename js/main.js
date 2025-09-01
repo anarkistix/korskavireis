@@ -106,6 +106,9 @@ class GeographyGame {
             const googleMapsBtn = document.getElementById('google-maps-btn');
             if (googleMapsBtn) googleMapsBtn.textContent = this.getText('google_maps_button');
             
+            const norliBtn = document.getElementById('norli-btn');
+            if (norliBtn) norliBtn.textContent = this.getText('norli_button');
+            
             // Oppdater hint-titler
             const hintBtn = document.querySelector('#hint-btn h4');
             if (hintBtn) hintBtn.textContent = this.getText('hint_1_title');
@@ -118,6 +121,12 @@ class GeographyGame {
             
             const regionHintBtn = document.querySelector('#region-hint-btn h4');
             if (regionHintBtn) regionHintBtn.textContent = this.getText('hint_4_title');
+            
+            const mountainHintBtn = document.querySelector('#mountain-hint-btn h4');
+            if (mountainHintBtn) mountainHintBtn.textContent = this.getText('hint_5_title');
+            
+            const bordersHintBtn = document.querySelector('#borders-hint-btn h4');
+            if (bordersHintBtn) bordersHintBtn.textContent = this.getText('hint_6_title');
             
             // Oppdater footer
             const footerCopyright = document.querySelector('footer p:first-child');
@@ -365,6 +374,12 @@ class GeographyGame {
         document.getElementById('google-maps-btn').addEventListener('click', () => {
             console.log('Google Maps-knapp klikket');
             this.openGoogleMaps();
+        });
+
+        // Norli-knapp
+        document.getElementById('norli-btn').addEventListener('click', () => {
+            console.log('Norli-knapp klikket');
+            this.openNorliBooks();
         });
 
         // Hint-knapp
@@ -1043,6 +1058,7 @@ class GeographyGame {
         document.getElementById('submit-btn').style.display = 'none';
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('google-maps-btn').style.display = 'block';
+        document.getElementById('norli-btn').style.display = 'block';
     }
 
     resetUI() {
@@ -1053,6 +1069,7 @@ class GeographyGame {
         document.getElementById('submit-btn').style.display = 'block';
         document.getElementById('give-up-btn').style.display = 'block';
         document.getElementById('google-maps-btn').style.display = 'none';
+        document.getElementById('norli-btn').style.display = 'none';
         this.clearMessages();
         
         // Tøm feedback-container
@@ -1532,6 +1549,7 @@ class GeographyGame {
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('google-maps-btn').style.display = 'block';
+        document.getElementById('norli-btn').style.display = 'block';
         
         // Deaktiver input
         document.getElementById('country-input').disabled = true;
@@ -1551,6 +1569,21 @@ class GeographyGame {
             window.open(this.currentCountry.google_maps_url, '_blank');
         } else {
             this.showMessage(this.getText('no_maps_link'), 'error');
+        }
+    }
+
+    openNorliBooks() {
+        console.log('openNorliBooks called');
+        console.log('currentCountry:', this.currentCountry);
+        console.log('currentCountry name:', this.currentCountry?.name);
+        
+        if (this.currentCountry && this.currentCountry.name) {
+            const countryName = this.currentCountry.name.toLowerCase();
+            const norliUrl = `https://www.norli.no/search?query=${encodeURIComponent(countryName)}`;
+            console.log('Opening Norli URL:', norliUrl);
+            window.open(norliUrl, '_blank');
+        } else {
+            this.showMessage('Ingen land valgt', 'error');
         }
     }
 
