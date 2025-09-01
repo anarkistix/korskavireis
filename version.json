@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "build": "2025-08-30-10:15",
-  "commit": "1ca47438",
-  "tag": "v1.5.0-stats",
-  "description": "Added client-side visit/game stats and admin stats section with refresh/reset.",
-  "last_updated": "2025-08-30T10:15:00.000000"
+  "build": "2025-08-30-10:45",
+  "commit": "15f1b12a",
+  "tag": "v1.5.1-norli",
+  "description": "Added Norli travel books button shown on game end (win/give up), with i18n.",
+  "last_updated": "2025-08-30T10:45:00.000000"
 }

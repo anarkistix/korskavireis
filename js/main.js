@@ -105,6 +105,8 @@ class GeographyGame {
             
             const googleMapsBtn = document.getElementById('google-maps-btn');
             if (googleMapsBtn) googleMapsBtn.textContent = this.getText('google_maps_button');
+            const norliBtn = document.getElementById('norli-btn');
+            if (norliBtn) norliBtn.textContent = this.getText('norli_button');
             
             // Oppdater hint-titler
             const hintBtn = document.querySelector('#hint-btn h4');
@@ -373,6 +375,14 @@ class GeographyGame {
             console.log('Google Maps-knapp klikket');
             this.openGoogleMaps();
         });
+
+        // Norli-knapp
+        const norliBtn = document.getElementById('norli-btn');
+        if (norliBtn) {
+            norliBtn.addEventListener('click', () => {
+                this.openNorliBooks();
+            });
+        }
 
         // Hint-knapp
         const hintBtn = document.getElementById('hint-btn');
@@ -1050,6 +1060,8 @@ class GeographyGame {
         document.getElementById('submit-btn').style.display = 'none';
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('google-maps-btn').style.display = 'block';
+        const norliBtn = document.getElementById('norli-btn');
+        if (norliBtn) norliBtn.style.display = 'block';
     }
 
     resetUI() {
@@ -1060,6 +1072,8 @@ class GeographyGame {
         document.getElementById('submit-btn').style.display = 'block';
         document.getElementById('give-up-btn').style.display = 'block';
         document.getElementById('google-maps-btn').style.display = 'none';
+        const norliBtn = document.getElementById('norli-btn');
+        if (norliBtn) norliBtn.style.display = 'none';
         this.clearMessages();
         
         // Tøm feedback-container
@@ -1539,6 +1553,8 @@ class GeographyGame {
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('google-maps-btn').style.display = 'block';
+        const norliBtn = document.getElementById('norli-btn');
+        if (norliBtn) norliBtn.style.display = 'block';
         
         // Deaktiver input
         document.getElementById('country-input').disabled = true;
@@ -1559,6 +1575,18 @@ class GeographyGame {
         } else {
             this.showMessage(this.getText('no_maps_link'), 'error');
         }
+    }
+
+    openNorliBooks() {
+        // Bruk landnavn i valgt språk hvis tilgjengelig
+        const name = this.currentLanguage === 'no' ? (this.currentCountry?.name_no || this.currentCountry?.name) : this.currentCountry?.name;
+        if (!name) {
+            this.showMessage('Fant ikke landnavn for søk.', 'error');
+            return;
+        }
+        const query = encodeURIComponent(name);
+        const url = `https://www.norli.no/search?query=${query}`;
+        window.open(url, '_blank');
     }
 
     showConfigUpdateNotification() {
