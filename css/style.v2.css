@@ -23,10 +23,11 @@ body {
 header {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: 2rem 0;
+    padding: 0 0 2rem 0;
     text-align: center;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0;
 }
 
 header h1 {
@@ -40,8 +41,10 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1rem;
     width: 100%;
+    background-color: #0e5a5e;
+    margin: 0;
+    padding: 0;
 }
 
 .logo {
@@ -49,13 +52,14 @@ header h1 {
     height: auto;
     max-height: 80px;
     object-fit: contain;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    display: block;
 }
 
 /* Mobil styling for logo */
 @media (max-width: 768px) {
     .logo-container {
-        margin-bottom: 0.5rem;
+        margin: 0;
+        padding: 0;
     }
     
     .logo {
