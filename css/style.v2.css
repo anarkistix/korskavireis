@@ -23,7 +23,7 @@ body {
 header {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: 0 0 2rem 0;
+    padding: 0 0 0.5rem 0;
     text-align: center;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -45,6 +45,7 @@ header h1 {
     background-color: #0e5a5e;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .logo {
@@ -72,7 +73,8 @@ header h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
 .lang-btn {
@@ -107,7 +109,7 @@ header h1 {
 
 
 main {
-    padding: 2rem 0;
+    padding: 0.5rem 0 2rem 0;
 }
 
 .game-area {
