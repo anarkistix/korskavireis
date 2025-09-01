@@ -457,18 +457,28 @@ main {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Hint container */
+/* Hint container - Horizontal scroll */
 .hint-container {
     margin-top: 1rem;
-    margin-bottom: -1.5rem;
-    text-align: center;
-    width: 400px;
-    height: 450px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
     background-color: transparent;
     border: none;
+    touch-action: pan-x;
+}
+
+/* Hide scrollbar for webkit browsers */
+.hint-container::-webkit-scrollbar {
+    display: none;
 }
 
 /* Skjul hint-innhold som ikke er knapper */
@@ -483,47 +493,20 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 30;
     overflow: hidden;
+    scroll-snap-align: start;
 }
 
-/* Spesifikke posisjoner for hver knapp i 2x3 grid */
-#hint-btn {
-    top: 0;
-    left: 0;
-}
-
-#population-hint-btn {
-    top: 0;
-    right: 0;
-}
-
-#capital-hint-btn {
-    top: 160px;
-    left: 0;
-}
-
-#region-hint-btn {
-    top: 160px;
-    right: 0;
-}
-
-#mountain-hint-btn {
-    top: 320px;
-    left: 0;
-}
-
-#borders-hint-btn {
-    top: 320px;
-    right: 0;
-}
+/* Hint cards are now in horizontal flex layout - no absolute positioning needed */
 
 /* Hengelås-funksjonalitet */
 .hint-card.locked {
@@ -622,15 +605,15 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 40;
+    scroll-snap-align: start;
 }
 
 .hint-flag img {
@@ -651,16 +634,16 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
-    top: 0;
-    right: 0;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 40;
+    scroll-snap-align: start;
 }
 
 .capital-hint {
@@ -672,16 +655,16 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
-    top: 160px;
-    left: 0;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 40;
+    scroll-snap-align: start;
 }
 
 .region-hint {
@@ -693,16 +676,16 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
-    top: 160px;
-    right: 0;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 40;
+    scroll-snap-align: start;
 }
 
 .population-hint span {
@@ -769,16 +752,16 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
-    top: 320px;
-    left: 0;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 40;
+    scroll-snap-align: start;
 }
 
 .borders-hint {
@@ -790,16 +773,16 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
     cursor: pointer;
-    width: 180px;
-    height: 140px;
-    position: absolute;
-    top: 320px;
-    right: 0;
+    min-width: 160px;
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 40;
+    scroll-snap-align: start;
 }
 
 .mountain-hint-btn {
@@ -1034,8 +1017,11 @@ img {
     }
     
     .hint-container {
-        width: 300px;
-        height: 450px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 0.25rem;
+        gap: 0.5rem;
     }
     
     .game-controls {
@@ -1047,13 +1033,15 @@ img {
     }
     
     .hint-card {
-        width: 140px;
-        height: 100px;
+        min-width: 120px;
+        width: 120px;
+        height: 90px;
     }
     
     .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
-        width: 140px;
-        height: 100px;
+        min-width: 120px;
+        width: 120px;
+        height: 90px;
     }
     
     .hint-card,
@@ -1086,16 +1074,20 @@ img {
     }
 }
 
-/* Ekstra små skjermer - 3x2 grid i stedet for 2x3 */
+/* Ekstra små skjermer - horizontal scroll */
 @media (max-width: 360px) {
     .hint-container {
-        width: 320px;
-        height: 180px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 0.25rem;
+        gap: 0.25rem;
     }
     
     .hint-card {
+        min-width: 100px;
         width: 100px;
-        height: 50px;
+        height: 80px;
     }
     
     .hint-card h4 {
@@ -1107,73 +1099,13 @@ img {
         font-size: 1.2rem;
     }
     
-    /* 3x2 grid layout */
-    #hint-btn {
-        top: 0;
-        left: 0;
-    }
-    
-    #population-hint-btn {
-        top: 0;
-        left: 110px;
-    }
-    
-    #capital-hint-btn {
-        top: 0;
-        left: 220px;
-    }
-    
-    #region-hint-btn {
-        top: 60px;
-        left: 0;
-    }
-    
-    #mountain-hint-btn {
-        top: 60px;
-        left: 110px;
-    }
-    
-    #borders-hint-btn {
-        top: 60px;
-        left: 220px;
-    }
-    
     .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
         width: 100px;
         height: 50px;
         padding: 0.5rem;
     }
     
-    /* Hint content posisjoner for 3x2 grid */
-    .hint-flag {
-        top: 0;
-        left: 0;
-    }
-    
-    .population-hint {
-        top: 0;
-        left: 110px;
-    }
-    
-    .capital-hint {
-        top: 0;
-        left: 220px;
-    }
-    
-    .region-hint {
-        top: 60px;
-        left: 0;
-    }
-    
-    .mountain-hint {
-        top: 60px;
-        left: 110px;
-    }
-    
-    .borders-hint {
-        top: 60px;
-        left: 220px;
-    }
+    /* Hint content now uses horizontal scroll layout */
     
     .game-controls {
         margin-top: 2rem;
@@ -1184,16 +1116,20 @@ img {
     }
 }
 
-/* Enda mindre skjermer - kompakt layout */
+/* Enda mindre skjermer - horizontal scroll */
 @media (max-width: 320px) {
     .hint-container {
-        width: 280px;
-        height: 160px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 0.25rem;
+        gap: 0.25rem;
     }
     
     .hint-card {
-        width: 85px;
-        height: 40px;
+        min-width: 80px;
+        width: 80px;
+        height: 70px;
     }
     
     .hint-card h4 {
@@ -1205,73 +1141,14 @@ img {
         font-size: 1rem;
     }
     
-    /* Kompakt 3x2 grid */
-    #hint-btn {
-        top: 0;
-        left: 0;
-    }
-    
-    #population-hint-btn {
-        top: 0;
-        left: 95px;
-    }
-    
-    #capital-hint-btn {
-        top: 0;
-        left: 190px;
-    }
-    
-    #region-hint-btn {
-        top: 50px;
-        left: 0;
-    }
-    
-    #mountain-hint-btn {
-        top: 50px;
-        left: 95px;
-    }
-    
-    #borders-hint-btn {
-        top: 50px;
-        left: 190px;
-    }
-    
     .hint-flag, .population-hint, .capital-hint, .region-hint, .mountain-hint, .borders-hint {
-        width: 85px;
-        height: 40px;
+        min-width: 80px;
+        width: 80px;
+        height: 70px;
         padding: 0.3rem;
     }
     
-    /* Hint content posisjoner */
-    .hint-flag {
-        top: 0;
-        left: 0;
-    }
-    
-    .population-hint {
-        top: 0;
-        left: 95px;
-    }
-    
-    .capital-hint {
-        top: 0;
-        left: 190px;
-    }
-    
-    .region-hint {
-        top: 50px;
-        left: 0;
-    }
-    
-    .mountain-hint {
-        top: 50px;
-        left: 95px;
-    }
-    
-    .borders-hint {
-        top: 50px;
-        left: 190px;
-    }
+    /* Hint content now uses horizontal scroll layout */
     
     .game-controls {
         margin-top: 2.5rem;
