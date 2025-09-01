@@ -178,6 +178,12 @@ class GeographyGame {
         localStorage.setItem('selectedLanguage', lang);
         
         console.log(`🌍 Språk endret til: ${lang}`);
+        // Oppdater Norli-knappens tekst hvis spillet er avsluttet og landet er avslørt
+        const norliBtn = document.getElementById('norli-btn');
+        const revealVisible = document.getElementById('country-reveal-box')?.style.display === 'block';
+        if (norliBtn && revealVisible && this.currentCountry) {
+            this.updateNorliButtonText();
+        }
     }
 
     forceShowAllLockOverlays() {
@@ -1061,7 +1067,10 @@ class GeographyGame {
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('google-maps-btn').style.display = 'block';
         const norliBtn = document.getElementById('norli-btn');
-        if (norliBtn) norliBtn.style.display = 'block';
+        if (norliBtn) {
+            this.updateNorliButtonText();
+            norliBtn.style.display = 'block';
+        }
     }
 
     resetUI() {
@@ -1554,7 +1563,10 @@ class GeographyGame {
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('google-maps-btn').style.display = 'block';
         const norliBtn = document.getElementById('norli-btn');
-        if (norliBtn) norliBtn.style.display = 'block';
+        if (norliBtn) {
+            this.updateNorliButtonText();
+            norliBtn.style.display = 'block';
+        }
         
         // Deaktiver input
         document.getElementById('country-input').disabled = true;
@@ -1574,6 +1586,21 @@ class GeographyGame {
             window.open(this.currentCountry.google_maps_url, '_blank');
         } else {
             this.showMessage(this.getText('no_maps_link'), 'error');
+        }
+    }
+
+    updateNorliButtonText() {
+        const norliBtn = document.getElementById('norli-btn');
+        if (!norliBtn) return;
+        const name = this.currentLanguage === 'no' ? (this.currentCountry?.name_no || this.currentCountry?.name) : this.currentCountry?.name;
+        if (!name) {
+            norliBtn.textContent = this.getText('norli_button');
+            return;
+        }
+        if (this.currentLanguage === 'no') {
+            norliBtn.textContent = `📚 Kjøp reisebøker om ${name} hos Norli`;
+        } else {
+            norliBtn.textContent = `📚 Buy travel books about ${name} at Norli`;
         }
     }
 
