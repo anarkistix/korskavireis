@@ -457,28 +457,98 @@ main {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Hint container - Horizontal scroll */
+/* Hint container wraps scroller row and content */
 .hint-container {
     margin-top: 1rem;
     margin-bottom: 1rem;
     width: 100%;
     max-width: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+/* Horizontal row scroller for hint cards */
+.hints-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-    display: flex;
-    gap: 1rem;
-    padding: 0.5rem;
-    background-color: transparent;
-    border: none;
+    -ms-overflow-style: none; /* IE/Edge */
+    padding: 0.5rem 0.25rem;
     touch-action: pan-x;
 }
 
 /* Hide scrollbar for webkit browsers */
-.hint-container::-webkit-scrollbar {
+.hints-row::-webkit-scrollbar {
     display: none;
+}
+
+/* Hints horizontal scroller - refined alignment */
+.hints-row {
+    position: relative; /* for overlayed hint content */
+    align-items: stretch;
+    height: 140px; /* consistent row height */
+}
+
+.hints-row > .hint-card {
+    flex: 0 0 auto; /* keep cards in a single row */
+}
+
+/* Place revealed hint content below the scroller (no overlay) */
+.hint-flag,
+.population-hint,
+.capital-hint,
+.region-hint,
+.mountain-hint,
+.borders-hint {
+    margin: 0.5rem auto 0;
+    display: none;       /* shown via JS */
+    width: 100%;
+    max-width: 420px;
+}
+
+@media (max-width: 768px) {
+    .hints-row { height: 120px; }
+    .hint-flag,
+    .population-hint,
+    .capital-hint,
+    .region-hint,
+    .mountain-hint,
+    .borders-hint { max-width: 360px; }
+}
+
+@media (max-width: 480px) {
+    .hints-row { height: 110px; }
+    .hint-flag,
+    .population-hint,
+    .capital-hint,
+    .region-hint,
+    .mountain-hint,
+    .borders-hint { max-width: 320px; }
+}
+
+@media (max-width: 360px) {
+    .hints-row { height: 100px; }
+    .hint-flag,
+    .population-hint,
+    .capital-hint,
+    .region-hint,
+    .mountain-hint,
+    .borders-hint { max-width: 280px; }
+}
+
+@media (max-width: 320px) {
+    .hints-row { height: 90px; }
+    .hint-flag,
+    .population-hint,
+    .capital-hint,
+    .region-hint,
+    .mountain-hint,
+    .borders-hint { max-width: 240px; }
 }
 
 /* Skjul hint-innhold som ikke er knapper */
@@ -497,6 +567,7 @@ main {
     width: 160px;
     height: 120px;
     flex-shrink: 0;
+    position: relative; /* sørg for at lock-overlay forholder seg til kortet */
     display: flex;
     flex-direction: column;
     justify-content: center;
