@@ -82,8 +82,7 @@ class GeographyGame {
     updateUIText() {
         try {
             // Oppdater UI-tekster
-            const h1 = document.querySelector('h1');
-            if (h1) h1.textContent = this.getText('title');
+            // H1 er erstattet med logo, så vi hopper over den
             
             const subtitle = document.querySelector('.country-display h2');
             if (subtitle) subtitle.textContent = this.getText('subtitle');

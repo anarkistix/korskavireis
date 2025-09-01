@@ -1,0 +1,26 @@
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bakgrunn -->
+  <rect width="300" height="80" fill="#0e5a5e"/>
+  
+  <!-- Jordklode (delvis synlig) -->
+  <g transform="translate(10, 15)">
+    <!-- Hav -->
+    <circle cx="25" cy="25" r="25" fill="#1a9aa0"/>
+    <!-- Kontinenter -->
+    <path d="M15 20 Q20 15 25 20 Q30 25 35 20 Q30 15 25 20 Q20 25 15 20" fill="#2e7d32"/>
+    <path d="M10 30 Q15 25 20 30 Q25 35 30 30 Q25 25 20 30 Q15 35 10 30" fill="#2e7d32"/>
+    <path d="M20 10 Q25 5 30 10 Q35 15 40 10 Q35 5 30 10 Q25 15 20 10" fill="#2e7d32"/>
+    <!-- Highlight arc -->
+    <path d="M5 45 Q15 50 25 45" stroke="#d48c4e" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- GLOBORAMA tekst -->
+  <text x="150" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#f3ecd3">
+    GLOBORAMA
+  </text>
+  
+  <!-- Stjerne -->
+  <g transform="translate(250, 25)">
+    <path d="M0 -8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2 Z" fill="#f3ecd3"/>
+  </g>
+</svg>
