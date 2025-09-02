@@ -464,8 +464,8 @@ main {
 
 /* Hint container wraps scroller row and content */
 .hint-container {
-    margin-top: 4px;
-    margin-bottom: 2px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     width: 100%;
     max-width: 100%;
     background-color: transparent;

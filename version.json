@@ -1,8 +1,8 @@
 {
-  "version": "1.0.9",
-  "build": "2025-09-02-10:12",
+  "version": "1.0.10",
+  "build": "2025-09-02-10:14",
   "commit": "1ba47438",
-  "tag": "v1.0.9",
-  "description": "CSS: Stram inn .hint-container margin (4px/2px) for mindre vertikal luft.",
-  "last_updated": "2025-09-02T10:12:00.000000"
+  "tag": "v1.0.10",
+  "description": "CSS: Sett .hint-container margin til 0px (maks kompakt).",
+  "last_updated": "2025-09-02T10:14:00.000000"
 }
