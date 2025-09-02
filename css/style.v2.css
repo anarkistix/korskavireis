@@ -474,11 +474,11 @@ main {
     gap: 0.75rem;
     align-items: center;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
-    padding: 0.5rem 0.25rem;
+    padding: 0.5rem 0.25rem 0.75rem 0.25rem;
     touch-action: pan-x;
 }
 
@@ -505,50 +505,25 @@ main {
 .region-hint,
 .mountain-hint,
 .borders-hint {
-    margin: 0.5rem auto 0;
-    display: none;       /* shown via JS */
-    width: 100%;
-    max-width: 420px;
+    display: none;       /* vises via JS */
+    flex: 0 0 auto;      /* ligg i samme rad som kortene */
+    margin: 0;
 }
 
 @media (max-width: 768px) {
-    .hints-row { height: 120px; }
-    .hint-flag,
-    .population-hint,
-    .capital-hint,
-    .region-hint,
-    .mountain-hint,
-    .borders-hint { max-width: 360px; }
+    .hints-row { height: 140px; }
 }
 
 @media (max-width: 480px) {
-    .hints-row { height: 110px; }
-    .hint-flag,
-    .population-hint,
-    .capital-hint,
-    .region-hint,
-    .mountain-hint,
-    .borders-hint { max-width: 320px; }
+    .hints-row { height: 120px; }
 }
 
 @media (max-width: 360px) {
     .hints-row { height: 100px; }
-    .hint-flag,
-    .population-hint,
-    .capital-hint,
-    .region-hint,
-    .mountain-hint,
-    .borders-hint { max-width: 280px; }
 }
 
 @media (max-width: 320px) {
     .hints-row { height: 90px; }
-    .hint-flag,
-    .population-hint,
-    .capital-hint,
-    .region-hint,
-    .mountain-hint,
-    .borders-hint { max-width: 240px; }
 }
 
 /* Skjul hint-innhold som ikke er knapper */
@@ -1017,8 +992,11 @@ img {
 
     
     .hint-container {
-        width: 350px;
-        height: 500px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 0.25rem;
+        gap: 0.5rem;
     }
     
     .hint-card {
@@ -1096,7 +1074,7 @@ img {
     }
     
     .game-controls {
-        margin-top: 3rem;
+        margin-top: 0.75rem;
     }
     
     .feedback-container {

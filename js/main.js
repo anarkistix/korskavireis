@@ -1179,7 +1179,7 @@ class GeographyGame {
 
         if (this.currentCountry.flagFile) {
             hintFlagImg.src = `flags/${this.currentCountry.flagFile.replace('flags/', '')}?v=${Date.now()}`;
-            hintFlag.style.display = 'inline-block';
+            this.placeHintContentNearButton(hintFlag, hintBtn);
             // Skjul lock-overlay når hint åpnes
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
@@ -1301,6 +1301,25 @@ class GeographyGame {
         });
     }
 
+    // Sørger for at hint-innholdet alltid åpnes inne i samme område som hintknappene
+    placeHintContentNearButton(contentElement, buttonElement) {
+        try {
+            const hintsRow = document.querySelector('.hints-row');
+            if (!hintsRow || !contentElement || !buttonElement) return;
+            // Plasser hintet rett før knappen og skjul knappen,
+            // slik at hintet tar over plassen til knappen i raden
+            if (buttonElement.parentElement === hintsRow) {
+                hintsRow.insertBefore(contentElement, buttonElement);
+                buttonElement.style.display = 'none';
+            } else if (contentElement.parentElement !== hintsRow) {
+                hintsRow.appendChild(contentElement);
+            }
+            contentElement.style.display = 'flex';
+        } catch (error) {
+            console.error('Feil ved plassering av hint-innhold:', error);
+        }
+    }
+
     showPopulationHint() {
         if (!this.currentCountry || this.populationHintUsed || this.attempts < 2) {
             return;
@@ -1315,7 +1334,7 @@ class GeographyGame {
             const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
             const year = this.currentCountry.populationYear || 'N/A';
             populationText.textContent = `${formattedPopulation} ${this.getText('inhabitants')} (${year})`;
-            populationHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(populationHint, populationHintBtn);
             // Skjul lock-overlay når hint åpnes
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
@@ -1342,7 +1361,7 @@ class GeographyGame {
 
         if (this.currentCountry.capital) {
             capitalText.textContent = this.currentCountry.capital;
-            capitalHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(capitalHint, capitalHintBtn);
             // Skjul lock-overlay når hint åpnes
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
@@ -1368,7 +1387,7 @@ class GeographyGame {
 
         if (this.currentCountry.region) {
             regionText.textContent = this.currentCountry.region;
-            regionHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(regionHint, regionHintBtn);
             // Skjul lock-overlay når hint åpnes
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
@@ -1397,7 +1416,7 @@ class GeographyGame {
             const elevationMeters = this.currentCountry.highest_elevation_meters;
             const elevationFeet = this.currentCountry.highest_elevation_feet;
             mountainText.textContent = `${mountainName} (${elevationMeters}m / ${elevationFeet}ft)`;
-            mountainHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(mountainHint, mountainHintBtn);
             // Skjul lock-overlay når hint åpnes
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
@@ -1423,7 +1442,7 @@ class GeographyGame {
 
         if (this.currentCountry.is_island) {
             bordersText.textContent = this.getText('island_no_borders');
-            bordersHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(bordersHint, bordersHintBtn);
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
             }
@@ -1433,7 +1452,7 @@ class GeographyGame {
                 (this.currentCountry.borders_no || this.currentCountry.borders) : 
                 this.currentCountry.borders;
             bordersText.textContent = Array.isArray(borders) ? borders.join(', ') : borders;
-            bordersHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(bordersHint, bordersHintBtn);
             if (lockOverlay) {
                 lockOverlay.style.display = 'none';
             }
@@ -1447,56 +1466,63 @@ class GeographyGame {
     
     revealAllHints() {
         console.log('🎯 revealAllHints() kalt');
-        // Vis flagg-hint
+        // Hent referanser til knapper for korrekt plassering
+        const hintBtn = document.getElementById('hint-btn');
+        const populationHintBtn = document.getElementById('population-hint-btn');
+        const capitalHintBtn = document.getElementById('capital-hint-btn');
+        const regionHintBtn = document.getElementById('region-hint-btn');
+        const mountainHintBtn = document.getElementById('mountain-hint-btn');
+        const bordersHintBtn = document.getElementById('borders-hint-btn');
+
+        // Vis flagg-hint i raden
         const hintFlag = document.getElementById('hint-flag');
         const hintFlagImg = document.getElementById('hint-flag-img');
-        if (hintFlag && hintFlagImg && this.currentCountry.flagFile) {
+        if (hintFlag && hintFlagImg && this.currentCountry.flagFile && hintBtn) {
             hintFlagImg.src = `flags/${this.currentCountry.flagFile}?v=${Date.now()}`;
-            hintFlag.style.display = 'inline-block';
+            this.placeHintContentNearButton(hintFlag, hintBtn);
         }
-        
-        // Vis befolknings-hint
+
+        // Vis befolknings-hint i raden
         const populationHint = document.getElementById('population-hint');
         const populationText = document.getElementById('population-text');
-        if (populationHint && populationText && this.currentCountry.population) {
+        if (populationHint && populationText && this.currentCountry.population && populationHintBtn) {
             const formattedPopulation = this.currentCountry.population.toLocaleString('nb-NO');
             const year = this.currentCountry.populationYear || 'N/A';
             populationText.textContent = `${formattedPopulation} ${this.getText('inhabitants')} (${year})`;
-            populationHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(populationHint, populationHintBtn);
         }
-        
-        // Vis hovedstad-hint
+
+        // Vis hovedstad-hint i raden
         const capitalHint = document.getElementById('capital-hint');
         const capitalText = document.getElementById('capital-text');
-        if (capitalHint && capitalText && this.currentCountry.capital) {
+        if (capitalHint && capitalText && this.currentCountry.capital && capitalHintBtn) {
             capitalText.textContent = this.currentCountry.capital;
-            capitalHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(capitalHint, capitalHintBtn);
         }
-        
-        // Vis region-hint
+
+        // Vis region-hint i raden
         const regionHint = document.getElementById('region-hint');
         const regionText = document.getElementById('region-text');
-        if (regionHint && regionText && this.currentCountry.region) {
+        if (regionHint && regionText && this.currentCountry.region && regionHintBtn) {
             regionText.textContent = this.currentCountry.region;
-            regionHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(regionHint, regionHintBtn);
         }
-        
-        // Vis fjell-hint
+
+        // Vis fjell-hint i raden
         const mountainHint = document.getElementById('mountain-hint');
         const mountainText = document.getElementById('mountain-text');
-        if (mountainHint && mountainText && this.currentCountry.highest_mountain) {
+        if (mountainHint && mountainText && this.currentCountry.highest_mountain && mountainHintBtn) {
             const mountain = this.currentCountry.highest_mountain;
             const meters = this.currentCountry.highest_elevation_meters;
             const feet = this.currentCountry.highest_elevation_feet;
             mountainText.textContent = `${mountain} (${meters}m / ${feet}ft)`;
-            mountainHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(mountainHint, mountainHintBtn);
         }
-        
-        // Vis naboland-hint
+
+        // Vis naboland-hint i raden
         const bordersHint = document.getElementById('borders-hint');
         const bordersText = document.getElementById('borders-text');
-        
-        if (bordersHint && bordersText) {
+        if (bordersHint && bordersText && bordersHintBtn) {
             if (this.currentCountry.is_island) {
                 bordersText.textContent = this.getText('island_no_borders');
             } else if (this.currentCountry.borders && this.currentCountry.borders.length > 0) {
@@ -1507,7 +1533,7 @@ class GeographyGame {
             } else {
                 bordersText.textContent = this.getText('no_borders_data');
             }
-            bordersHint.style.display = 'inline-block';
+            this.placeHintContentNearButton(bordersHint, bordersHintBtn);
         }
         
         // Skjul alle lock-overlays

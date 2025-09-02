@@ -1,0 +1,11 @@
+---
+alwaysApply: true
+---
+## Mobil-først design
+
+Fokuser alltid på at design skal fungere på mobile skjermoppløsninger.
+
+- Prioriter enkel, scroll-vennlig layout på små skjermer.
+- Bruk responsive enheter, media queries og fleksible containere.
+- Minimer faste bredder/høyder som kan bryte layout på mobil.
+- Test hint-området: hintknapper og hint-innhold skal ligge i samme horisontale scroll.
