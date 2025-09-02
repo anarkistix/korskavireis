@@ -58,6 +58,9 @@ header h1 {
 
 /* Mobil styling for logo */
 @media (max-width: 768px) {
+    main {
+        padding-top: 0.125rem;
+    }
     .logo-container {
         margin: 0;
         padding: 0;
@@ -957,6 +960,7 @@ img {
     .game-area {
         padding: 1.5rem;
         margin: 1rem;
+        margin-top: 0.25rem;
     }
     
     .country-display h2 {
@@ -1036,6 +1040,9 @@ img {
 }
 
 @media (max-width: 480px) {
+    main {
+        padding-top: 0.125rem;
+    }
     .container {
         padding: 0 10px;
     }
@@ -1043,6 +1050,7 @@ img {
     .game-area {
         padding: 1rem;
         margin: 0.5rem;
+        margin-top: 0.25rem;
     }
     
     #country-canvas {
