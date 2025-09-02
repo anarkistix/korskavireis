@@ -1072,10 +1072,19 @@ img {
         aspect-ratio: auto;
     }
     
-    .game-btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
+    .button-container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 0.5rem;
     }
+    .game-btn {
+        width: auto;
+        min-width: auto;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.95rem;
+    }
+    #give-up-btn { min-width: auto; }
     
     .hint-container {
         width: 100%;
@@ -1137,6 +1146,13 @@ img {
 
 /* Ekstra små skjermer - horizontal scroll */
 @media (max-width: 360px) {
+    .button-container {
+        gap: 0.4rem;
+    }
+    .game-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+    }
     .hint-container {
         width: 100%;
         max-width: 100%;

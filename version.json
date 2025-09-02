@@ -1,8 +1,8 @@
 {
-  "version": "1.0.10",
-  "build": "2025-09-02-10:14",
+  "version": "1.0.11",
+  "build": "2025-09-02-10:18",
   "commit": "1ba47438",
-  "tag": "v1.0.10",
-  "description": "CSS: Sett .hint-container margin til 0px (maks kompakt).",
-  "last_updated": "2025-09-02T10:14:00.000000"
+  "tag": "v1.0.11",
+  "description": "CSS: Mindre knapper på mobil; to knapper på én linje (NO/EN).",
+  "last_updated": "2025-09-02T10:18:00.000000"
 }
