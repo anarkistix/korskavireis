@@ -1101,6 +1101,7 @@ img {
         min-width: 0;
         height: 44px;
     }
+    #norli-btn { grid-column: 1 / -1; width: 100%; }
     #give-up-btn { min-width: 0; }
     
     .hint-container {

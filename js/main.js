@@ -1057,6 +1057,7 @@ class GeographyGame {
         document.getElementById('submit-btn').style.display = 'none';
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('google-maps-btn').style.display = 'block';
+        this.setNorliButtonLabel();
         document.getElementById('norli-btn').style.display = 'block';
     }
 
@@ -1574,6 +1575,7 @@ class GeographyGame {
         document.getElementById('give-up-btn').style.display = 'none';
         document.getElementById('new-game-btn').style.display = 'block';
         document.getElementById('google-maps-btn').style.display = 'block';
+        this.setNorliButtonLabel();
         document.getElementById('norli-btn').style.display = 'block';
         
         // Deaktiver input
@@ -1610,6 +1612,18 @@ class GeographyGame {
         } else {
             this.showMessage('Ingen land valgt', 'error');
         }
+    }
+
+    setNorliButtonLabel() {
+        const norliBtn = document.getElementById('norli-btn');
+        if (!norliBtn || !this.currentCountry) return;
+        const countryName = this.currentLanguage === 'no' ?
+            (this.currentCountry.name_no || this.currentCountry.name) :
+            this.currentCountry.name;
+        const label = this.currentLanguage === 'no'
+            ? `📚 Kjøp reisebøker om ${countryName}`
+            : `📚 Buy travel books about ${countryName}`;
+        norliBtn.textContent = label;
     }
 
     showConfigUpdateNotification() {
