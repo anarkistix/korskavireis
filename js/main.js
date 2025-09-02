@@ -1334,8 +1334,20 @@ class GeographyGame {
         try {
             const target = document.querySelector('.canvas-container') || document.querySelector('.game-area');
             if (!target) return;
-            const y = target.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({ top: y, behavior: 'smooth' });
+
+            // Blur aktivt inputfelt for å stoppe mobil-autoscroll
+            if (document.activeElement && typeof document.activeElement.blur === 'function') {
+                document.activeElement.blur();
+            }
+
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const y = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 2;
+
+            // Vent et øyeblikk for å sikre at layout/keyboard har stabilisert seg
+            setTimeout(() => {
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            }, 60);
         } catch (e) {
             console.warn('Kunne ikke scrolle til kartets topp', e);
         }
