@@ -962,10 +962,15 @@ class GeographyGame {
         feedbackItem.appendChild(numberDiv);
         feedbackItem.appendChild(contentDiv);
         
-        feedbackContainer.appendChild(feedbackItem);
+        // Sett siste gjett øverst i listen
+        if (feedbackContainer.firstChild) {
+            feedbackContainer.insertBefore(feedbackItem, feedbackContainer.firstChild);
+        } else {
+            feedbackContainer.appendChild(feedbackItem);
+        }
         
-        // Scroll til bunnen av feedback-container
-        feedbackContainer.scrollTop = feedbackContainer.scrollHeight;
+        // Scroll til toppen for å vise siste gjett
+        feedbackContainer.scrollTop = 0;
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {
