@@ -1,8 +1,8 @@
 {
-  "version": "1.0.21",
-  "build": "2025-09-02-12:14",
+  "version": "1.0.22",
+  "build": "2025-09-02-12:20",
   "commit": "1ba47438",
-  "tag": "v1.0.21",
-  "description": "UX: Autoscroll offset +100px slik at toppen ikke klippes.",
-  "last_updated": "2025-09-02T12:14:00.000000"
+  "tag": "v1.0.22",
+  "description": "UX: Mer robust scroll (absolutt posisjon, +120px offset, lengre delay).",
+  "last_updated": "2025-09-02T12:20:00.000000"
 }

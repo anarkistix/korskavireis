@@ -1342,13 +1342,23 @@ class GeographyGame {
 
             const header = document.querySelector('header');
             const headerHeight = header ? header.offsetHeight : 0;
-            const extraOffset = 100; // stopp 100px lenger ned
-            const y = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 2 + extraOffset;
+            const extraOffset = 120; // mer konservativt stopp
+
+            // Robust absolutte Y-posisjon
+            let absoluteTop = 0;
+            let el = target;
+            while (el) {
+                absoluteTop += el.offsetTop || 0;
+                el = el.offsetParent;
+            }
+            const y = Math.max(0, absoluteTop - headerHeight + extraOffset);
 
             // Vent et øyeblikk for å sikre at layout/keyboard har stabilisert seg
             setTimeout(() => {
-                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
-            }, 60);
+                (document.scrollingElement || window).scrollTo({ top: y, behavior: 'smooth' });
+                // Fallback med scrollIntoView og margin via CSS hvis nødvendig
+                // target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 120);
         } catch (e) {
             console.warn('Kunne ikke scrolle til kartets topp', e);
         }
