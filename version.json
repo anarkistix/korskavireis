@@ -1,8 +1,8 @@
 {
-  "version": "1.0.18",
-  "build": "2025-09-02-11:46",
+  "version": "1.0.19",
+  "build": "2025-09-02-12:02",
   "commit": "1ba47438",
-  "tag": "v1.0.18",
-  "description": "UX: Vis siste gjett øverst i listen (reversed order).",
-  "last_updated": "2025-09-02T11:46:00.000000"
+  "tag": "v1.0.19",
+  "description": "UX: Scroll til kartets topp etter hvert gjett (mobil-vennlig).",
+  "last_updated": "2025-09-02T12:02:00.000000"
 }

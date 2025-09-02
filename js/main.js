@@ -971,6 +971,9 @@ class GeographyGame {
         
         // Scroll til toppen for å vise siste gjett
         feedbackContainer.scrollTop = 0;
+        
+        // Scroll hele vinduet slik at kartets topp er øverst i skjermen
+        this.scrollToMapTop();
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {
@@ -1323,6 +1326,18 @@ class GeographyGame {
             contentElement.style.display = 'flex';
         } catch (error) {
             console.error('Feil ved plassering av hint-innhold:', error);
+        }
+    }
+
+    // Scroller slik at toppen av kart-området legger seg øverst i viewport
+    scrollToMapTop() {
+        try {
+            const target = document.querySelector('.canvas-container') || document.querySelector('.game-area');
+            if (!target) return;
+            const y = target.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        } catch (e) {
+            console.warn('Kunne ikke scrolle til kartets topp', e);
         }
     }
 
