@@ -1,8 +1,8 @@
 {
-  "version": "1.0.2",
-  "build": "2025-09-02-09:33",
+  "version": "1.0.3",
+  "build": "2025-09-02-09:39",
   "commit": "1ba47438",
-  "tag": "v1.0.2",
-  "description": "CSS: Tettere spacing mellom header og kart (mobil).",
-  "last_updated": "2025-09-02T09:33:00.000000"
+  "tag": "v1.0.3",
+  "description": "CSS: Game-area top padding redusert til 5px for kompakt topp.",
+  "last_updated": "2025-09-02T09:39:00.000000"
 }
