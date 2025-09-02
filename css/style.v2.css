@@ -46,6 +46,7 @@ header h1 {
     margin: 0;
     padding: 0;
     position: relative;
+    border-bottom: 1px solid #faf4d0;
 }
 
 .logo {
