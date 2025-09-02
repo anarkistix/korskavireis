@@ -1,8 +1,8 @@
 {
-  "version": "1.0.7",
-  "build": "2025-09-02-09:59",
+  "version": "1.0.8",
+  "build": "2025-09-02-10:07",
   "commit": "1ba47438",
-  "tag": "v1.0.7",
-  "description": "CSS: canvas-container margin 5px; mindre mellomrom mellom country-display og game-controls.",
-  "last_updated": "2025-09-02T09:59:00.000000"
+  "tag": "v1.0.8",
+  "description": "CSS: Halver spacing mellom country-display og game-controls (2px).",
+  "last_updated": "2025-09-02T10:07:00.000000"
 }

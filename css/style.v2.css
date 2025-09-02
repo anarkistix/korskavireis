@@ -128,7 +128,7 @@ main {
 
 .country-display {
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .country-display h2 {
@@ -194,7 +194,7 @@ main {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 2px;
     padding: 0;
 }
 
