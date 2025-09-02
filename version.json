@@ -1,8 +1,8 @@
 {
-  "version": "1.0.3",
-  "build": "2025-09-02-09:39",
+  "version": "1.0.4",
+  "build": "2025-09-02-09:44",
   "commit": "1ba47438",
-  "tag": "v1.0.3",
-  "description": "CSS: Game-area top padding redusert til 5px for kompakt topp.",
-  "last_updated": "2025-09-02T09:39:00.000000"
+  "tag": "v1.0.4",
+  "description": "CSS: Header/logo bakgrunn #175157 for å matche toppbildet.",
+  "last_updated": "2025-09-02T09:44:00.000000"
 }

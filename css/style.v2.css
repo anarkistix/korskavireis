@@ -21,7 +21,7 @@ body {
 }
 
 header {
-    background: rgba(255, 255, 255, 0.1);
+    background: #175157;
     backdrop-filter: blur(10px);
     padding: 0 0 0.5rem 0;
     text-align: center;
@@ -42,7 +42,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: #0e5a5e;
+    background-color: #175157;
     margin: 0;
     padding: 0;
     position: relative;
