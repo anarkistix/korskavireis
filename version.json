@@ -1,8 +1,8 @@
 {
-  "version": "1.0.12",
-  "build": "2025-09-02-10:21",
+  "version": "1.0.13",
+  "build": "2025-09-02-10:36",
   "commit": "1ba47438",
-  "tag": "v1.0.12",
-  "description": "CSS: Ytterligere krymping av knapper/gap for å få én linje på mobil.",
-  "last_updated": "2025-09-02T10:21:00.000000"
+  "tag": "v1.0.13",
+  "description": "CSS: Tving to knapper ved siden av hverandre med 50% flex-basis på små skjermer.",
+  "last_updated": "2025-09-02T10:36:00.000000"
 }
