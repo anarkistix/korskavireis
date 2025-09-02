@@ -1090,6 +1090,9 @@ img {
     #give-up-btn {
         flex: 0 0 calc(50% - 0.125rem);
         max-width: calc(50% - 0.125rem);
+        padding: 0.34rem 0.5rem;
+        font-size: 0.78rem;
+        min-width: 0;
     }
     #give-up-btn { min-width: 0; }
     
@@ -1156,7 +1159,7 @@ img {
     .button-container { gap: 0.2rem; width: 100%; }
     .game-btn { padding: 0.28rem 0.45rem; font-size: 0.7rem; }
     #submit-btn,
-    #give-up-btn { flex-basis: 50%; max-width: 50%; }
+    #give-up-btn { flex-basis: 50%; max-width: 50%; padding: 0.28rem 0.45rem; font-size: 0.7rem; min-width: 0; }
     .hint-container {
         width: 100%;
         max-width: 100%;
@@ -1203,7 +1206,7 @@ img {
     .button-container { gap: 0.15rem; width: 100%; }
     .game-btn { padding: 0.28rem 0.45rem; font-size: 0.7rem; }
     #submit-btn,
-    #give-up-btn { flex-basis: 50%; max-width: 50%; }
+    #give-up-btn { flex-basis: 50%; max-width: 50%; padding: 0.28rem 0.45rem; font-size: 0.7rem; min-width: 0; }
     
     .hint-card {
         min-width: 80px;
