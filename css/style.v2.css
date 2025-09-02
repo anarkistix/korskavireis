@@ -1076,15 +1076,16 @@ img {
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 0.25rem;
     }
     .game-btn {
         width: auto;
-        min-width: auto;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.95rem;
+        min-width: 0;
+        padding: 0.38rem 0.6rem;
+        font-size: 0.82rem;
+        white-space: nowrap;
     }
-    #give-up-btn { min-width: auto; }
+    #give-up-btn { min-width: 0; }
     
     .hint-container {
         width: 100%;
@@ -1146,13 +1147,8 @@ img {
 
 /* Ekstra små skjermer - horizontal scroll */
 @media (max-width: 360px) {
-    .button-container {
-        gap: 0.4rem;
-    }
-    .game-btn {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.85rem;
-    }
+    .button-container { gap: 0.2rem; }
+    .game-btn { padding: 0.32rem 0.5rem; font-size: 0.75rem; }
     .hint-container {
         width: 100%;
         max-width: 100%;
@@ -1195,13 +1191,9 @@ img {
 
 /* Enda mindre skjermer - horizontal scroll */
 @media (max-width: 320px) {
-    .hint-container {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        padding: 0.25rem;
-        gap: 0.25rem;
-    }
+    .hint-container { width: 100%; max-width: 100%; height: auto; padding: 0.2rem; gap: 0.2rem; }
+    .button-container { gap: 0.15rem; }
+    .game-btn { padding: 0.28rem 0.45rem; font-size: 0.7rem; }
     
     .hint-card {
         min-width: 80px;
