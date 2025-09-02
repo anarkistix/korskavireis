@@ -1342,7 +1342,8 @@ class GeographyGame {
 
             const header = document.querySelector('header');
             const headerHeight = header ? header.offsetHeight : 0;
-            const y = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 2;
+            const extraOffset = 100; // stopp 100px lenger ned
+            const y = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 2 + extraOffset;
 
             // Vent et øyeblikk for å sikre at layout/keyboard har stabilisert seg
             setTimeout(() => {
