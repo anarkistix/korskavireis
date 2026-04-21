@@ -1,0 +1,586 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13ED4B75E5901AAFA75146FA /* GuessInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE978C0F361F95F6D079955 /* GuessInputView.swift */; };
+		1FAD5FB3F915D5BBE17956CE /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47D6B9AAB50A30664B398D /* StatsView.swift */; };
+		244F157858EC2DD83B164426 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FBA08F3F1791C92AF18D62 /* countries.json */; };
+		298FD8026C1C866C484FB310 /* HintGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15FE582BFA60E97DCC31D7C /* HintGridView.swift */; };
+		322B33446C58599EEE07314A /* CountryBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD121606D9D9C8940C6B19 /* CountryBrowserView.swift */; };
+		5C34D838B90A89B32F9BFE0A /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E8491FD9E69677D26130E0 /* Country.swift */; };
+		60FCA27F5801C67FADE7926C /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6085F023AB8908F156AFA28 /* StatsViewModel.swift */; };
+		64A556B35246F181C5A5FEC9 /* FeedbackItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6B6F238356112CA13A2C7 /* FeedbackItemView.swift */; };
+		75F42CA2EB740EE03958CE54 /* GameHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0133DA27A15FA943D1B5269 /* GameHistoryRow.swift */; };
+		7692AA8053EEB8F1F8C82CB4 /* CountryDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D20A98A81211E1F15C1E93 /* CountryDataLoader.swift */; };
+		7B3C71F686530428D1B85933 /* SilhouetteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34C0B56902E26480BF26A31 /* SilhouetteView.swift */; };
+		7BA0FA155B6B6B99E0DF6DA3 /* GloboramaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAD07C134A8C8B3DB0FFDB6 /* GloboramaApp.swift */; };
+		81957A9A95A7336BFABCEF24 /* HintCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC47AB18D94DFA37F8F7D6C4 /* HintCardView.swift */; };
+		8C4CDC8BC68684FE9EA70DA5 /* AutocompleteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835FF99DB385A70E9978594 /* AutocompleteListView.swift */; };
+		9935EB40B2EA94671F97F585 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8724FC141F6C0CF619E577AF /* GameViewModel.swift */; };
+		A527123A7C4FD56E4BB6C063 /* HaversineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FFE61935D19B176125714B /* HaversineTests.swift */; };
+		B56EF04F3B1487D24E79BB75 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F1ABB596F7B70D61A0CCA /* PreviewData.swift */; };
+		B6EB936E948DC7A7E7EBF07B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF777FB46463C563BB691A88 /* GameView.swift */; };
+		BB73DB3141B82911BC58793D /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33375216366365CED91FA633 /* GameOverView.swift */; };
+		BEADA6FE8CE611EA92AF5B35 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8E893AAADB041257AACC5 /* GameState.swift */; };
+		C939C3CC342FBB9ED9CB2993 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDB70125F3B366C564826523 /* Assets.xcassets */; };
+		CBDADE53E72CD2202BA7797C /* DevSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707738B3F3CF779864A32A68 /* DevSettingsView.swift */; };
+		CF63422794579422BFDCA04E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161DA2AB69A59CB917AB4A84 /* Theme.swift */; };
+		DC406762C979BA839101C625 /* FeedbackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51A0D84AD147716F83CFD1 /* FeedbackListView.swift */; };
+		E91322B5280FFEFF3A4B335F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE596C23DB7326D580A959 /* ContentView.swift */; };
+		F7E2BDB0CF4A62F41C249AEE /* HaversineCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFFDCD8CC419D09533D17C2 /* HaversineCalculator.swift */; };
+		F9C8D542D8668754E48F9D6F /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB3C86EBC33EFF60FC6102 /* GameResult.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5792593CCFC1CF241596C271 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8014BDA6D329C39076820DC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEB1CAF1C23A5AE3020C6D23;
+			remoteInfo = Globorama;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0CDE596C23DB7326D580A959 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		161DA2AB69A59CB917AB4A84 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		1DE978C0F361F95F6D079955 /* GuessInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessInputView.swift; sourceTree = "<group>"; };
+		1FBAA6535551CBA985100D73 /* GloboramaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GloboramaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D20A98A81211E1F15C1E93 /* CountryDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDataLoader.swift; sourceTree = "<group>"; };
+		29FFE61935D19B176125714B /* HaversineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaversineTests.swift; sourceTree = "<group>"; };
+		33375216366365CED91FA633 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		35E8491FD9E69677D26130E0 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		3B47D6B9AAB50A30664B398D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		408F1ABB596F7B70D61A0CCA /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
+		47CB3C86EBC33EFF60FC6102 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		4F51A0D84AD147716F83CFD1 /* FeedbackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackListView.swift; sourceTree = "<group>"; };
+		5C12BAF7EB3449210CE5E1D5 /* Globorama.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Globorama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6835FF99DB385A70E9978594 /* AutocompleteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteListView.swift; sourceTree = "<group>"; };
+		69A8E893AAADB041257AACC5 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		707738B3F3CF779864A32A68 /* DevSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsView.swift; sourceTree = "<group>"; };
+		75B6B6F238356112CA13A2C7 /* FeedbackItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackItemView.swift; sourceTree = "<group>"; };
+		8724FC141F6C0CF619E577AF /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		A15FE582BFA60E97DCC31D7C /* HintGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintGridView.swift; sourceTree = "<group>"; };
+		A34C0B56902E26480BF26A31 /* SilhouetteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilhouetteView.swift; sourceTree = "<group>"; };
+		ABDD121606D9D9C8940C6B19 /* CountryBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryBrowserView.swift; sourceTree = "<group>"; };
+		B0133DA27A15FA943D1B5269 /* GameHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistoryRow.swift; sourceTree = "<group>"; };
+		CC47AB18D94DFA37F8F7D6C4 /* HintCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintCardView.swift; sourceTree = "<group>"; };
+		EBAD07C134A8C8B3DB0FFDB6 /* GloboramaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GloboramaApp.swift; sourceTree = "<group>"; };
+		EF777FB46463C563BB691A88 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		EFFFDCD8CC419D09533D17C2 /* HaversineCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaversineCalculator.swift; sourceTree = "<group>"; };
+		F6085F023AB8908F156AFA28 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		F7FBA08F3F1791C92AF18D62 /* countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		FDB70125F3B366C564826523 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		39A22C6070C0CA960C4B0C7D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				ABDD121606D9D9C8940C6B19 /* CountryBrowserView.swift */,
+				707738B3F3CF779864A32A68 /* DevSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4C9F8CEF1B900336DB083F3A /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				B0133DA27A15FA943D1B5269 /* GameHistoryRow.swift */,
+				3B47D6B9AAB50A30664B398D /* StatsView.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		4D5A6260FF97FAF6F1858730 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				24D20A98A81211E1F15C1E93 /* CountryDataLoader.swift */,
+				EFFFDCD8CC419D09533D17C2 /* HaversineCalculator.swift */,
+				161DA2AB69A59CB917AB4A84 /* Theme.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		6A195A3E61BF34B118796A52 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				408F1ABB596F7B70D61A0CCA /* PreviewData.swift */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6D4CC2BC067AEDD795507F42 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				6835FF99DB385A70E9978594 /* AutocompleteListView.swift */,
+				75B6B6F238356112CA13A2C7 /* FeedbackItemView.swift */,
+				4F51A0D84AD147716F83CFD1 /* FeedbackListView.swift */,
+				33375216366365CED91FA633 /* GameOverView.swift */,
+				EF777FB46463C563BB691A88 /* GameView.swift */,
+				1DE978C0F361F95F6D079955 /* GuessInputView.swift */,
+				CC47AB18D94DFA37F8F7D6C4 /* HintCardView.swift */,
+				A15FE582BFA60E97DCC31D7C /* HintGridView.swift */,
+				A34C0B56902E26480BF26A31 /* SilhouetteView.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		76FFC27706D5CF7EA0286E8D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6D4CC2BC067AEDD795507F42 /* Game */,
+				39A22C6070C0CA960C4B0C7D /* Settings */,
+				4C9F8CEF1B900336DB083F3A /* Stats */,
+				0CDE596C23DB7326D580A959 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8756C50CC8DE97C1B81C1935 /* Globorama */ = {
+			isa = PBXGroup;
+			children = (
+				CFB7C6DF3276F48B517D85EE /* Models */,
+				6A195A3E61BF34B118796A52 /* Preview Content */,
+				F37311BB7AEC41E759CCDFD1 /* Resources */,
+				4D5A6260FF97FAF6F1858730 /* Utilities */,
+				BCE5B9F555A109E0D84F3D7F /* ViewModels */,
+				76FFC27706D5CF7EA0286E8D /* Views */,
+				FDB70125F3B366C564826523 /* Assets.xcassets */,
+				EBAD07C134A8C8B3DB0FFDB6 /* GloboramaApp.swift */,
+			);
+			path = Globorama;
+			sourceTree = "<group>";
+		};
+		BCE5B9F555A109E0D84F3D7F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8724FC141F6C0CF619E577AF /* GameViewModel.swift */,
+				F6085F023AB8908F156AFA28 /* StatsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C67C2D55827CBDF005EAEE8B /* GloboramaTests */ = {
+			isa = PBXGroup;
+			children = (
+				29FFE61935D19B176125714B /* HaversineTests.swift */,
+			);
+			path = GloboramaTests;
+			sourceTree = "<group>";
+		};
+		CFB7C6DF3276F48B517D85EE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35E8491FD9E69677D26130E0 /* Country.swift */,
+				47CB3C86EBC33EFF60FC6102 /* GameResult.swift */,
+				69A8E893AAADB041257AACC5 /* GameState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EF021E4E4ECA3783501F1225 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C12BAF7EB3449210CE5E1D5 /* Globorama.app */,
+				1FBAA6535551CBA985100D73 /* GloboramaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F37311BB7AEC41E759CCDFD1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F7FBA08F3F1791C92AF18D62 /* countries.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FEB1706260A28C56D4168384 = {
+			isa = PBXGroup;
+			children = (
+				8756C50CC8DE97C1B81C1935 /* Globorama */,
+				C67C2D55827CBDF005EAEE8B /* GloboramaTests */,
+				EF021E4E4ECA3783501F1225 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7EDA44537997AF79A0BAA65C /* GloboramaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 910DA1B2EB2D2C8B56D2058B /* Build configuration list for PBXNativeTarget "GloboramaTests" */;
+			buildPhases = (
+				DCBE48C926E2649FA3142C7A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D63B8961B9A2011D97512A74 /* PBXTargetDependency */,
+			);
+			name = GloboramaTests;
+			packageProductDependencies = (
+			);
+			productName = GloboramaTests;
+			productReference = 1FBAA6535551CBA985100D73 /* GloboramaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DEB1CAF1C23A5AE3020C6D23 /* Globorama */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAEAD475EC196612F5671620 /* Build configuration list for PBXNativeTarget "Globorama" */;
+			buildPhases = (
+				67CA39686C210DC3B5212DC1 /* Sources */,
+				94B99B78AE4E9BF204204345 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Globorama;
+			packageProductDependencies = (
+			);
+			productName = Globorama;
+			productReference = 5C12BAF7EB3449210CE5E1D5 /* Globorama.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8014BDA6D329C39076820DC9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					7EDA44537997AF79A0BAA65C = {
+						DevelopmentTeam = "";
+					};
+					DEB1CAF1C23A5AE3020C6D23 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = BBD47C44CF3F83A40EFCA32E /* Build configuration list for PBXProject "Globorama" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = FEB1706260A28C56D4168384;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EF021E4E4ECA3783501F1225 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DEB1CAF1C23A5AE3020C6D23 /* Globorama */,
+				7EDA44537997AF79A0BAA65C /* GloboramaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		94B99B78AE4E9BF204204345 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C939C3CC342FBB9ED9CB2993 /* Assets.xcassets in Resources */,
+				244F157858EC2DD83B164426 /* countries.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67CA39686C210DC3B5212DC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C4CDC8BC68684FE9EA70DA5 /* AutocompleteListView.swift in Sources */,
+				E91322B5280FFEFF3A4B335F /* ContentView.swift in Sources */,
+				5C34D838B90A89B32F9BFE0A /* Country.swift in Sources */,
+				322B33446C58599EEE07314A /* CountryBrowserView.swift in Sources */,
+				7692AA8053EEB8F1F8C82CB4 /* CountryDataLoader.swift in Sources */,
+				CBDADE53E72CD2202BA7797C /* DevSettingsView.swift in Sources */,
+				64A556B35246F181C5A5FEC9 /* FeedbackItemView.swift in Sources */,
+				DC406762C979BA839101C625 /* FeedbackListView.swift in Sources */,
+				75F42CA2EB740EE03958CE54 /* GameHistoryRow.swift in Sources */,
+				BB73DB3141B82911BC58793D /* GameOverView.swift in Sources */,
+				F9C8D542D8668754E48F9D6F /* GameResult.swift in Sources */,
+				BEADA6FE8CE611EA92AF5B35 /* GameState.swift in Sources */,
+				B6EB936E948DC7A7E7EBF07B /* GameView.swift in Sources */,
+				9935EB40B2EA94671F97F585 /* GameViewModel.swift in Sources */,
+				7BA0FA155B6B6B99E0DF6DA3 /* GloboramaApp.swift in Sources */,
+				13ED4B75E5901AAFA75146FA /* GuessInputView.swift in Sources */,
+				F7E2BDB0CF4A62F41C249AEE /* HaversineCalculator.swift in Sources */,
+				81957A9A95A7336BFABCEF24 /* HintCardView.swift in Sources */,
+				298FD8026C1C866C484FB310 /* HintGridView.swift in Sources */,
+				B56EF04F3B1487D24E79BB75 /* PreviewData.swift in Sources */,
+				7B3C71F686530428D1B85933 /* SilhouetteView.swift in Sources */,
+				1FAD5FB3F915D5BBE17956CE /* StatsView.swift in Sources */,
+				60FCA27F5801C67FADE7926C /* StatsViewModel.swift in Sources */,
+				CF63422794579422BFDCA04E /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBE48C926E2649FA3142C7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A527123A7C4FD56E4BB6C063 /* HaversineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D63B8961B9A2011D97512A74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEB1CAF1C23A5AE3020C6D23 /* Globorama */;
+			targetProxy = 5792593CCFC1CF241596C271 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		005F508C4A1823029CDB8AFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Globorama;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mariusarnesen.globorama;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		150593F1018CBFCD1C5CBBA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mariusarnesen.globorama.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Globorama.app/Globorama";
+			};
+			name = Release;
+		};
+		5C82BFDB225672DFC085E46B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		B908B8300B44416F16676195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mariusarnesen.globorama.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Globorama.app/Globorama";
+			};
+			name = Debug;
+		};
+		C59F5F73BF98AC663A5A0681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Globorama;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mariusarnesen.globorama;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F8DC6202B89C2699F37E5936 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		910DA1B2EB2D2C8B56D2058B /* Build configuration list for PBXNativeTarget "GloboramaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B908B8300B44416F16676195 /* Debug */,
+				150593F1018CBFCD1C5CBBA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBD47C44CF3F83A40EFCA32E /* Build configuration list for PBXProject "Globorama" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C82BFDB225672DFC085E46B /* Debug */,
+				F8DC6202B89C2699F37E5936 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAEAD475EC196612F5671620 /* Build configuration list for PBXNativeTarget "Globorama" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				005F508C4A1823029CDB8AFF /* Debug */,
+				C59F5F73BF98AC663A5A0681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8014BDA6D329C39076820DC9 /* Project object */;
+}
