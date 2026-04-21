@@ -78,7 +78,7 @@ struct GameView: View {
 
     private var gameContent: some View {
         VStack(spacing: 16) {
-            SilhouetteView(country: viewModel.currentCountry)
+            mapWithFeedbackOverlay
 
             if viewModel.gameState.isGameOver {
                 GameOverView(viewModel: viewModel)
@@ -87,12 +87,53 @@ struct GameView: View {
             }
 
             HintGridView(viewModel: viewModel)
-
-            FeedbackListView(results: viewModel.guessResults, language: viewModel.language)
         }
         .padding(20)
         .background(.white.opacity(0.95))
         .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+
+    private var mapWithFeedbackOverlay: some View {
+        ZStack(alignment: .topLeading) {
+            SilhouetteView(country: viewModel.currentCountry)
+                .frame(maxWidth: .infinity)
+
+            if !viewModel.guessResults.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    ForEach(viewModel.guessResults) { result in
+                        feedbackChip(result)
+                            .transition(.move(edge: .leading).combined(with: .opacity))
+                    }
+                }
+                .padding(8)
+                .animation(.spring(duration: 0.3), value: viewModel.guessResults.count)
+            }
+        }
+    }
+
+    private func feedbackChip(_ result: GuessResult) -> some View {
+        HStack(spacing: 4) {
+            Text("\(result.attemptNumber)")
+                .font(.caption2.weight(.bold).monospacedDigit())
+                .foregroundStyle(.white)
+                .frame(width: 18, height: 18)
+                .background(result.isCorrect ? Theme.success : Theme.purpleStart)
+                .clipShape(Circle())
+
+            if result.isCorrect {
+                Text("🎉")
+                    .font(.caption2)
+            } else if let distance = result.distanceKm, let dir = result.direction {
+                Text("\(dir.emoji) \(distance) km")
+                    .font(.caption2.monospacedDigit())
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.horizontal, 6)
+        .padding(.vertical, 3)
+        .background(.white.opacity(0.85))
+        .clipShape(Capsule())
+        .shadow(color: .black.opacity(0.1), radius: 2, y: 1)
     }
 
     // MARK: - Footer
