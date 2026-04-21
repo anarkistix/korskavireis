@@ -117,7 +117,7 @@ struct GameView: View {
                 .font(.caption2.weight(.bold).monospacedDigit())
                 .foregroundStyle(.white)
                 .frame(width: 18, height: 18)
-                .background(result.isCorrect ? Theme.success : Theme.purpleStart)
+                .background(result.isCorrect ? Theme.success : Theme.error)
                 .clipShape(Circle())
 
             if result.isCorrect {
