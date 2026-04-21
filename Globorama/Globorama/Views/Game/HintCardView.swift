@@ -48,7 +48,7 @@ struct HintCardView<Content: View>: View {
                 }
             }
         }
-        .frame(height: 90)
+        .frame(minHeight: 80, idealHeight: 90)
         .animation(.spring(duration: 0.3), value: isUnlocked)
         .sensoryFeedback(.selection, trigger: isUnlocked)
         .overlay {
