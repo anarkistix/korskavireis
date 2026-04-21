@@ -3,6 +3,7 @@ import SwiftData
 
 struct StatsView: View {
     let modelContext: ModelContext
+    let language: String
     @State private var viewModel = StatsViewModel()
     @Environment(\.dismiss) private var dismiss
 
@@ -15,11 +16,11 @@ struct StatsView: View {
                     statsContent
                 }
             }
-            .navigationTitle("Statistics")
+            .navigationTitle(language == "no" ? "Statistikk" : "Statistics")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                    Button(language == "no" ? "Ferdig" : "Done") { dismiss() }
                 }
             }
         }
@@ -32,9 +33,9 @@ struct StatsView: View {
         VStack(spacing: 16) {
             Text("🌍")
                 .font(.system(size: 60))
-            Text("No games played yet")
+            Text(language == "no" ? "Ingen spill ennå" : "No games played yet")
                 .font(.title3.weight(.medium))
-            Text("Start playing to see your statistics!")
+            Text(language == "no" ? "Begynn å spille for å se statistikken din!" : "Start playing to see your statistics!")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
@@ -43,17 +44,17 @@ struct StatsView: View {
 
     private var statsContent: some View {
         List {
-            Section("Overview") {
+            Section(language == "no" ? "Oversikt" : "Overview") {
                 statsGrid
             }
 
-            Section("Guess Distribution") {
+            Section(language == "no" ? "Gjettefordeling" : "Guess Distribution") {
                 guessDistributionChart
             }
 
-            Section("History") {
+            Section(language == "no" ? "Historikk" : "History") {
                 ForEach(viewModel.results, id: \.persistentModelID) { result in
-                    GameHistoryRow(result: result)
+                    GameHistoryRow(result: result, language: language)
                 }
             }
         }
@@ -64,10 +65,10 @@ struct StatsView: View {
             GridItem(.flexible()),
             GridItem(.flexible()),
         ], spacing: 12) {
-            statCard(value: "\(viewModel.gamesPlayed)", label: "Played")
-            statCard(value: String(format: "%.0f%%", viewModel.winRate), label: "Win Rate")
-            statCard(value: String(format: "%.1f", viewModel.averageGuesses), label: "Avg Guesses")
-            statCard(value: "\(viewModel.currentStreak)", label: "Streak")
+            statCard(value: "\(viewModel.gamesPlayed)", label: language == "no" ? "Spilt" : "Played")
+            statCard(value: String(format: "%.0f%%", viewModel.winRate), label: language == "no" ? "Vinnerrate" : "Win Rate")
+            statCard(value: String(format: "%.1f", viewModel.averageGuesses), label: language == "no" ? "Snitt gjett" : "Avg Guesses")
+            statCard(value: "\(viewModel.currentStreak)", label: language == "no" ? "Rekke" : "Streak")
         }
     }
 

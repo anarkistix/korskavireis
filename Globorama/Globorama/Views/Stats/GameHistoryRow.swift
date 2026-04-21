@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GameHistoryRow: View {
     let result: GameResult
+    let language: String
 
     var body: some View {
         HStack(spacing: 12) {
@@ -25,25 +26,32 @@ struct GameHistoryRow: View {
             VStack(alignment: .trailing, spacing: 2) {
                 resultBadge
 
-                Text("\(result.guessCount) guess\(result.guessCount == 1 ? "" : "es")")
+                Text(guessCountText)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
         }
     }
 
+    private var guessCountText: String {
+        if language == "no" {
+            return "\(result.guessCount) gjett"
+        }
+        return "\(result.guessCount) guess\(result.guessCount == 1 ? "" : "es")"
+    }
+
     private var resultBadge: some View {
         Group {
             if result.won {
-                Text("Won")
+                Text(language == "no" ? "Vunnet" : "Won")
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(Theme.success)
             } else if result.gaveUp {
-                Text("Gave up")
+                Text(language == "no" ? "Ga opp" : "Gave up")
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(.orange)
             } else {
-                Text("Lost")
+                Text(language == "no" ? "Tapte" : "Lost")
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(Theme.error)
             }

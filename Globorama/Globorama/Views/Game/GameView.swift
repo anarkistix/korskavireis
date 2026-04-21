@@ -24,7 +24,7 @@ struct GameView: View {
             }
         }
         .sheet(isPresented: $showDevSettings) {
-            DevSettingsView(countries: viewModel.countries)
+            DevSettingsView(countries: viewModel.countries, language: viewModel.language)
         }
     }
 

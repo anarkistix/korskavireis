@@ -2,18 +2,21 @@ import SwiftUI
 
 struct CountryBrowserView: View {
     let countries: [Country]
+    let language: String
     @Environment(\.dismiss) private var dismiss
     @State private var searchText = ""
 
     private var filtered: [Country] {
-        if searchText.isEmpty { return countries.sorted { $0.name < $1.name } }
+        if searchText.isEmpty {
+            return countries.sorted { $0.displayName(for: language) < $1.displayName(for: language) }
+        }
         return countries
             .filter {
                 $0.name.localizedCaseInsensitiveContains(searchText) ||
                 $0.nameNo.localizedCaseInsensitiveContains(searchText) ||
                 $0.iso3.localizedCaseInsensitiveContains(searchText)
             }
-            .sorted { $0.name < $1.name }
+            .sorted { $0.displayName(for: language) < $1.displayName(for: language) }
     }
 
     var body: some View {
@@ -30,7 +33,7 @@ struct CountryBrowserView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 2))
 
                         VStack(alignment: .leading) {
-                            Text(country.name)
+                            Text(country.displayName(for: language))
                                 .font(.subheadline.weight(.medium))
                             Text(country.iso3)
                                 .font(.caption)
@@ -39,12 +42,12 @@ struct CountryBrowserView: View {
                     }
                 }
             }
-            .searchable(text: $searchText, prompt: "Search countries...")
-            .navigationTitle("Countries (\(filtered.count))")
+            .searchable(text: $searchText, prompt: language == "no" ? "Søk etter land..." : "Search countries...")
+            .navigationTitle(language == "no" ? "Land (\(filtered.count))" : "Countries (\(filtered.count))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                    Button(language == "no" ? "Ferdig" : "Done") { dismiss() }
                 }
             }
         }
@@ -63,35 +66,35 @@ struct CountryBrowserView: View {
                 }
             }
 
-            Section("Names") {
-                row("English", country.name)
-                row("Norwegian", country.nameNo)
-                row("Original", country.originalName)
+            Section(language == "no" ? "Navn" : "Names") {
+                row(language == "no" ? "Engelsk" : "English", country.name)
+                row(language == "no" ? "Norsk" : "Norwegian", country.nameNo)
+                row(language == "no" ? "Originalt" : "Original", country.originalName)
                 row("ISO3", country.iso3)
             }
 
-            Section("Geography") {
-                row("Continent", country.continent)
-                row("Region", country.region)
-                row("Capital", country.capital)
-                row("Center", "\(country.centerLat), \(country.centerLon)")
-                row("Island", country.isIsland ? "Yes" : "No")
+            Section(language == "no" ? "Geografi" : "Geography") {
+                row(language == "no" ? "Kontinent" : "Continent", country.continent)
+                row(language == "no" ? "Region" : "Region", country.region)
+                row(language == "no" ? "Hovedstad" : "Capital", country.capital)
+                row(language == "no" ? "Senter" : "Center", "\(country.centerLat), \(country.centerLon)")
+                row(language == "no" ? "Øy" : "Island", country.isIsland ? (language == "no" ? "Ja" : "Yes") : (language == "no" ? "Nei" : "No"))
             }
 
-            Section("Details") {
-                row("Population", "\(country.population) (\(country.populationYear))")
-                row("Highest Mountain", country.highestMountain)
-                row("Elevation", "\(country.highestElevationMeters)m / \(country.highestElevationFeet)ft")
+            Section(language == "no" ? "Detaljer" : "Details") {
+                row(language == "no" ? "Befolkning" : "Population", "\(country.population) (\(country.populationYear))")
+                row(language == "no" ? "Høyeste fjell" : "Highest Mountain", country.highestMountain)
+                row(language == "no" ? "Høyde" : "Elevation", "\(country.highestElevationMeters)m / \(country.highestElevationFeet)ft")
             }
 
             if !country.borders.isEmpty {
-                Section("Borders") {
-                    Text(country.borders.joined(separator: ", "))
+                Section(language == "no" ? "Naboland" : "Borders") {
+                    Text(country.displayBorders(for: language).joined(separator: ", "))
                         .font(.subheadline)
                 }
             }
         }
-        .navigationTitle(country.name)
+        .navigationTitle(country.displayName(for: language))
     }
 
     private func row(_ label: String, _ value: String) -> some View {

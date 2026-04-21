@@ -21,7 +21,7 @@ struct ContentView: View {
                         }
                     }
                     .sheet(isPresented: $showStats) {
-                        StatsView(modelContext: modelContext)
+                        StatsView(modelContext: modelContext, language: viewModel.language)
                     }
             } else {
                 ProgressView()

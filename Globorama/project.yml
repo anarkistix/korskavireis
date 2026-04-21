@@ -8,6 +8,24 @@ options:
   defaultConfig: Release
   groupSortPosition: top
 
+schemes:
+  Globorama:
+    build:
+      targets:
+        Globorama: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - GloboramaTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
 settings:
   base:
     SWIFT_VERSION: "6.0"
