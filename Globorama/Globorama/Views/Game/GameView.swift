@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GameView: View {
     @Bindable var viewModel: GameViewModel
+    @Binding var showStats: Bool
     @State private var showDevSettings = false
     @State private var versionTapCount = 0
 
@@ -11,7 +12,7 @@ struct GameView: View {
 
             ScrollView {
                 VStack(spacing: 16) {
-                    headerView
+                    headerRow
                     gameContent
                     footerView
                 }
@@ -30,35 +31,44 @@ struct GameView: View {
 
     // MARK: - Header
 
-    private var headerView: some View {
-        VStack(spacing: 8) {
+    private var headerRow: some View {
+        HStack {
+            languageToggle
+
+            Spacer()
+
             Text("GLOBORAMA")
-                .font(.system(size: 32, weight: .bold, design: .serif))
+                .font(.system(size: 24, weight: .bold, design: .serif))
                 .foregroundStyle(Theme.cream)
 
-            Text(viewModel.language == "no" ? "Hvilket land er dette?" : "Which country is this?")
-                .font(.subheadline)
-                .foregroundStyle(Theme.cream.opacity(0.8))
+            Spacer()
 
-            languageToggle
+            Button {
+                showStats = true
+            } label: {
+                Image(systemName: "chart.bar.fill")
+                    .font(.title3)
+                    .foregroundStyle(Theme.cream)
+            }
         }
-        .padding(.vertical, 12)
+        .padding(.horizontal, 4)
+        .padding(.top, 8)
     }
 
     private var languageToggle: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             Button {
                 viewModel.language = "no"
             } label: {
                 Text("🇳🇴")
-                    .font(.title2)
+                    .font(.title3)
                     .opacity(viewModel.language == "no" ? 1.0 : 0.4)
             }
             Button {
                 viewModel.language = "en"
             } label: {
                 Text("🇬🇧")
-                    .font(.title2)
+                    .font(.title3)
                     .opacity(viewModel.language == "en" ? 1.0 : 0.4)
             }
         }
@@ -70,13 +80,13 @@ struct GameView: View {
         VStack(spacing: 16) {
             SilhouetteView(country: viewModel.currentCountry)
 
-            HintGridView(viewModel: viewModel)
-
             if viewModel.gameState.isGameOver {
                 GameOverView(viewModel: viewModel)
             } else {
                 GuessInputView(viewModel: viewModel)
             }
+
+            HintGridView(viewModel: viewModel)
 
             FeedbackListView(results: viewModel.guessResults, language: viewModel.language)
         }

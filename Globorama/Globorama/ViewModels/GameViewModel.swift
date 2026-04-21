@@ -32,14 +32,9 @@ class GameViewModel {
 
     let maxAttempts = 10
 
-    @ObservationIgnored
-    private var _language: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "no"
-
-    var language: String {
-        get { _language }
-        set {
-            _language = newValue
-            UserDefaults.standard.set(newValue, forKey: "selectedLanguage")
+    var language: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "no" {
+        didSet {
+            UserDefaults.standard.set(language, forKey: "selectedLanguage")
         }
     }
 

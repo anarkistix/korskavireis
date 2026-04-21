@@ -7,30 +7,16 @@ struct ContentView: View {
     @State private var showStats = false
 
     var body: some View {
-        NavigationStack {
-            if let viewModel = gameViewModel {
-                GameView(viewModel: viewModel)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                showStats = true
-                            } label: {
-                                Image(systemName: "chart.bar.fill")
-                                    .foregroundStyle(.white)
-                            }
-                        }
-                    }
-                    .sheet(isPresented: $showStats) {
-                        StatsView(modelContext: modelContext, language: viewModel.language)
-                    }
-            } else {
-                ProgressView()
-            }
-        }
-        .onAppear {
-            if gameViewModel == nil {
-                gameViewModel = GameViewModel(modelContext: modelContext)
-            }
+        if let viewModel = gameViewModel {
+            GameView(viewModel: viewModel, showStats: $showStats)
+                .sheet(isPresented: $showStats) {
+                    StatsView(modelContext: modelContext, language: viewModel.language)
+                }
+        } else {
+            ProgressView()
+                .onAppear {
+                    gameViewModel = GameViewModel(modelContext: modelContext)
+                }
         }
     }
 }
