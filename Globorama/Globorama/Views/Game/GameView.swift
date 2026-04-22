@@ -174,14 +174,13 @@ struct GameView: View {
     private var footerView: some View {
         VStack(spacing: 4) {
             Text(viewModel.language == "no"
-                ? "© 2024 KorSkaViReis?"
-                : "© 2024 WhereShouldWeGo?")
+                ? "Utviklet i Norge med ❤️"
+                : "Developed in Norway with ❤️")
                 .font(.caption2)
                 .foregroundStyle(.white.opacity(0.6))
 
-            Text(viewModel.language == "no"
-                ? "Bygget med ❤️ av Marius Arnesen"
-                : "Built with ❤️ by Marius Arnesen")
+            let year = Calendar.current.component(.year, from: .now)
+            Text("Happygolucky Software ©️ \(String(year))")
                 .font(.caption2)
                 .foregroundStyle(.white.opacity(0.6))
 
