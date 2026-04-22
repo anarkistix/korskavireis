@@ -150,11 +150,15 @@ struct GameView: View {
                 .clipShape(Circle())
 
             if result.isCorrect {
-                Text("🎉")
-                    .font(.caption2)
+                Text("🎉 \(result.countryName)")
+                    .font(.caption2.weight(.medium))
             } else if let distance = result.distanceKm, let dir = result.direction {
-                Text("\(dir.emoji) \(distance) km")
-                    .font(.caption2.monospacedDigit())
+                let dirName = dir.localizedName(for: viewModel.language)
+                let text = viewModel.language == "no"
+                    ? "\(result.countryName) ligger \(dirName) for landet (\(distance) km)"
+                    : "\(result.countryName) is \(dirName) of the country (\(distance) km)"
+                Text(text)
+                    .font(.caption2)
                     .foregroundStyle(.secondary)
             }
         }

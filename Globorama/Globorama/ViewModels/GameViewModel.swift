@@ -141,8 +141,8 @@ class GameViewModel {
                 toLat: guessed.centerLat, toLon: guessed.centerLon
             )
             let dir = HaversineCalculator.direction(
-                fromLat: guessed.centerLat, fromLon: guessed.centerLon,
-                toLat: target.centerLat, toLon: target.centerLon
+                fromLat: target.centerLat, fromLon: target.centerLon,
+                toLat: guessed.centerLat, toLon: guessed.centerLon
             )
             let result = GuessResult(
                 attemptNumber: attempts,
