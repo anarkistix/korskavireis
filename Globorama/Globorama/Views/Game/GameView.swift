@@ -116,7 +116,8 @@ struct GameView: View {
 
     private var gameContent: some View {
         VStack(spacing: 16) {
-            mapWithFeedbackOverlay
+            clueDisplay
+            feedbackRow
 
             if viewModel.gameState.isGameOver {
                 GameOverView(viewModel: viewModel) {
@@ -137,50 +138,23 @@ struct GameView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 
-    @State private var showAllGuesses = false
+    private var clueDisplay: some View {
+        ClueDisplayView(gameMode: viewModel.gameMode, country: viewModel.currentCountry, language: viewModel.language)
+            .frame(maxWidth: .infinity)
+    }
 
-    private var mapWithFeedbackOverlay: some View {
-        ZStack(alignment: .topLeading) {
-            ClueDisplayView(gameMode: viewModel.gameMode, country: viewModel.currentCountry, language: viewModel.language)
-                .frame(maxWidth: .infinity)
-
-            if !viewModel.guessResults.isEmpty {
-                VStack(alignment: .leading, spacing: 4) {
-                    let visible = showAllGuesses
-                        ? viewModel.guessResults
-                        : Array(viewModel.guessResults.prefix(2))
-
-                    ForEach(visible) { result in
+    @ViewBuilder
+    private var feedbackRow: some View {
+        if !viewModel.guessResults.isEmpty {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 6) {
+                    ForEach(viewModel.guessResults) { result in
                         feedbackChip(result)
-                            .transition(.move(edge: .leading).combined(with: .opacity))
-                    }
-
-                    if viewModel.guessResults.count > 2 {
-                        Button {
-                            withAnimation(.spring(duration: 0.3)) {
-                                showAllGuesses.toggle()
-                            }
-                        } label: {
-                            HStack(spacing: 3) {
-                                Image(systemName: showAllGuesses ? "chevron.up" : "chevron.down")
-                                    .font(.caption2)
-                                Text(showAllGuesses
-                                    ? ""
-                                    : "+\(viewModel.guessResults.count - 2)")
-                                    .font(.caption2.monospacedDigit())
-                            }
-                            .foregroundStyle(.secondary)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .background(.white.opacity(0.85))
-                            .clipShape(Capsule())
-                            .shadow(color: .black.opacity(0.1), radius: 2, y: 1)
-                        }
                     }
                 }
-                .padding(8)
-                .animation(.spring(duration: 0.3), value: viewModel.guessResults.count)
+                .padding(.horizontal, 4)
             }
+            .animation(.spring(duration: 0.3), value: viewModel.guessResults.count)
         }
     }
 
