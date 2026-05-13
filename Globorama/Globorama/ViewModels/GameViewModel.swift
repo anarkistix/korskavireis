@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import os
 import SwiftData
 import UIKit
 
@@ -38,6 +39,22 @@ class GameViewModel {
         }
     }
 
+    var gameMode: GameMode = GameMode(rawValue: UserDefaults.standard.string(forKey: "selectedGameMode") ?? "") ?? .silhouette {
+        didSet {
+            UserDefaults.standard.set(gameMode.rawValue, forKey: "selectedGameMode")
+        }
+    }
+
+    var showModeSelection: Bool = false
+
+    var currentHintSlots: [HintSlot] {
+        gameMode.hintSlots
+    }
+
+    var silhouetteHintData: String? {
+        currentCountry?.silhouetteAssetName
+    }
+
     var hintsUnlocked: Int {
         min(attempts, 6)
     }
@@ -72,15 +89,18 @@ class GameViewModel {
     }
 
     func startNewGame() {
-        let gameMode = UserDefaults.standard.string(forKey: "gameMode") ?? "random"
-
-        if gameMode == "specific",
+        #if DEBUG
+        let debugCountryMode = UserDefaults.standard.string(forKey: "debugCountryMode") ?? "random"
+        if debugCountryMode == "specific",
            let specificName = UserDefaults.standard.string(forKey: "specificCountry"),
            let country = countries.first(where: { $0.name == specificName || $0.nameNo == specificName }) {
             currentCountry = country
         } else {
             selectRandomCountry()
         }
+        #else
+        selectRandomCountry()
+        #endif
 
         gameState = .playing
         attempts = 0
@@ -219,22 +239,34 @@ class GameViewModel {
 
     // MARK: - External links
 
+    @MainActor
     func openGoogleMaps() {
         guard let urlString = currentCountry?.googleMapsUrl,
-              let url = URL(string: urlString) else { return }
+              let url = URL(string: urlString),
+              url.scheme == "https" else { return }
         openURL(url)
     }
 
+    @MainActor
     func openNorli() {
         guard let country = currentCountry else { return }
-        let name = country.displayName(for: language)
-        guard let encoded = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "https://www.norli.no/search?query=\(encoded)") else { return }
+        var components = URLComponents(string: "https://www.norli.no/search")
+        components?.queryItems = [URLQueryItem(name: "query", value: country.displayName(for: language))]
+        guard let url = components?.url else { return }
         openURL(url)
     }
 
+    @MainActor
     private func openURL(_ url: URL) {
         UIApplication.shared.open(url)
+    }
+
+    // MARK: - Game Count
+
+    func completedGameCount() -> Int {
+        guard let context = modelContext else { return 0 }
+        let descriptor = FetchDescriptor<GameResult>()
+        return (try? context.fetchCount(descriptor)) ?? 0
     }
 
     // MARK: - Persistence
@@ -250,9 +282,15 @@ class GameViewModel {
             guessCount: attempts,
             hintsRevealed: hintsUnlocked,
             language: language,
-            durationSeconds: duration
+            durationSeconds: duration,
+            gameMode: gameMode.rawValue
         )
         context.insert(result)
-        try? context.save()
+        do {
+            try context.save()
+        } catch {
+            Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.mariusarnesen.globorama", category: "data")
+                .error("Failed to save game result: \(error)")
+        }
     }
 }

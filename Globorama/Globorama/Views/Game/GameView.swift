@@ -3,8 +3,12 @@ import SwiftUI
 struct GameView: View {
     @Bindable var viewModel: GameViewModel
     @Binding var showStats: Bool
+    @Environment(PurchaseManager.self) private var purchaseManager
+    @State private var showPaywall = false
+    #if DEBUG
     @State private var showDevSettings = false
     @State private var versionTapCount = 0
+    #endif
 
     var body: some View {
         ZStack {
@@ -24,9 +28,30 @@ struct GameView: View {
                 toastOverlay(toast)
             }
         }
-        .sheet(isPresented: $showDevSettings) {
-            DevSettingsView(countries: viewModel.countries, language: viewModel.language)
+        .sheet(isPresented: Binding(
+            get: { viewModel.showModeSelection },
+            set: { viewModel.showModeSelection = $0 }
+        )) {
+            GameModePickerView(viewModel: viewModel)
+                .presentationDetents([.medium])
         }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView(
+                purchaseManager: purchaseManager,
+                gamesPlayed: viewModel.completedGameCount(),
+                language: viewModel.language
+            )
+        }
+        #if DEBUG
+        .sheet(isPresented: $showDevSettings) {
+            DevSettingsView(countries: viewModel.countries, language: viewModel.language, purchaseManager: purchaseManager)
+        }
+        #endif
+    }
+
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+        return "v\(version)"
     }
 
     // MARK: - Header
@@ -34,6 +59,13 @@ struct GameView: View {
     private var headerRow: some View {
         HStack {
             languageToggle
+
+            Button {
+                viewModel.showModeSelection = true
+            } label: {
+                Text(viewModel.gameMode.emoji)
+                    .font(.title3)
+            }
 
             Spacer()
 
@@ -81,7 +113,13 @@ struct GameView: View {
             mapWithFeedbackOverlay
 
             if viewModel.gameState.isGameOver {
-                GameOverView(viewModel: viewModel)
+                GameOverView(viewModel: viewModel) {
+                    if purchaseManager.isUnlocked || viewModel.completedGameCount() < 10 {
+                        viewModel.startNewGame()
+                    } else {
+                        showPaywall = true
+                    }
+                }
             } else {
                 GuessInputView(viewModel: viewModel)
             }
@@ -97,7 +135,7 @@ struct GameView: View {
 
     private var mapWithFeedbackOverlay: some View {
         ZStack(alignment: .topLeading) {
-            SilhouetteView(country: viewModel.currentCountry)
+            ClueDisplayView(gameMode: viewModel.gameMode, country: viewModel.currentCountry, language: viewModel.language)
                 .frame(maxWidth: .infinity)
 
             if !viewModel.guessResults.isEmpty {
@@ -184,7 +222,8 @@ struct GameView: View {
                 .font(.caption2)
                 .foregroundStyle(.white.opacity(0.6))
 
-            Text("v1.0.0")
+            #if DEBUG
+            Text(appVersion)
                 .font(.caption2)
                 .foregroundStyle(.white.opacity(0.4))
                 .onTapGesture {
@@ -197,6 +236,11 @@ struct GameView: View {
                         versionTapCount = 0
                     }
                 }
+            #else
+            Text(appVersion)
+                .font(.caption2)
+                .foregroundStyle(.white.opacity(0.4))
+            #endif
         }
         .padding(.top, 8)
     }

@@ -8,15 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		13ED4B75E5901AAFA75146FA /* GuessInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE978C0F361F95F6D079955 /* GuessInputView.swift */; };
+		1CEB8D287A91831FC09FC36E /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636C5F9EF5777F8D59A41AE9 /* PurchaseManager.swift */; };
 		1FAD5FB3F915D5BBE17956CE /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47D6B9AAB50A30664B398D /* StatsView.swift */; };
 		244F157858EC2DD83B164426 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FBA08F3F1791C92AF18D62 /* countries.json */; };
 		298FD8026C1C866C484FB310 /* HintGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15FE582BFA60E97DCC31D7C /* HintGridView.swift */; };
 		322B33446C58599EEE07314A /* CountryBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD121606D9D9C8940C6B19 /* CountryBrowserView.swift */; };
+		412BBB90C823566125969B0C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 022867505B166CF5F648F150 /* PrivacyInfo.xcprivacy */; };
 		5C34D838B90A89B32F9BFE0A /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E8491FD9E69677D26130E0 /* Country.swift */; };
 		60FCA27F5801C67FADE7926C /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6085F023AB8908F156AFA28 /* StatsViewModel.swift */; };
 		64A556B35246F181C5A5FEC9 /* FeedbackItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6B6F238356112CA13A2C7 /* FeedbackItemView.swift */; };
 		75F42CA2EB740EE03958CE54 /* GameHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0133DA27A15FA943D1B5269 /* GameHistoryRow.swift */; };
 		7692AA8053EEB8F1F8C82CB4 /* CountryDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D20A98A81211E1F15C1E93 /* CountryDataLoader.swift */; };
+		798E83A61F5681B16E3E249C /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCD36C5DD4DB7171BECB6E /* PaywallView.swift */; };
 		7B3C71F686530428D1B85933 /* SilhouetteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34C0B56902E26480BF26A31 /* SilhouetteView.swift */; };
 		7BA0FA155B6B6B99E0DF6DA3 /* GloboramaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAD07C134A8C8B3DB0FFDB6 /* GloboramaApp.swift */; };
 		81957A9A95A7336BFABCEF24 /* HintCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC47AB18D94DFA37F8F7D6C4 /* HintCardView.swift */; };
@@ -27,9 +30,13 @@
 		B6EB936E948DC7A7E7EBF07B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF777FB46463C563BB691A88 /* GameView.swift */; };
 		BB73DB3141B82911BC58793D /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33375216366365CED91FA633 /* GameOverView.swift */; };
 		BEADA6FE8CE611EA92AF5B35 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8E893AAADB041257AACC5 /* GameState.swift */; };
+		C6D166687D16D9ED10A351F3 /* Globorama.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 907CEEBF544D197A2FBC2967 /* Globorama.storekit */; };
 		C939C3CC342FBB9ED9CB2993 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDB70125F3B366C564826523 /* Assets.xcassets */; };
 		CBDADE53E72CD2202BA7797C /* DevSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707738B3F3CF779864A32A68 /* DevSettingsView.swift */; };
 		CF63422794579422BFDCA04E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161DA2AB69A59CB917AB4A84 /* Theme.swift */; };
+		D1A2B3C4E5F60718293A4B5C /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4E5F60718293A4B5D /* GameMode.swift */; };
+		D2B3C4D5E6F70829304B5C6D /* ClueDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3C4D5E6F70829304B5C6E /* ClueDisplayView.swift */; };
+		D3C4D5E6F708193A415C6D7E /* GameModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4D5E6F708193A415C6D7F /* GameModePickerView.swift */; };
 		DC406762C979BA839101C625 /* FeedbackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51A0D84AD147716F83CFD1 /* FeedbackListView.swift */; };
 		E91322B5280FFEFF3A4B335F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE596C23DB7326D580A959 /* ContentView.swift */; };
 		F7E2BDB0CF4A62F41C249AEE /* HaversineCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFFDCD8CC419D09533D17C2 /* HaversineCalculator.swift */; };
@@ -47,7 +54,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		022867505B166CF5F648F150 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0CDE596C23DB7326D580A959 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		13CCD36C5DD4DB7171BECB6E /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		161DA2AB69A59CB917AB4A84 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		1DE978C0F361F95F6D079955 /* GuessInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessInputView.swift; sourceTree = "<group>"; };
 		1FBAA6535551CBA985100D73 /* GloboramaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GloboramaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,16 +64,21 @@
 		29FFE61935D19B176125714B /* HaversineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaversineTests.swift; sourceTree = "<group>"; };
 		33375216366365CED91FA633 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		35E8491FD9E69677D26130E0 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		D1A2B3C4E5F60718293A4B5D /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		D2B3C4D5E6F70829304B5C6E /* ClueDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueDisplayView.swift; sourceTree = "<group>"; };
+		D3C4D5E6F708193A415C6D7F /* GameModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModePickerView.swift; sourceTree = "<group>"; };
 		3B47D6B9AAB50A30664B398D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		408F1ABB596F7B70D61A0CCA /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		47CB3C86EBC33EFF60FC6102 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		4F51A0D84AD147716F83CFD1 /* FeedbackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackListView.swift; sourceTree = "<group>"; };
 		5C12BAF7EB3449210CE5E1D5 /* Globorama.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Globorama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		636C5F9EF5777F8D59A41AE9 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		6835FF99DB385A70E9978594 /* AutocompleteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteListView.swift; sourceTree = "<group>"; };
 		69A8E893AAADB041257AACC5 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		707738B3F3CF779864A32A68 /* DevSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsView.swift; sourceTree = "<group>"; };
 		75B6B6F238356112CA13A2C7 /* FeedbackItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackItemView.swift; sourceTree = "<group>"; };
 		8724FC141F6C0CF619E577AF /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		907CEEBF544D197A2FBC2967 /* Globorama.storekit */ = {isa = PBXFileReference; path = Globorama.storekit; sourceTree = "<group>"; };
 		A15FE582BFA60E97DCC31D7C /* HintGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintGridView.swift; sourceTree = "<group>"; };
 		A34C0B56902E26480BF26A31 /* SilhouetteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilhouetteView.swift; sourceTree = "<group>"; };
 		ABDD121606D9D9C8940C6B19 /* CountryBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryBrowserView.swift; sourceTree = "<group>"; };
@@ -119,13 +133,16 @@
 			isa = PBXGroup;
 			children = (
 				6835FF99DB385A70E9978594 /* AutocompleteListView.swift */,
+				D2B3C4D5E6F70829304B5C6E /* ClueDisplayView.swift */,
 				75B6B6F238356112CA13A2C7 /* FeedbackItemView.swift */,
 				4F51A0D84AD147716F83CFD1 /* FeedbackListView.swift */,
+				D3C4D5E6F708193A415C6D7F /* GameModePickerView.swift */,
 				33375216366365CED91FA633 /* GameOverView.swift */,
 				EF777FB46463C563BB691A88 /* GameView.swift */,
 				1DE978C0F361F95F6D079955 /* GuessInputView.swift */,
 				CC47AB18D94DFA37F8F7D6C4 /* HintCardView.swift */,
 				A15FE582BFA60E97DCC31D7C /* HintGridView.swift */,
+				13CCD36C5DD4DB7171BECB6E /* PaywallView.swift */,
 				A34C0B56902E26480BF26A31 /* SilhouetteView.swift */,
 			);
 			path = Game;
@@ -152,7 +169,9 @@
 				BCE5B9F555A109E0D84F3D7F /* ViewModels */,
 				76FFC27706D5CF7EA0286E8D /* Views */,
 				FDB70125F3B366C564826523 /* Assets.xcassets */,
+				907CEEBF544D197A2FBC2967 /* Globorama.storekit */,
 				EBAD07C134A8C8B3DB0FFDB6 /* GloboramaApp.swift */,
+				022867505B166CF5F648F150 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Globorama;
 			sourceTree = "<group>";
@@ -161,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				8724FC141F6C0CF619E577AF /* GameViewModel.swift */,
+				636C5F9EF5777F8D59A41AE9 /* PurchaseManager.swift */,
 				F6085F023AB8908F156AFA28 /* StatsViewModel.swift */,
 			);
 			path = ViewModels;
@@ -178,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				35E8491FD9E69677D26130E0 /* Country.swift */,
+				D1A2B3C4E5F60718293A4B5D /* GameMode.swift */,
 				47CB3C86EBC33EFF60FC6102 /* GameResult.swift */,
 				69A8E893AAADB041257AACC5 /* GameState.swift */,
 			);
@@ -259,10 +280,10 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					7EDA44537997AF79A0BAA65C = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = N6FECHVY7S;
 					};
 					DEB1CAF1C23A5AE3020C6D23 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = N6FECHVY7S;
 					};
 				};
 			};
@@ -292,6 +313,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C939C3CC342FBB9ED9CB2993 /* Assets.xcassets in Resources */,
+				C6D166687D16D9ED10A351F3 /* Globorama.storekit in Resources */,
+				412BBB90C823566125969B0C /* PrivacyInfo.xcprivacy in Resources */,
 				244F157858EC2DD83B164426 /* countries.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +338,9 @@
 				BB73DB3141B82911BC58793D /* GameOverView.swift in Sources */,
 				F9C8D542D8668754E48F9D6F /* GameResult.swift in Sources */,
 				BEADA6FE8CE611EA92AF5B35 /* GameState.swift in Sources */,
+				D1A2B3C4E5F60718293A4B5C /* GameMode.swift in Sources */,
+				D3C4D5E6F708193A415C6D7E /* GameModePickerView.swift in Sources */,
+				D2B3C4D5E6F70829304B5C6D /* ClueDisplayView.swift in Sources */,
 				B6EB936E948DC7A7E7EBF07B /* GameView.swift in Sources */,
 				9935EB40B2EA94671F97F585 /* GameViewModel.swift in Sources */,
 				7BA0FA155B6B6B99E0DF6DA3 /* GloboramaApp.swift in Sources */,
@@ -322,7 +348,9 @@
 				F7E2BDB0CF4A62F41C249AEE /* HaversineCalculator.swift in Sources */,
 				81957A9A95A7336BFABCEF24 /* HintCardView.swift in Sources */,
 				298FD8026C1C866C484FB310 /* HintGridView.swift in Sources */,
+				798E83A61F5681B16E3E249C /* PaywallView.swift in Sources */,
 				B56EF04F3B1487D24E79BB75 /* PreviewData.swift in Sources */,
+				1CEB8D287A91831FC09FC36E /* PurchaseManager.swift in Sources */,
 				7B3C71F686530428D1B85933 /* SilhouetteView.swift in Sources */,
 				1FAD5FB3F915D5BBE17956CE /* StatsView.swift in Sources */,
 				60FCA27F5801C67FADE7926C /* StatsViewModel.swift in Sources */,
@@ -361,7 +389,9 @@
 				INFOPLIST_KEY_UILaunchScreen_BackgroundColor = LaunchBackground;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_ImageName = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				ITSAppUsesNonExemptEncryption = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,7 +455,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N6FECHVY7S;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -484,7 +514,9 @@
 				INFOPLIST_KEY_UILaunchScreen_BackgroundColor = LaunchBackground;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_ImageName = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				ITSAppUsesNonExemptEncryption = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -531,7 +563,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N6FECHVY7S;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

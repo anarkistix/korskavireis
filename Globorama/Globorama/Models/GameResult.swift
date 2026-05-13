@@ -12,6 +12,7 @@ class GameResult {
     var date: Date
     var language: String
     var durationSeconds: Int
+    var gameMode: String = "silhouette"
 
     init(
         countryIso3: String,
@@ -22,7 +23,8 @@ class GameResult {
         hintsRevealed: Int,
         date: Date = .now,
         language: String,
-        durationSeconds: Int
+        durationSeconds: Int,
+        gameMode: String = "silhouette"
     ) {
         self.countryIso3 = countryIso3
         self.countryName = countryName
@@ -33,5 +35,6 @@ class GameResult {
         self.date = date
         self.language = language
         self.durationSeconds = durationSeconds
+        self.gameMode = gameMode
     }
 }

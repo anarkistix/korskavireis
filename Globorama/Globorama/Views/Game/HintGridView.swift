@@ -10,12 +10,22 @@ struct HintGridView: View {
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(Array(viewModel.currentHintSlots.enumerated()), id: \.offset) { index, slot in
+                hintCard(for: slot, hintNumber: index + 1)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func hintCard(for slot: HintSlot, hintNumber: Int) -> some View {
+        switch slot {
+        case .flag:
             HintCardView(
-                hintNumber: 1,
+                hintNumber: hintNumber,
                 emoji: "🏳️",
                 title: viewModel.language == "no" ? "Flagg" : "Flag",
-                isUnlocked: viewModel.isHintUnlocked(1),
-                requiredGuesses: 1,
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
                 language: viewModel.language
             ) {
                 if let flagName = viewModel.flagHintData {
@@ -26,12 +36,13 @@ struct HintGridView: View {
                 }
             }
 
+        case .population:
             HintCardView(
-                hintNumber: 2,
+                hintNumber: hintNumber,
                 emoji: "👥",
                 title: viewModel.language == "no" ? "Befolkning" : "Population",
-                isUnlocked: viewModel.isHintUnlocked(2),
-                requiredGuesses: 2,
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
                 language: viewModel.language
             ) {
                 if let data = viewModel.populationHintData {
@@ -41,12 +52,13 @@ struct HintGridView: View {
                 }
             }
 
+        case .capital:
             HintCardView(
-                hintNumber: 3,
+                hintNumber: hintNumber,
                 emoji: "🏛️",
                 title: viewModel.language == "no" ? "Hovedstad" : "Capital",
-                isUnlocked: viewModel.isHintUnlocked(3),
-                requiredGuesses: 3,
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
                 language: viewModel.language
             ) {
                 if let data = viewModel.capitalHintData {
@@ -55,12 +67,13 @@ struct HintGridView: View {
                 }
             }
 
+        case .region:
             HintCardView(
-                hintNumber: 4,
+                hintNumber: hintNumber,
                 emoji: "🌍",
                 title: viewModel.language == "no" ? "Region" : "Region",
-                isUnlocked: viewModel.isHintUnlocked(4),
-                requiredGuesses: 4,
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
                 language: viewModel.language
             ) {
                 if let data = viewModel.regionHintData {
@@ -70,12 +83,13 @@ struct HintGridView: View {
                 }
             }
 
+        case .mountain:
             HintCardView(
-                hintNumber: 5,
+                hintNumber: hintNumber,
                 emoji: "⛰️",
                 title: viewModel.language == "no" ? "Fjell" : "Mountain",
-                isUnlocked: viewModel.isHintUnlocked(5),
-                requiredGuesses: 5,
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
                 language: viewModel.language
             ) {
                 if let data = viewModel.mountainHintData {
@@ -85,18 +99,36 @@ struct HintGridView: View {
                 }
             }
 
+        case .neighbors:
             HintCardView(
-                hintNumber: 6,
+                hintNumber: hintNumber,
                 emoji: "🤝",
                 title: viewModel.language == "no" ? "Naboland" : "Neighbors",
-                isUnlocked: viewModel.isHintUnlocked(6),
-                requiredGuesses: 6,
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
                 language: viewModel.language
             ) {
                 if let data = viewModel.bordersHintData {
                     Text(data)
                         .font(.caption)
                         .multilineTextAlignment(.center)
+                }
+            }
+
+        case .silhouette:
+            HintCardView(
+                hintNumber: hintNumber,
+                emoji: "🗺️",
+                title: viewModel.language == "no" ? "Silhuett" : "Silhouette",
+                isUnlocked: viewModel.isHintUnlocked(hintNumber),
+                requiredGuesses: hintNumber,
+                language: viewModel.language
+            ) {
+                if let assetName = viewModel.silhouetteHintData {
+                    Image(assetName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: 50)
                 }
             }
         }

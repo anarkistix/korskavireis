@@ -1,29 +1,91 @@
+#if DEBUG
 import SwiftUI
+import SwiftData
 
 struct DevSettingsView: View {
     let countries: [Country]
     let language: String
+    let purchaseManager: PurchaseManager
     @Environment(\.dismiss) private var dismiss
-    @AppStorage("gameMode") private var gameMode = "random"
+    @Environment(\.modelContext) private var modelContext
+    @AppStorage("debugCountryMode") private var debugCountryMode = "random"
     @AppStorage("specificCountry") private var specificCountry = ""
     @State private var showCountryBrowser = false
+    @State private var gameCount: Int = 0
 
     var body: some View {
         NavigationStack {
             List {
                 Section(language == "no" ? "Spillmodus" : "Game Mode") {
-                    Picker("Mode", selection: $gameMode) {
+                    Picker("Mode", selection: $debugCountryMode) {
                         Text(language == "no" ? "Tilfeldig" : "Random").tag("random")
                         Text(language == "no" ? "Spesifikt land" : "Specific Country").tag("specific")
                     }
                     .pickerStyle(.segmented)
 
-                    if gameMode == "specific" {
+                    if debugCountryMode == "specific" {
                         Picker(language == "no" ? "Land" : "Country", selection: $specificCountry) {
                             Text(language == "no" ? "Velg..." : "Select...").tag("")
                             ForEach(countries.sorted { $0.displayName(for: language) < $1.displayName(for: language) }) { country in
                                 Text(country.displayName(for: language)).tag(country.name)
                             }
+                        }
+                    }
+                }
+
+                Section("In-App Purchase") {
+                    HStack {
+                        Text("Games played")
+                        Spacer()
+                        Text("\(gameCount) / 10")
+                            .foregroundStyle(.secondary)
+                    }
+
+                    HStack {
+                        Text("Unlocked")
+                        Spacer()
+                        Text(purchaseManager.isUnlocked ? "Yes" : "No")
+                            .foregroundStyle(purchaseManager.isUnlocked ? .green : .secondary)
+                    }
+
+                    HStack {
+                        Text("Product loaded")
+                        Spacer()
+                        Text(purchaseManager.product != nil
+                             ? (purchaseManager.product!.displayPrice)
+                             : "No")
+                            .foregroundStyle(purchaseManager.product != nil ? .green : .red)
+                    }
+
+                    if case .error(let msg) = purchaseManager.purchaseState {
+                        HStack {
+                            Text("Error")
+                            Spacer()
+                            Text(msg)
+                                .foregroundStyle(.red)
+                                .font(.caption)
+                        }
+                    }
+
+                    Button("Reload product") {
+                        Task { await purchaseManager.loadProduct() }
+                    }
+
+                    Button("Reset game counter (delete all results)", role: .destructive) {
+                        do {
+                            try modelContext.delete(model: GameResult.self)
+                            try modelContext.save()
+                            gameCount = 0
+                        } catch {}
+                    }
+
+                    Button("Reset purchase unlock", role: .destructive) {
+                        purchaseManager.resetPurchase()
+                    }
+
+                    Button("Manage Sandbox Account") {
+                        if let url = URL(string: "itms-ui://") {
+                            UIApplication.shared.open(url)
                         }
                     }
                 }
@@ -54,6 +116,10 @@ struct DevSettingsView: View {
             .sheet(isPresented: $showCountryBrowser) {
                 CountryBrowserView(countries: countries, language: language)
             }
+            .onAppear {
+                let descriptor = FetchDescriptor<GameResult>()
+                gameCount = (try? modelContext.fetchCount(descriptor)) ?? 0
+            }
         }
     }
 
@@ -66,3 +132,4 @@ struct DevSettingsView: View {
         }
     }
 }
+#endif
