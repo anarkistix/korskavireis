@@ -69,8 +69,9 @@ struct GameView: View {
             Button {
                 viewModel.showModeSelection = true
             } label: {
-                Text(viewModel.gameMode.emoji)
+                Image(systemName: "square.grid.2x2")
                     .font(.title3)
+                    .foregroundStyle(Theme.cream)
             }
 
             Spacer()
