@@ -46,6 +46,7 @@ class GameViewModel {
     }
 
     var showModeSelection: Bool = false
+    var showWelcomeScreen: Bool = true
 
     var currentHintSlots: [HintSlot] {
         gameMode.hintSlots

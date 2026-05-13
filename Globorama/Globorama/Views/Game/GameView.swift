@@ -28,6 +28,12 @@ struct GameView: View {
                 toastOverlay(toast)
             }
         }
+        .fullScreenCover(isPresented: Binding(
+            get: { viewModel.showWelcomeScreen },
+            set: { viewModel.showWelcomeScreen = $0 }
+        )) {
+            WelcomeView(viewModel: viewModel)
+        }
         .sheet(isPresented: Binding(
             get: { viewModel.showModeSelection },
             set: { viewModel.showModeSelection = $0 }
