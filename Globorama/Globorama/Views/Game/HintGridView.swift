@@ -17,7 +17,7 @@ struct HintGridView: View {
         }
         .fullScreenCover(isPresented: $showFullSilhouette) {
             ZStack {
-                Color.black.opacity(0.85).ignoresSafeArea()
+                Color.white.opacity(0.95).ignoresSafeArea()
                 if let country = viewModel.currentCountry {
                     Image(country.silhouetteAssetName)
                         .resizable()
