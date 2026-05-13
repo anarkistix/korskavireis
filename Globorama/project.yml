@@ -15,6 +15,7 @@ schemes:
         Globorama: all
     run:
       config: Debug
+      storeKitConfiguration: Globorama/Globorama/Globorama.storekit
     test:
       config: Debug
       targets:
@@ -29,7 +30,7 @@ schemes:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    DEVELOPMENT_TEAM: ""
+    DEVELOPMENT_TEAM: N6FECHVY7S
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
 
@@ -51,8 +52,10 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UILaunchScreen_BackgroundColor: LaunchBackground
         INFOPLIST_KEY_UILaunchScreen_ImageName: ""
-        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UIRequiresFullScreen: YES
         INFOPLIST_KEY_CFBundleDisplayName: Globorama
+        ITSAppUsesNonExemptEncryption: false
         GENERATE_INFOPLIST_FILE: YES
         PRODUCT_BUNDLE_IDENTIFIER: com.mariusarnesen.globorama
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

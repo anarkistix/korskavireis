@@ -1,16 +1,19 @@
 import Foundation
+import os
+
+private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.mariusarnesen.globorama", category: "data")
 
 enum CountryDataLoader {
     static func loadCountries() -> [Country] {
         guard let url = Bundle.main.url(forResource: "countries", withExtension: "json") else {
-            print("countries.json not found in bundle")
+            logger.error("countries.json not found in bundle")
             return fallbackCountries
         }
         do {
             let data = try Data(contentsOf: url)
             return try JSONDecoder().decode([Country].self, from: data)
         } catch {
-            print("Failed to decode countries.json: \(error)")
+            logger.error("Failed to decode countries.json: \(error)")
             return fallbackCountries
         }
     }

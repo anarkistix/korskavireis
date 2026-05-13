@@ -1,3 +1,4 @@
+#if DEBUG
 import SwiftUI
 
 struct CountryBrowserView: View {
@@ -107,3 +108,4 @@ struct CountryBrowserView: View {
         .font(.subheadline)
     }
 }
+#endif

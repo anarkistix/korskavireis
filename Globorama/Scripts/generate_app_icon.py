@@ -1,138 +1,110 @@
 #!/usr/bin/env python3
-"""Generate a GLOBORAMA app icon (1024x1024) using brand colors."""
+"""Generate GLOBORAMA app icon (1024x1024) from the original web logo."""
 
 from PIL import Image, ImageDraw, ImageFont
-import math
 import os
 
 SIZE = 1024
-CENTER = SIZE // 2
-RADIUS = SIZE // 2
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGO_PATH = os.path.join(SCRIPT_DIR, "..", "..", "assets", "globorama-logo.jpg")
+OUT_DIR = os.path.join(SCRIPT_DIR, "..", "Globorama", "Assets.xcassets", "AppIcon.appiconset")
 
-# Brand colors
-TEAL = (55, 148, 144)
-DARK_TEAL = (23, 81, 87)
-PURPLE_START = (102, 126, 234)
-PURPLE_END = (118, 75, 162)
-CREAM = (250, 244, 208)
-
-
-def lerp_color(c1, c2, t):
-    return tuple(int(a + (b - a) * t) for a, b in zip(c1, c2))
+# Colors sampled from the original logo
+BG_TEAL = (28, 78, 82)
+CREAM = (237, 228, 186)
 
 
 def main():
-    img = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
+    logo = Image.open(LOGO_PATH).convert("RGBA")
 
-    # Gradient background (top-left purple to bottom-right teal)
-    for y in range(SIZE):
-        for x in range(SIZE):
-            t = (x + y) / (2 * SIZE)
-            color = lerp_color(PURPLE_START, TEAL, t)
-            dist = math.sqrt((x - CENTER) ** 2 + (y - CENTER) ** 2)
-            if dist <= RADIUS:
-                img.putpixel((x, y), (*color, 255))
+    # The globe is in the left portion of the banner — tight crop around the actual globe
+    globe_crop = logo.crop((5, 8, 290, 296))
+    globe_size = int(SIZE * 0.55)
+    globe = globe_crop.resize((globe_size, globe_size), Image.LANCZOS)
 
-    # Draw a simple globe circle outline
-    globe_r = int(SIZE * 0.32)
-    globe_cx, globe_cy = CENTER, int(SIZE * 0.42)
+    # Apply circular mask to remove square background edges
+    circle_mask = Image.new("L", (globe_size, globe_size), 0)
+    circle_draw = ImageDraw.Draw(circle_mask)
+    circle_draw.ellipse((0, 0, globe_size - 1, globe_size - 1), fill=255)
+    globe.putalpha(circle_mask)
 
-    # Globe fill - slightly darker
-    for y in range(globe_cy - globe_r, globe_cy + globe_r + 1):
-        for x in range(globe_cx - globe_r, globe_cx + globe_r + 1):
-            dist = math.sqrt((x - globe_cx) ** 2 + (y - globe_cy) ** 2)
-            if dist <= globe_r:
-                # Semi-transparent cream fill
-                bg = img.getpixel((x, y))
-                blend = lerp_color(bg[:3], CREAM, 0.15)
-                img.putpixel((x, y), (*blend, 255))
+    # Create icon with the original dark teal background
+    icon = Image.new("RGBA", (SIZE, SIZE), (*BG_TEAL, 255))
+    draw = ImageDraw.Draw(icon)
 
-    # Globe outline
-    outline_width = 8
-    for angle in range(360 * 4):
-        a = math.radians(angle / 4)
-        for w in range(outline_width):
-            r = globe_r - outline_width // 2 + w
-            px = int(globe_cx + r * math.cos(a))
-            py = int(globe_cy + r * math.sin(a))
-            if 0 <= px < SIZE and 0 <= py < SIZE:
-                img.putpixel((px, py), (*CREAM, 255))
+    # Round the icon corners (iOS does this automatically, but fill corners for clean export)
+    corner_r = int(SIZE * 0.22)
+    mask = Image.new("L", (SIZE, SIZE), 0)
+    mask_draw = ImageDraw.Draw(mask)
+    mask_draw.rounded_rectangle([(0, 0), (SIZE - 1, SIZE - 1)], radius=corner_r, fill=255)
 
-    # Horizontal line through globe (equator)
-    for x in range(globe_cx - globe_r, globe_cx + globe_r + 1):
-        dist = abs(x - globe_cx)
-        if dist <= globe_r:
-            for w in range(-3, 4):
-                py = globe_cy + w
-                if 0 <= py < SIZE:
-                    img.putpixel((x, py), (*CREAM, 200))
+    # Paste globe centered horizontally, positioned in upper portion
+    globe_x = (SIZE - globe_size) // 2
+    globe_y = int(SIZE * 0.08)
+    icon.paste(globe, (globe_x, globe_y), globe)
 
-    # Vertical meridian
-    for y in range(globe_cy - globe_r, globe_cy + globe_r + 1):
-        dist = abs(y - globe_cy)
-        if dist <= globe_r:
-            for w in range(-3, 4):
-                px = globe_cx + w
-                if 0 <= px < SIZE:
-                    img.putpixel((px, y), (*CREAM, 200))
-
-    # Curved meridian (elliptical arc)
-    for angle in range(360 * 2):
-        a = math.radians(angle / 2)
-        rx = globe_r * 0.5
-        ry = globe_r
-        px = int(globe_cx + rx * math.cos(a))
-        py = int(globe_cy + ry * math.sin(a))
-        dist_from_center = math.sqrt((px - globe_cx) ** 2 + (py - globe_cy) ** 2)
-        if dist_from_center <= globe_r and 0 <= px < SIZE and 0 <= py < SIZE:
-            for w in range(-2, 3):
-                if 0 <= px + w < SIZE:
-                    img.putpixel((px + w, py), (*CREAM, 180))
-
-    # Add "G" text at bottom
-    try:
-        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Georgia Bold.ttf", int(SIZE * 0.22))
-    except OSError:
+    # Add "GLOBORAMA" text below the globe, matching the logo font style
+    font_size = int(SIZE * 0.10)
+    font = None
+    for font_path in [
+        "/System/Library/Fonts/Supplemental/Impact.ttf",
+        "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+    ]:
         try:
-            font = ImageFont.truetype("/System/Library/Fonts/Georgia.ttf", int(SIZE * 0.22))
+            font = ImageFont.truetype(font_path, font_size)
+            break
         except OSError:
-            font = ImageFont.load_default()
+            continue
+    if font is None:
+        font = ImageFont.load_default()
 
-    text = "G"
+    text = "GLOBORAMA"
     bbox = draw.textbbox((0, 0), text, font=font)
     tw = bbox[2] - bbox[0]
-    th = bbox[3] - bbox[1]
-    tx = CENTER - tw // 2
-    ty = int(SIZE * 0.72) - th // 2
+    tx = (SIZE - tw) // 2
+    ty = globe_y + globe_size + int(SIZE * 0.04)
     draw.text((tx, ty), text, fill=(*CREAM, 255), font=font)
 
-    # Save
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "Globorama", "Assets.xcassets", "AppIcon.appiconset")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "app_icon_1024.png")
-    img.save(out_path, "PNG")
-    print(f"Icon saved to {out_path}")
+    # Add small sparkle stars like the original logo
+    star_font_size = int(SIZE * 0.05)
+    try:
+        star_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Unicode.ttf", star_font_size)
+    except OSError:
+        star_font = font
 
-    # Update Contents.json
-    contents = """{
-  "images" : [
-    {
-      "filename" : "app_icon_1024.png",
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
-    }
-  ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
-  }
-}"""
-    contents_path = os.path.join(out_dir, "Contents.json")
-    with open(contents_path, "w") as f:
-        f.write(contents)
-    print(f"Contents.json updated at {contents_path}")
+    sparkle = "✦"
+    # Top right sparkle
+    draw.text((int(SIZE * 0.78), int(SIZE * 0.12)), sparkle, fill=(*CREAM, 200), font=star_font)
+    # Bottom left sparkle (smaller)
+    small_star_font_size = int(SIZE * 0.035)
+    try:
+        small_star_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Unicode.ttf", small_star_font_size)
+    except OSError:
+        small_star_font = font
+    draw.text((int(SIZE * 0.15), int(SIZE * 0.82)), sparkle, fill=(*CREAM, 150), font=small_star_font)
+    draw.text((int(SIZE * 0.80), int(SIZE * 0.78)), sparkle, fill=(*CREAM, 150), font=small_star_font)
+
+    # Subtitle text
+    sub_font_size = int(SIZE * 0.04)
+    try:
+        sub_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", sub_font_size)
+    except OSError:
+        sub_font = font
+    subtitle = "GEOGRAPHY GAME"
+    sub_bbox = draw.textbbox((0, 0), subtitle, font=sub_font)
+    stw = sub_bbox[2] - sub_bbox[0]
+    sx = (SIZE - stw) // 2
+    sy = ty + int(SIZE * 0.12)
+    draw.text((sx, sy), subtitle, fill=(*CREAM, 160), font=sub_font)
+
+    # Flatten to RGB (no alpha channel — Apple rejects icons with transparency)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    out_path = os.path.join(OUT_DIR, "app_icon_1024.png")
+    final = Image.new("RGB", (SIZE, SIZE), BG_TEAL)
+    final.paste(icon, mask=icon.split()[3])
+    final.save(out_path, "PNG")
+    print(f"Icon saved to {out_path}")
 
 
 if __name__ == "__main__":
