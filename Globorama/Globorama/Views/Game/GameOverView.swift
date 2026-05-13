@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GameOverView: View {
     let viewModel: GameViewModel
+    var onNewGame: () -> Void
 
     var body: some View {
         VStack(spacing: 16) {
@@ -24,7 +25,7 @@ struct GameOverView: View {
 
             VStack(spacing: 10) {
                 Button {
-                    viewModel.startNewGame()
+                    onNewGame()
                 } label: {
                     Label(
                         viewModel.language == "no" ? "Gi meg et nytt land" : "Give me a new country",

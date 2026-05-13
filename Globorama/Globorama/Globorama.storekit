@@ -1,0 +1,47 @@
+{
+  "identifier" : "4E25FF57",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "59",
+      "familyShareable" : true,
+      "internalID" : "1",
+      "localizations" : [
+        {
+          "description" : "Play unlimited games of Globorama",
+          "displayName" : "Unlimited Globorama",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Spill ubegrenset antall runder med Globorama",
+          "displayName" : "Ubegrenset Globorama",
+          "locale" : "nb"
+        }
+      ],
+      "productID" : "com.mariusarnesen.globorama.unlimited",
+      "referenceName" : "Unlimited Play",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "nb",
+    "_storefront" : "NOR",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "cycleCount"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
