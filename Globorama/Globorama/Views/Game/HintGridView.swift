@@ -35,7 +35,7 @@ struct HintGridView: View {
         case .flag:
             HintCardView(
                 hintNumber: hintNumber,
-                emoji: "🏳️",
+                emoji: "",
                 title: viewModel.language == "no" ? "Flagg" : "Flag",
                 isUnlocked: viewModel.isHintUnlocked(hintNumber),
                 requiredGuesses: hintNumber,
