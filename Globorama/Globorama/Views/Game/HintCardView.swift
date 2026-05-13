@@ -7,6 +7,7 @@ struct HintCardView<Content: View>: View {
     let isUnlocked: Bool
     let requiredGuesses: Int
     let language: String
+    var onUnlockedTap: (() -> Void)? = nil
     @ViewBuilder let content: () -> Content
 
     @State private var showLockMessage = false
@@ -22,12 +23,17 @@ struct HintCardView<Content: View>: View {
 
             if isUnlocked {
                 VStack(spacing: 4) {
-                    Text(emoji)
-                        .font(.title3)
+                    if !emoji.isEmpty {
+                        Text(emoji)
+                            .font(.title3)
+                    }
                     content()
                 }
                 .padding(8)
                 .transition(.scale.combined(with: .opacity))
+                .onTapGesture {
+                    onUnlockedTap?()
+                }
             } else {
                 VStack(spacing: 4) {
                     Image(systemName: "lock.fill")

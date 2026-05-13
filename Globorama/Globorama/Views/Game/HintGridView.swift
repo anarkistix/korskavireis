@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HintGridView: View {
     let viewModel: GameViewModel
+    @State private var showFullSilhouette = false
 
     private let columns = [
         GridItem(.flexible(), spacing: 8),
@@ -13,6 +14,18 @@ struct HintGridView: View {
             ForEach(Array(viewModel.currentHintSlots.enumerated()), id: \.offset) { index, slot in
                 hintCard(for: slot, hintNumber: index + 1)
             }
+        }
+        .fullScreenCover(isPresented: $showFullSilhouette) {
+            ZStack {
+                Color.black.opacity(0.85).ignoresSafeArea()
+                if let country = viewModel.currentCountry {
+                    Image(country.silhouetteAssetName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(32)
+                }
+            }
+            .onTapGesture { showFullSilhouette = false }
         }
     }
 
@@ -118,17 +131,18 @@ struct HintGridView: View {
         case .silhouette:
             HintCardView(
                 hintNumber: hintNumber,
-                emoji: "🗺️",
+                emoji: "",
                 title: viewModel.language == "no" ? "Silhuett" : "Silhouette",
                 isUnlocked: viewModel.isHintUnlocked(hintNumber),
                 requiredGuesses: hintNumber,
-                language: viewModel.language
+                language: viewModel.language,
+                onUnlockedTap: { showFullSilhouette = true }
             ) {
                 if let assetName = viewModel.silhouetteHintData {
                     Image(assetName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxHeight: 50)
+                        .frame(maxHeight: 60)
                 }
             }
         }
