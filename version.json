@@ -1,8 +1,8 @@
 {
-  "version": "1.0.22",
-  "build": "2025-09-02-12:20",
+  "version": "1.0.0",
+  "build": "2025-08-30-10:08",
   "commit": "1ba47438",
-  "tag": "v1.0.22",
-  "description": "UX: Mer robust scroll (absolutt posisjon, +120px offset, lengre delay).",
-  "last_updated": "2025-09-02T12:20:00.000000"
+  "tag": "v1.4.33-stable",
+  "description": "Desktop-only: moved #country-input 15px down (no change on mobile).",
+  "last_updated": "2025-08-30T10:08:00.000000"
 }

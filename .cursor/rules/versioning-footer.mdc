@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+## Versjonering i footer
+
+Oppdater alltid versjonsnummeret nederst i footer når du gjør endringer.
+
+- Bruk kilde for versjon: [version.json](mdc:version.json)
+- Footer henter verdier via `loadVersionInfo()` i [js/main.js](mdc:js/main.js)
+- Footer-elementer i [index.html](mdc:index.html): `#version-display` og `#build-info`
+
+Anbefalt prosess ved endringer:
+- Øk semver (minst patch) i [version.json](mdc:version.json) og oppdater `build`-feltet (timestamp)
+- Verifiser at `#version-display` og `#build-info` oppdateres i UI etter refresh
+- Om footer-tekst er hardkodet i HTML i en branch, synkroniser den med [version.json](mdc:version.json)
+
+Tips:
+- Scriptet [update_version.py](mdc:update_version.py) kan brukes for å automatisere bump og build-tid.

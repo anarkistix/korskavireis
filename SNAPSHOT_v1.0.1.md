@@ -50,3 +50,4 @@ open http://127.0.0.1:8000
 v1.0.1 leverer en mer kompakt og mobilvennlig opplevelse, med konsistent hintplassering og ryddigere layout.
 
 
+
